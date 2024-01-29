@@ -39,6 +39,7 @@ export const NavLinkList = styled.ul`
     &:hover {
       cursor: pointer;
       color: var(--accent-color);
+      text-decoration: underline;
     }
   }
 `;

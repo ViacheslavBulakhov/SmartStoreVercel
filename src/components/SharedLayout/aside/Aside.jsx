@@ -1,7 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { CategoriesItem, CategoriesList } from "./AsideStyled";
+import {
+  CategoriesItem,
+  CategoriesList,
+  SubСategoriesList,
+} from "./AsideStyled";
 import { FaArrowDown, FaArrowRight } from "react-icons/fa6";
+import { BsArrowReturnRight } from "react-icons/bs";
 
 const categories = [
   "Чохли",
@@ -13,22 +18,31 @@ const categories = [
   "Посуд та товари для дому",
 ];
 
-const testCategories = ["test1", "test2", "test3", "test4", "test5"];
+const subСategories = ["test1", "test2", "test3", "test4", "test5"];
 
 const CategoriesItems = ({ item }) => {
   const [isArrow, setIsArrow] = useState(true);
+  const toggleArrow = () => {
+    setIsArrow((prev) => !prev);
+  };
+
   return (
-    <CategoriesItem onClick={() => setIsArrow((prev) => !prev)}>
-      {isArrow ? <FaArrowRight size="10px" /> : <FaArrowDown size="10px" />}
-      {`${item}`}
+    <div>
+      <CategoriesItem onClick={toggleArrow}>
+        {isArrow ? <FaArrowRight size="10px" /> : <FaArrowDown size="10px" />}
+        {`${item}`}
+      </CategoriesItem>
       {!isArrow && (
-        <ul>
-          {testCategories.map((item) => (
-            <li key={item}>{item}</li>
+        <SubСategoriesList>
+          {subСategories.map((item) => (
+            <CategoriesItem key={item}>
+              <BsArrowReturnRight />
+              {item}
+            </CategoriesItem>
           ))}
-        </ul>
+        </SubСategoriesList>
       )}
-    </CategoriesItem>
+    </div>
   );
 };
 

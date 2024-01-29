@@ -5,12 +5,14 @@ import { SectionWrap } from "./SharedLayoutStyled";
 import Header from "../Header/Header";
 import { Container } from "../Container";
 import { Aside } from "./aside/Aside";
+import Search from "../Filters/SearchInput/Search";
 
 const SharedLayout = () => {
   return (
     <>
       <Header />
       <Container>
+        <Search />
         <SectionWrap>
           <Aside />
           <main>
