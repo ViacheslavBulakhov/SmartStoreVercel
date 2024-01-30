@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   padding: 1rem 0;
 `;
 
-export const Title = styled(NavLink).attrs({
+export const LogoWrap = styled(NavLink).attrs({
   to: "/",
 })`
   font-weight: var(--fw-bold);
@@ -21,9 +21,7 @@ export const Title = styled(NavLink).attrs({
 
   color: var(--colors-text);
   text-decoration: none;
-  & > span {
-    color: var(--accent-color);
-  }
+
   animation: rotateY 3000ms infinite alternate backwards ease-in-out 1000ms;
 `;
 

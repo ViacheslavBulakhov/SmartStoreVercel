@@ -1,15 +1,16 @@
 import { IoMoon, IoMoonOutline } from "react-icons/io5";
 import { FaUser, FaUserCheck } from "react-icons/fa6";
-import { FaShoppingCart } from "react-icons/fa";
+import Logo from "../../assets/SmartStore.svg?react";
+
 import {
   HeaderEl,
-  Title,
   SwitcherWrap,
   Wrapper,
   NavLinkList,
   UserBox,
   UserStatusWrap,
   WorkScheduleBox,
+  LogoWrap,
 } from "./HeaderStyled";
 import { useEffect, useState } from "react";
 import { Container } from "../Container";
@@ -29,9 +30,10 @@ const Header = () => {
     <HeaderEl>
       <Container>
         <Wrapper>
-          <Title>
-            <span>Smart</span>Store
-          </Title>
+          <LogoWrap>
+            <Logo width="90px" height="90px" />
+          </LogoWrap>
+
           <WorkScheduleBox>
             <h4>Графік Роботи</h4>
             <p>
