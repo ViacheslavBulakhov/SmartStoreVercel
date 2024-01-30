@@ -19,9 +19,9 @@ export const SearchInputWrap = styled.label`
   align-items: center;
   border-radius: var(--b-radius);
   box-shadow: var(--shadow);
-  width: 70%;
+  width: 100%;
 
-  margin: 1rem auto;
+  // margin: 1rem auto;
 
   @media (min-width: 767px) {
     // margin-bottom: 0;

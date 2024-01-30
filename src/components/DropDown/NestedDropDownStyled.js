@@ -11,7 +11,6 @@ export const NestedDropdownContent = styled.ul`
 
   position: absolute;
   top: 0;
-  left: 100%;
 
   max-height: 300px;
   width: calc(150px * 3 + 6px);

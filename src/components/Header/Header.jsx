@@ -70,13 +70,12 @@ const Header = () => {
               <span>{`${theme === "dark" ? "Ніч" : "День"}`}</span>
             </SwitcherWrap>
             <UserStatusWrap onClick={toggleUser} style={{}}>
-              {isUser ? (
+              {!isUser ? (
                 <FaUser color="var(--colors-text)" size="25px" />
               ) : (
                 <FaUserCheck color="var(--colors-text)" size="30px" />
               )}
             </UserStatusWrap>
-            <FaShoppingCart color="var(--colors-text)" size="25px" />
           </UserBox>
         </Wrapper>
       </Container>

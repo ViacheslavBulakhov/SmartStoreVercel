@@ -9,3 +9,12 @@ export const SectionWrap = styled.section`
   //   width: auto;
   // }
 `;
+
+export const SearchBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  width: 70%;
+  margin: 1rem auto;
+`;

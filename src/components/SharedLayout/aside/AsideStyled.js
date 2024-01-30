@@ -8,6 +8,14 @@ export const CategoriesList = styled.ul`
   margin-top: 10px;
   font-size: var(--fs-sm);
   font-weight: var(--fw-bold);
+
+  & > li:not(:nth-last-child(-n + 2)) > ul > li > ul {
+    left: 100%;
+  }
+
+  & > li:nth-last-child(-n + 2) > ul > li > ul {
+    right: 100%;
+  }
 `;
 
 export const CategoriesItem = styled.li`

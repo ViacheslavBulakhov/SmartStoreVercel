@@ -1,18 +1,24 @@
 import { Outlet } from "react-router-dom";
 import { Suspense } from "react";
 import { HashLoader } from "react-spinners";
-import { SectionWrap } from "./SharedLayoutStyled";
+import { SearchBox, SectionWrap } from "./SharedLayoutStyled";
 import Header from "../Header/Header";
 import { Container } from "../Container";
 import { Aside } from "./aside/Aside";
 import Search from "../Filters/SearchInput/Search";
+import { FaShoppingCart } from "react-icons/fa";
+import ShopingCartBox from "../ShopingCartBox/ShopingCartBox";
 
 const SharedLayout = () => {
   return (
     <>
       <Header />
       <Container>
-        <Search />
+        <SearchBox>
+          <Search />
+          <ShopingCartBox />
+        </SearchBox>
+
         <SectionWrap>
           <Aside />
           <main>

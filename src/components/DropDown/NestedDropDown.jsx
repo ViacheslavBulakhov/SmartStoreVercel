@@ -5,7 +5,7 @@ import {
 
 const NestedDropdown = ({ item, name }) => {
   return (
-    <NestedDropdownContent className="nested-dropdown-content">
+    <NestedDropdownContent className="nested-dropdown-content" id={name}>
       <NestedDropdownLink>
         Підпункт категорії {name} {item}
       </NestedDropdownLink>
