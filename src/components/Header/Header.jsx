@@ -45,11 +45,22 @@ const Header = () => {
           </WorkScheduleBox>
           <nav>
             <NavLinkList>
-              <li>Номер Тел.</li>
-              <li>Карта Знижок</li>
-              <li>Доставка й Повернення</li>
-              <li>Оплата</li>
-              <li>Відгуки</li>
+              <li>
+                <a href="tel:+380 66 422 06 67">+380 66 422 06 67</a>
+              </li>
+
+              <li>
+                <a>Карта Знижок</a>
+              </li>
+              <li>
+                <a>Доставка й Повернення</a>
+              </li>
+              <li>
+                <a>Оплата</a>
+              </li>
+              <li>
+                <a>Відгуки</a>
+              </li>
             </NavLinkList>
           </nav>
           <UserBox>

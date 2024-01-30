@@ -8,16 +8,6 @@ export const CategoriesList = styled.ul`
   margin-top: 10px;
   font-size: var(--fs-sm);
   font-weight: var(--fw-bold);
-  & > div > li {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 100px;
-    height: 70px;
-    border: 1px solid var(--accent-color);
-    border-radius: 20px;
-    cursor: pointer;
-  }
 `;
 
 export const CategoriesItem = styled.li`
