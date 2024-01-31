@@ -1,16 +1,15 @@
 import { Outlet } from "react-router-dom";
 import { Suspense } from "react";
 import { HashLoader } from "react-spinners";
-import { SearchBox, SectionWrap } from "./SharedLayoutStyled";
+import { SectionWrap } from "./SharedLayoutStyled";
 import Header from "../Header/Header";
 import { Container } from "../Container";
 import { Aside } from "./aside/Aside";
-import Search from "../Filters/SearchInput/Search";
-import { FaShoppingCart } from "react-icons/fa";
-import ShopingCartBox from "../ShopingCartBox/ShopingCartBox";
+
 import { CategoriesList } from "./aside/AsideStyled";
 import Dropdown from "../DropDown/DropDown";
 import { SalesPosts } from "../SalesPosts/SalesPosts";
+import SearchBox from "../SearchBox/SearchBox";
 
 const categories = [
   "Чохли",
@@ -27,12 +26,8 @@ const SharedLayout = () => {
     <>
       <Header />
       <Container>
-        <SearchBox>
-          <Search />
-          <ShopingCartBox />
-        </SearchBox>
-
         <SectionWrap>
+          <SearchBox />
           <Aside />
           <CategoriesList>
             {categories.map((item) => (
@@ -40,6 +35,7 @@ const SharedLayout = () => {
             ))}
           </CategoriesList>
           <SalesPosts />
+
           <main>
             <Suspense
               fallback={
