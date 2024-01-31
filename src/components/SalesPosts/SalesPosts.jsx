@@ -34,6 +34,7 @@ var settings = {
   dotsClass: "slick-dots slick-dotka",
   arrows: false,
   swipeToSlide: true,
+  adaptiveHeight: true,
 };
 
 export const SalesPosts = () => {
