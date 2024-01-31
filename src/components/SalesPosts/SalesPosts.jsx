@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useEffect } from "react";
+import { useState } from "react";
 
 import Slider from "react-slick";
 import styled from "styled-components";
@@ -16,29 +18,34 @@ const SliderWrap = styled.div`
   margin-top: 10px;
 `;
 
-const imgData = await axios("https://picsum.photos/v2/list");
-const data = [
-  imgData.data[0],
-  imgData.data[1],
-  imgData.data[2],
-  imgData.data[3],
-];
+var settings = {
+  dots: true,
+  fade: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplaySpeed: 2000,
+  autoplay: true,
+  pauseOnHover: true,
+  pauseOnFocus: true,
+  pauseOnDotsHover: true,
+  dotsClass: "slick-dots slick-dotka",
+  arrows: false,
+};
 
 export const SalesPosts = () => {
-  var settings = {
-    dots: true,
-    fade: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplaySpeed: 2000,
-    autoplay: true,
-    pauseOnHover: true,
-    pauseOnFocus: true,
-    pauseOnDotsHover: true,
-    dotsClass: "slick-dots slick-dotka",
-  };
+  const [imgData, setImgData] = useState([]);
+
+  useEffect(() => {
+    if (!imgData.length)
+      axios
+        .get("https://picsum.photos/v2/list")
+        .then(({ data }) => setImgData(data));
+    // eslint-disable-next-line
+  }, []);
+  const data = imgData.length ? imgData.slice(0, 4) : [];
+
   return (
     <SliderWrap>
       <Slider {...settings}>
