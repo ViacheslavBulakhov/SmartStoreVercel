@@ -55,7 +55,7 @@ export const SubmitFormBtn = styled.button`
   margin-top: 20px;
 
   color: var(--color-text);
-  background-color: var(--accent-color);
+  background-color: #1365a6;
   color: hsl(0, 0%, 100%);
   cursor: pointer;
 `;
