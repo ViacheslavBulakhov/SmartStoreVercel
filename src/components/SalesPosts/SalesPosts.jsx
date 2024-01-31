@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import slideImg1 from "../../assets/photo.jpg";
 
 import Slider from "react-slick";
 import styled from "styled-components";
 
 const IMG = styled.img`
-  width: 800px;
-  height: 500px;
+  width: 1170px;
+  height: auto;
   margin: 0 auto;
   border-radius: 20px;
 `;
@@ -50,6 +51,7 @@ export const SalesPosts = () => {
   return (
     <SliderWrap>
       <Slider {...settings}>
+        <IMG src={slideImg1} />
         {data.map((item) => {
           return (
             <SalePostImgWrap key={item}>
