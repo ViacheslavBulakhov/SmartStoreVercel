@@ -32,6 +32,7 @@ var settings = {
   pauseOnDotsHover: true,
   dotsClass: "slick-dots slick-dotka",
   arrows: false,
+  swipeToSlide: true,
 };
 
 export const SalesPosts = () => {
