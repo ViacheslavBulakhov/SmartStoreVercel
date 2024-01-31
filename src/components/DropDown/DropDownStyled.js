@@ -42,7 +42,7 @@ export const DropdownContent = styled.ul`
 
   border-radius: 5px;
 
-  background-color: var(--bg-colors);
+  background-color: var(--colors-bg);
   min-width: 160px;
   box-shadow: var(--shadow);
   z-index: 1;

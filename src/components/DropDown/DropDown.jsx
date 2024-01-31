@@ -12,7 +12,7 @@ const dropArr = ["1", "2", "3", "4", "5"];
 const Dropdown = ({ name }) => {
   const [showContent, setShowContent] = useState(false);
 
-  const handleHoverEnter = (e) => {
+  const handleHoverEnter = () => {
     setTimeout(() => {
       setShowContent(true);
     }, 300);

@@ -8,6 +8,19 @@ import { Aside } from "./aside/Aside";
 import Search from "../Filters/SearchInput/Search";
 import { FaShoppingCart } from "react-icons/fa";
 import ShopingCartBox from "../ShopingCartBox/ShopingCartBox";
+import { CategoriesList } from "./aside/AsideStyled";
+import Dropdown from "../DropDown/DropDown";
+import { SalesPosts } from "../SalesPosts/SalesPosts";
+
+const categories = [
+  "Чохли",
+  "Скло",
+  "Навушники",
+  "Інші Аксесуари",
+  "Побутова Техніка",
+  "Краса та Здоров'я",
+  "Посуд та товари для дому",
+];
 
 const SharedLayout = () => {
   return (
@@ -21,6 +34,12 @@ const SharedLayout = () => {
 
         <SectionWrap>
           <Aside />
+          <CategoriesList>
+            {categories.map((item) => (
+              <Dropdown key={item} name={item} />
+            ))}
+          </CategoriesList>
+          <SalesPosts />
           <main>
             <Suspense
               fallback={

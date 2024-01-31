@@ -16,12 +16,7 @@ export const Wrapper = styled.div`
 export const LogoWrap = styled(NavLink).attrs({
   to: "/",
 })`
-  font-weight: var(--fw-bold);
-  font-size: 26px;
-
   color: var(--colors-text);
-  text-decoration: none;
-
   animation: rotateY 3000ms infinite alternate backwards ease-in-out 1000ms;
 `;
 
