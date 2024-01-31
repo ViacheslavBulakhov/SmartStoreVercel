@@ -1,5 +1,5 @@
 import { IoMoon, IoMoonOutline } from "react-icons/io5";
-import { FaUser, FaUserCheck } from "react-icons/fa6";
+
 import Logo from "../../assets/SmartStore.svg?react";
 
 import {
@@ -8,17 +8,15 @@ import {
   Wrapper,
   NavLinkList,
   UserBox,
-  UserStatusWrap,
   WorkScheduleBox,
   LogoWrap,
 } from "./HeaderStyled";
 import { useEffect, useState } from "react";
 import { Container } from "../Container";
+import UserStatusBox from "./UserStatus/UserStatusBox";
 
 const Header = () => {
   const [theme, setTheme] = useState("light");
-  const [isUser, setIsUser] = useState(false);
-  const toggleUser = () => setIsUser((prev) => !prev);
 
   useEffect(() => {
     document.body.setAttribute("data-theme", theme);
@@ -71,13 +69,7 @@ const Header = () => {
 
               <span>{`${theme === "dark" ? "Ніч" : "День"}`}</span>
             </SwitcherWrap>
-            <UserStatusWrap onClick={toggleUser} style={{}}>
-              {!isUser ? (
-                <FaUser color="var(--colors-text)" size="25px" />
-              ) : (
-                <FaUserCheck color="var(--colors-text)" size="30px" />
-              )}
-            </UserStatusWrap>
+            <UserStatusBox />
           </UserBox>
         </Wrapper>
       </Container>
