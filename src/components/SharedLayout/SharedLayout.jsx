@@ -8,8 +8,9 @@ import { Aside } from "./aside/Aside";
 
 import { CategoriesList } from "./aside/AsideStyled";
 import Dropdown from "../DropDown/DropDown";
-import { SalesPosts } from "../SalesPosts/SalesPosts";
+
 import SearchBox from "../SearchBox/SearchBox";
+import Main from "../Main/Main";
 
 const categories = [
   "Чохли",
@@ -34,34 +35,33 @@ const SharedLayout = () => {
               <Dropdown key={item} name={item} />
             ))}
           </CategoriesList>
-          <SalesPosts />
-
-          <main>
-            <Suspense
-              fallback={
-                <div
-                  style={{
-                    position: "absolute",
-                    top: "50%",
-                    left: "50%",
-                    transform: "translate(-50%, -50%)",
-                  }}
-                >
-                  <HashLoader
-                    color="green"
-                    loading="true"
-                    size={155}
-                    aria-label="Loading Spinner"
-                    data-testid="loader"
-                  />
-                </div>
-              }
-            >
-              <Outlet />
-            </Suspense>
-          </main>
         </SectionWrap>
       </Container>
+
+      <Main>
+        <Suspense
+          fallback={
+            <div
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
+            >
+              <HashLoader
+                color="green"
+                loading="true"
+                size={155}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+            </div>
+          }
+        >
+          <Outlet />
+        </Suspense>
+      </Main>
     </>
   );
 };

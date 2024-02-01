@@ -14,6 +14,8 @@ import {
 import { useEffect, useState } from "react";
 import { Container } from "../Container";
 import UserStatusBox from "./UserStatus/UserStatusBox";
+import SocialLinks from "../SocialLinks/SocialLinks";
+import { NavLink } from "react-router-dom";
 
 const Header = () => {
   const [theme, setTheme] = useState("light");
@@ -21,6 +23,17 @@ const Header = () => {
   useEffect(() => {
     document.body.setAttribute("data-theme", theme);
   }, [theme]);
+
+  useEffect(() => {
+    const setThemeBayTheTime = () => {
+      const currnetHour = new Date().getHours();
+      const newTheme = currnetHour >= 19 || currnetHour < 6 ? "dark" : "light";
+      setTheme(newTheme);
+    };
+    console.log("render Header");
+
+    setThemeBayTheTime();
+  }, []);
 
   const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
 
@@ -46,11 +59,7 @@ const Header = () => {
           <nav>
             <NavLinkList>
               <li>
-                <a href="tel:+380 66 422 06 67">+380 66 422 06 67</a>
-              </li>
-
-              <li>
-                <a>Карта Знижок</a>
+                <NavLink to={"/rules"}>Карта Знижок</NavLink>
               </li>
               <li>
                 <a>Доставка й Повернення</a>
@@ -61,13 +70,19 @@ const Header = () => {
               <li>
                 <a>Відгуки</a>
               </li>
+              <li>
+                <a href="tel:+380 66 422 06 67">+380 66 422 06 67</a>
+              </li>
             </NavLinkList>
           </nav>
+          <SocialLinks />
           <UserBox>
             <SwitcherWrap onClick={toggleTheme}>
-              {theme === "light" ? <IoMoonOutline /> : <IoMoon />}
-
-              <span>{`${theme === "dark" ? "Ніч" : "День"}`}</span>
+              {theme === "light" ? (
+                <IoMoonOutline size={"25px"} />
+              ) : (
+                <IoMoon size={"25px"} />
+              )}
             </SwitcherWrap>
             <UserStatusBox />
           </UserBox>

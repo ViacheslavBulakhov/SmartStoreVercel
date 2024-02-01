@@ -14,6 +14,7 @@ export const ModalOverlay = styled.div`
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
   z-index: 2;
+  overflow: hidden;
 `;
 export const ModalWrap = styled.div`
   max-width: calc(100vw - 48px);
@@ -30,9 +31,13 @@ const ModalPort = ({ toggleModal, children }) => {
   };
 
   useEffect(() => {
+    document.body.style.overflow = "hidden";
+
     window.addEventListener("keydown", onCloseModal);
+
     return () => {
       window.removeEventListener("keydown", onCloseModal);
+      document.body.style.overflow = "auto";
     };
   }, [onCloseModal]);
 
