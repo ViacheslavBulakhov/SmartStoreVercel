@@ -49,13 +49,14 @@ a {
 :root {
   /*typhography*/
   --family: "Nunito Sans", sans-serif;
-  --fs-sm: 14px;
-  --fs-md: 16px;
+  --fs-sm: 16px;
+  --fs-md: 20px;
+  --fs-large: 36px;
   --fw-light: 300;
   --fw-normal: 600;
   --fw-bold: 800;
 
-  --b-radius: 0.5rem;
+  --b-radius: 20px;
 
   /*color*/
   --accent-color: #2196f3;

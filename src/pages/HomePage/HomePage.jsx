@@ -1,4 +1,3 @@
-import Main from "../../components/Main/Main";
 import { SalesPosts } from "../../components/SalesPosts/SalesPosts";
 import { AboutUs, AboutUsDescription } from "./HomePageStyled";
 

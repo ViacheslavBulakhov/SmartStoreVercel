@@ -27,7 +27,7 @@ export const NavLinkList = styled.ul`
   gap: 10px;
 
   & > li > a {
-    font-size: var(--fs-md);
+    font-size: var(--fs-sm);
     font-weight: var(--fw-bold);
     transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
     color: var(--color-text);
