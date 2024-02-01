@@ -1,5 +1,5 @@
-import { useForm } from "react-hook-form";
-import CloseBtn from "../../../Other/CloseBtn";
+import { useForm } from 'react-hook-form';
+import CloseBtn from '../../../Common/CloseBtn';
 import {
   AuthModalWrap,
   AuthTitleWrap,
@@ -8,7 +8,7 @@ import {
   InputWrap,
   Label,
   SubmitFormBtn,
-} from "../AuthModalStyled";
+} from '../AuthModalStyled';
 
 const Login = ({ toggleModal }) => {
   const {
@@ -16,7 +16,7 @@ const Login = ({ toggleModal }) => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = data => console.log(data);
   return (
     <AuthModalWrap>
       <AuthTitleWrap>
@@ -28,12 +28,12 @@ const Login = ({ toggleModal }) => {
           <Label htmlFor="login">Логін</Label>
           <Input
             id="login"
-            {...register("login", { required: true, maxLength: 30 })}
+            {...register('login', { required: true, maxLength: 30 })}
           />
-          {errors.login && errors.login.type === "required" && (
+          {errors.login && errors.login.type === 'required' && (
             <span>Поле є обов'язковим</span>
           )}
-          {errors.login && errors.login.type === "maxLength" && (
+          {errors.login && errors.login.type === 'maxLength' && (
             <span>Max length exceeded</span>
           )}
         </InputWrap>
@@ -43,12 +43,12 @@ const Login = ({ toggleModal }) => {
           <Input
             id="password"
             type="password"
-            {...register("password", { required: true, maxLength: 10 })}
+            {...register('password', { required: true, maxLength: 10 })}
           />
-          {errors.password && errors.password.type === "required" && (
+          {errors.password && errors.password.type === 'required' && (
             <span>Поле є обов'язковим</span>
           )}
-          {errors.password && errors.password.type === "maxLength" && (
+          {errors.password && errors.password.type === 'maxLength' && (
             <span>Max length exceeded</span>
           )}
         </InputWrap>

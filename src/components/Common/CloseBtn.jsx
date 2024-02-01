@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
-import styled from "styled-components";
-import { MdClose } from "react-icons/md";
+import styled from 'styled-components';
+import { MdClose } from 'react-icons/md';
 
 export const CloseButton = styled.button`
   display: grid;
@@ -29,7 +29,7 @@ export const CloseButton = styled.button`
 const CloseBtn = ({ toggleModal }) => {
   return (
     <CloseButton type="button" onClick={toggleModal}>
-      <MdClose size={"30px"} />
+      <MdClose size={'30px'} />
     </CloseButton>
   );
 };

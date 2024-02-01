@@ -38,6 +38,7 @@ const HowActiveCard = () => {
               контактних телефонів.
             </Text>
           </Item>
+
           <Item>
             <Step>2</Step>
             <Text>
@@ -45,6 +46,7 @@ const HowActiveCard = () => {
               телефону.
             </Text>
           </Item>
+
           <Item>
             <Step>3</Step>
             <Text>
@@ -52,6 +54,7 @@ const HowActiveCard = () => {
               пароль, отриманий в смс, або встановлений вами особисто.
             </Text>
           </Item>
+
           <Item>
             <Step>4</Step>
             <Text>

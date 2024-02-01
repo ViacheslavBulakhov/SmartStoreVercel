@@ -10,6 +10,12 @@ export const AnswerWrap = styled.div`
   }
 `;
 
+export const DiscountSizeWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
 export const Item = styled.li`
   display: flex;
   align-items: center;
@@ -62,6 +68,7 @@ export const TableTh = styled.th`
   text-transform: uppercase;
   border: 1px solid #e5e5e5;
   padding: 6px 5px;
+  color: black;
 `;
 
 export const DiscountCount = styled.span`
