@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const DiscountDescriptionWrap = styled.div`
   display: flex;
@@ -23,9 +23,11 @@ export const DiscountDescriptionImg = styled.img`
 export const FaqList = styled.ul`
   margin-top: 10px;
   box-shadow: var(--shadow);
+  background-color: var(--colors-bg);
 `;
 
 export const FaqItem = styled.li``;
+
 export const FaqQuestionText = styled.p`
   color: #5ab22e;
   cursor: pointer;
@@ -41,7 +43,7 @@ export const FaqAnswerText = styled.p`
 `;
 
 export const FaqAnswerWrap = styled.div`
-  padding: 12px;
+  padding: 20px;
   border: 1px solid #e5e5e5;
   border-radius: 5px;
 `;
