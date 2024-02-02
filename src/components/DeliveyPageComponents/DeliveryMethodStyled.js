@@ -11,8 +11,6 @@ export const MethodItem = styled.li`
   grid-template-columns: 100px 1fr;
   gap: 20px;
 
-  backgorund-color: inherit;
-
   padding: 10px;
 
   box-shadow: var(--shadow);
