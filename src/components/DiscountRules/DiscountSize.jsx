@@ -81,9 +81,15 @@ const DiscountSize = () => {
               </TableRow>
             </tr>
             <tr>
-              <TableRow>від 5001 грн</TableRow>
+              <TableRow>5001 - 7000 грн</TableRow>
               <TableRow>
                 <DiscountCount>-15%</DiscountCount>
+              </TableRow>
+            </tr>
+            <tr>
+              <TableRow>від 7001 грн</TableRow>
+              <TableRow>
+                <DiscountCount>-20%</DiscountCount>
               </TableRow>
             </tr>
           </TableBody>

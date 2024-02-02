@@ -73,13 +73,6 @@ const DiscountRulesPage = () => {
           </FaqQuestionText>
           {answersVisible[3] && <DiscountSize />}
         </FaqItem>
-
-        <FaqItem>
-          <FaqQuestionText onClick={() => toggleAnswerVisibility(4)}>
-            Як діють знижки?
-          </FaqQuestionText>
-          {answersVisible[4] && <FaqAnswerText>отак</FaqAnswerText>}
-        </FaqItem>
       </FaqList>
     </SectionWrap>
   );
