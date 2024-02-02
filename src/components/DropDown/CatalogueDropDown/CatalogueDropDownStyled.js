@@ -3,8 +3,7 @@ import styled from 'styled-components';
 export const CatalougeList = styled.ul`
   position: absolute;
 
-  //   display: flex;
-  width: 90vw;
+  width: 80vw;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 10px;
