@@ -3,6 +3,7 @@ import SharedLayout from './components/SharedLayout/SharedLayout';
 import NotFound from './pages/NotFound';
 import { lazy } from 'react';
 import DiscountRulesPage from './pages/DiscountRulesPage/DiscountRulesPage';
+import DeliveryPage from './pages/DeliveryPage/DeliveryPage';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 
@@ -48,6 +49,7 @@ const router = createBrowserRouter([
         path: '/rules',
         element: <DiscountRulesPage />,
       },
+      { path: '/delivery', element: <DeliveryPage /> },
     ],
   },
 ]);

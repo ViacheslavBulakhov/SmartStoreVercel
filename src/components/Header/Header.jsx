@@ -1,6 +1,6 @@
-import { IoMoon, IoMoonOutline } from "react-icons/io5";
+import { IoMoon, IoMoonOutline } from 'react-icons/io5';
 
-import Logo from "../../assets/SmartStore.svg?react";
+import Logo from '../../assets/SmartStore.svg?react';
 
 import {
   HeaderEl,
@@ -10,32 +10,32 @@ import {
   UserBox,
   WorkScheduleBox,
   LogoWrap,
-} from "./HeaderStyled";
-import { useEffect, useState } from "react";
-import { Container } from "../Container";
-import UserStatusBox from "./UserStatus/UserStatusBox";
-import SocialLinks from "../SocialLinks/SocialLinks";
-import { NavLink } from "react-router-dom";
+} from './HeaderStyled';
+import { useEffect, useState } from 'react';
+import { Container } from '../Container';
+import UserStatusBox from './UserStatus/UserStatusBox';
+import SocialLinks from '../SocialLinks/SocialLinks';
+import { NavLink } from 'react-router-dom';
 
 const Header = () => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState('light');
 
   useEffect(() => {
-    document.body.setAttribute("data-theme", theme);
+    document.body.setAttribute('data-theme', theme);
   }, [theme]);
 
   useEffect(() => {
     const setThemeBayTheTime = () => {
       const currnetHour = new Date().getHours();
-      const newTheme = currnetHour >= 19 || currnetHour < 6 ? "dark" : "light";
+      const newTheme = currnetHour >= 19 || currnetHour < 6 ? 'dark' : 'light';
       setTheme(newTheme);
     };
-    console.log("render Header");
+    console.log('render Header');
 
     setThemeBayTheTime();
   }, []);
 
-  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
+  const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
 
   return (
     <HeaderEl>
@@ -59,10 +59,10 @@ const Header = () => {
           <nav>
             <NavLinkList>
               <li>
-                <NavLink to={"/rules"}>Карта Знижок</NavLink>
+                <NavLink to={'/rules'}>Карта Знижок</NavLink>
               </li>
               <li>
-                <a>Доставка й Повернення</a>
+                <NavLink to={'/delivery'}>Доставка й Повернення</NavLink>
               </li>
               <li>
                 <a>Оплата</a>
@@ -78,10 +78,10 @@ const Header = () => {
           <SocialLinks />
           <UserBox>
             <SwitcherWrap onClick={toggleTheme}>
-              {theme === "light" ? (
-                <IoMoonOutline size={"25px"} />
+              {theme === 'light' ? (
+                <IoMoonOutline size={'25px'} />
               ) : (
-                <IoMoon size={"25px"} />
+                <IoMoon size={'25px'} />
               )}
             </SwitcherWrap>
             <UserStatusBox />
