@@ -77,5 +77,6 @@ export const DiscountCount = styled.span`
   color: #5ab22e;
   display: inline-block;
   font-weight: 600;
+  font-size: 14px;
   width: 40px;
 `;

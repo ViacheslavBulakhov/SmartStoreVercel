@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const DropdownContainer = styled.li`
   position: relative;
@@ -7,10 +7,10 @@ export const DropdownContainer = styled.li`
   align-items: center;
   justify-content: center;
 
-  min-width: 100px;
+  min-width: 70px;
   height: 70px;
 
-  padding: 0 10px;
+  padding: 0 8px;
 
   border: 1px solid var(--colors-text);
   border-radius: 20px;
@@ -21,9 +21,20 @@ export const DropdownContainer = styled.li`
     border-color: var(--accent-color);
   }
 
+  & > svg {
+    transform: rotate(0deg);
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 700ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
   &:hover {
     .dropdown-content {
       display: block;
+    }
+    & > svg {
+      transform: rotate(180deg);
+
+      color: var(--accent-color);
     }
   }
 `;

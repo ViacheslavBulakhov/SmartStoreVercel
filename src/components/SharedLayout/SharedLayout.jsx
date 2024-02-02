@@ -1,25 +1,26 @@
-import { Outlet } from "react-router-dom";
-import { Suspense } from "react";
-import { HashLoader } from "react-spinners";
-import { SectionWrap } from "./SharedLayoutStyled";
-import Header from "../Header/Header";
-import { Container } from "../Container";
-import { Aside } from "./aside/Aside";
+import { Outlet } from 'react-router-dom';
+import { Suspense } from 'react';
+import { HashLoader } from 'react-spinners';
+import { SectionWrap } from './SharedLayoutStyled';
+import Header from '../Header/Header';
+import { Container } from '../Container';
+import { Aside } from './aside/Aside';
 
-import { CategoriesList } from "./aside/AsideStyled";
-import Dropdown from "../DropDown/DropDown";
+import { CategoriesList } from './aside/AsideStyled';
+import Dropdown from '../DropDown/DropDown';
 
-import SearchBox from "../SearchBox/SearchBox";
-import Main from "../Main/Main";
+import SearchBox from '../SearchBox/SearchBox';
+import Main from '../Main/Main';
+import CatalogueDropDown from '../DropDown/CatalogueDropDown/CatalogueDropDown';
 
 const categories = [
-  "Чохли",
-  "Скло",
-  "Навушники",
-  "Інші Аксесуари",
-  "Побутова Техніка",
+  'Чохли',
+  'Скло',
+  'Навушники',
+  'Інші Аксесуари',
+  'Побутова Техніка',
   "Краса та Здоров'я",
-  "Посуд та товари для дому",
+  'Посуд та товари для дому',
 ];
 
 const SharedLayout = () => {
@@ -31,7 +32,8 @@ const SharedLayout = () => {
           <SearchBox />
           <Aside />
           <CategoriesList>
-            {categories.map((item) => (
+            <CatalogueDropDown />
+            {categories.map(item => (
               <Dropdown key={item} name={item} />
             ))}
           </CategoriesList>
@@ -43,10 +45,10 @@ const SharedLayout = () => {
           fallback={
             <div
               style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
               }}
             >
               <HashLoader
