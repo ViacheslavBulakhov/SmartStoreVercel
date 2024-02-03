@@ -4,6 +4,7 @@ import NotFound from './pages/NotFound';
 import { lazy } from 'react';
 import DiscountRulesPage from './pages/DiscountRulesPage/DiscountRulesPage';
 import DeliveryPage from './pages/DeliveryPage/DeliveryPage';
+import PaymentPage from './pages/PaymentPage/PaymentPage';
 
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 
@@ -38,12 +39,8 @@ const router = createBrowserRouter([
         element: <h1> all HomeApliances</h1>,
       },
       {
-        path: '/rules',
-        element: <DiscountRulesPage />,
-      },
-      {
-        path: '/rules',
-        element: <DiscountRulesPage />,
+        path: '/payment',
+        element: <PaymentPage />,
       },
       {
         path: '/rules',

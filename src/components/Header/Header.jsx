@@ -65,7 +65,7 @@ const Header = () => {
                 <NavLink to={'/delivery'}>Доставка й Повернення</NavLink>
               </li>
               <li>
-                <a>Оплата</a>
+                <NavLink to={'/payment'}>Оплата</NavLink>
               </li>
               <li>
                 <a>Відгуки</a>
