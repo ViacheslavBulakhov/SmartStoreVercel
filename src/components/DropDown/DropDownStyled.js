@@ -74,4 +74,7 @@ export const DropdownLink = styled.li`
       display: flex;
     }
   }
+  & > a {
+    white-space: nowrap;
+  }
 `;

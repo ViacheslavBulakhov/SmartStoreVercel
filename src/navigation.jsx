@@ -6,6 +6,8 @@ import DiscountRulesPage from './pages/DiscountRulesPage/DiscountRulesPage';
 import DeliveryPage from './pages/DeliveryPage/DeliveryPage';
 import PaymentPage from './pages/PaymentPage/PaymentPage';
 
+import { SharedLayoutForGoods } from './components/SharedLayout/SharedLayoutForGoods/SharedLayoutForGoods';
+
 const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 
 const router = createBrowserRouter([
@@ -19,26 +21,6 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: '/chohly',
-        element: <h1>ВСІ ЧОХЛИ</h1>,
-      },
-      {
-        path: '/glass',
-        element: <h1>all Glass </h1>,
-      },
-      {
-        path: '/headphone',
-        element: <h1>all Headphone</h1>,
-      },
-      {
-        path: '/accessories',
-        element: <h1> all Accessories</h1>,
-      },
-      {
-        path: '/HomeApliances',
-        element: <h1> all HomeApliances</h1>,
-      },
-      {
         path: '/payment',
         element: <PaymentPage />,
       },
@@ -47,8 +29,44 @@ const router = createBrowserRouter([
         element: <DiscountRulesPage />,
       },
       { path: '/delivery', element: <DeliveryPage /> },
+      {
+        path: '/goods',
+        element: <SharedLayoutForGoods />,
+      },
+
+      {
+        path: '/goods/:goodsName',
+        element: <SharedLayoutForGoods />,
+      },
+      { path: '/goods/:goodsName/:id', element: <SharedLayoutForGoods /> },
+      {
+        path: '/goods/:goodsName/:id/:nestedId',
+        element: <SharedLayoutForGoods />,
+      },
     ],
   },
 ]);
 
 export default router;
+// children: [
+//           {
+//             path: '/goods/:chohly',
+//             element: <h1>ВСІ ЧОХЛИ</h1>,
+//           },
+// {
+//   path: '/goods/glass',
+//   element: <h1>all Glass </h1>,
+// },
+// {
+//   path: '/goods/headphone',
+//   element: <h1>all Headphone</h1>,
+// },
+// {
+//   path: '/goods/accessories',
+//   element: <h1> all Accessories</h1>,
+// },
+// {
+//   path: '/goods/HomeApliances',
+//   element: <h1> all HomeApliances</h1>,
+// },
+// ],

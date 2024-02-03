@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const DropdownTitle = styled.p`
   color: var(--color-text);
@@ -13,7 +13,8 @@ export const NestedDropdownContent = styled.ul`
   top: 0;
 
   max-height: 300px;
-  width: calc(150px * 3 + 6px);
+  width: max-content;
+  max-width: calc(150px * 3 + 6px);
   flex-direction: column;
   flex-wrap: wrap;
   align-items: flex-start;

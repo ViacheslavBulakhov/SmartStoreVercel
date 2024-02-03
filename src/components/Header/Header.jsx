@@ -30,7 +30,6 @@ const Header = () => {
       const newTheme = currnetHour >= 19 || currnetHour < 6 ? 'dark' : 'light';
       setTheme(newTheme);
     };
-    console.log('render Header');
 
     setThemeBayTheTime();
   }, []);

@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 export const MethodList = styled.ul`
-  margin-top: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 `;
+
 export const MethodItem = styled.li`
   display: grid;
   grid-template-columns: 100px 1fr;

@@ -1,17 +1,14 @@
-import { Outlet } from 'react-router-dom';
-import { Suspense } from 'react';
-import { HashLoader } from 'react-spinners';
-import { SectionWrap } from './SharedLayoutStyled';
+import { CategoriesList, SectionWrap } from './SharedLayoutStyled';
 import Header from '../Header/Header';
 import { Container } from '../Container';
-import { Aside } from './aside/Aside';
 
-import { CategoriesList } from './aside/AsideStyled';
 import Dropdown from '../DropDown/DropDown';
 
 import SearchBox from '../SearchBox/SearchBox';
-import Main from '../Main/Main';
 import CatalogueDropDown from '../DropDown/CatalogueDropDown/CatalogueDropDown';
+import { Suspense } from 'react';
+import { HashLoader } from 'react-spinners';
+import { Outlet } from 'react-router-dom';
 
 const categories = [
   'Чохли',
@@ -30,7 +27,7 @@ const SharedLayout = () => {
       <Container>
         <SectionWrap>
           <SearchBox />
-          <Aside />
+
           <CategoriesList>
             <CatalogueDropDown />
             {categories.map(item => (
@@ -39,31 +36,28 @@ const SharedLayout = () => {
           </CategoriesList>
         </SectionWrap>
       </Container>
-
-      <Main>
-        <Suspense
-          fallback={
-            <div
-              style={{
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)',
-              }}
-            >
-              <HashLoader
-                color="green"
-                loading="true"
-                size={155}
-                aria-label="Loading Spinner"
-                data-testid="loader"
-              />
-            </div>
-          }
-        >
-          <Outlet />
-        </Suspense>
-      </Main>
+      <Suspense
+        fallback={
+          <div
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+            }}
+          >
+            <HashLoader
+              color="green"
+              loading="true"
+              size={155}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </div>
+        }
+      >
+        <Outlet />
+      </Suspense>
     </>
   );
 };

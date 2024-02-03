@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { NavLink } from "react-router-dom";
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 export const HeaderEl = styled.header`
   //   box-shadow: var(--shadow);
@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
 `;
 
 export const LogoWrap = styled(NavLink).attrs({
-  to: "/",
+  to: '/',
 })`
   color: var(--colors-text);
   animation: rotateY 3000ms infinite alternate backwards ease-in-out 1000ms;
@@ -27,10 +27,6 @@ export const NavLinkList = styled.ul`
   gap: 10px;
 
   & > li > a {
-    font-size: var(--fs-sm);
-    font-weight: var(--fw-bold);
-    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    color: var(--color-text);
     &:hover {
       cursor: pointer;
       color: var(--accent-color);
@@ -50,8 +46,8 @@ export const UserBox = styled.div`
 `;
 
 export const UserStatusWrap = styled.div`
-  width: "30px";
-  height: "30px";
+  width: '30px';
+  height: '30px';
 
   cursor: pointer;
 `;

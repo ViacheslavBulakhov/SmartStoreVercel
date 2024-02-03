@@ -7,7 +7,9 @@ import {
 } from './DropDownStyled';
 import NestedDropdown from './NestedDropDown';
 
-const dropArr = ['1', '2', '3', '4', '5'];
+import { NavLink } from 'react-router-dom';
+
+const dropArr = ['Iphone', 'Samsung', 'Nokia', 'Philips', 'Other'];
 
 const Dropdown = ({ name }) => {
   const [showContent, setShowContent] = useState(false);
@@ -29,17 +31,21 @@ const Dropdown = ({ name }) => {
       onMouseEnter={handleHoverEnter}
       onMouseLeave={handleHoverLeave}
     >
-      <DropdownTitle>{name}</DropdownTitle>
-      {showContent && (
-        <DropdownContent className="dropdown-content">
-          {dropArr.map(item => (
-            <DropdownLink href="#" key={item}>
-              категорії {name} {item}
-              <NestedDropdown item={item} name={name} />
-            </DropdownLink>
-          ))}
-        </DropdownContent>
-      )}
+      <NavLink to={`/goods/${name.replace(/\s/g, '')}`}>
+        <DropdownTitle>{name}</DropdownTitle>
+        {showContent && (
+          <DropdownContent className="dropdown-content">
+            {dropArr.map(item => (
+              <DropdownLink key={item}>
+                <NavLink to={`/goods/${name.replace(/\s/g, '')}/${item}`}>
+                  {name} {item}
+                  <NestedDropdown item={item} name={name} />
+                </NavLink>
+              </DropdownLink>
+            ))}
+          </DropdownContent>
+        )}
+      </NavLink>
     </DropdownContainer>
   );
 };
