@@ -1,5 +1,5 @@
 import { GiHamburgerMenu } from 'react-icons/gi';
-import { DropdownContainer, DropdownTitle } from '../DropDownStyled';
+import { DropdownItemContainer } from '../DropDownStyled';
 import { useState } from 'react';
 import {
   CatalougeList,
@@ -7,6 +7,24 @@ import {
   SubparagraphList,
 } from './CatalogueDropDownStyled';
 import { NavLink } from 'react-router-dom';
+
+const testArr = [
+  'Чохли',
+  'Скло',
+  'Навушники',
+  'Інші Аксесуари',
+  'Побутова Техніка',
+  "Краса та Здоров'я",
+  'Посуд та товари для дому',
+];
+
+const testArr2 = [
+  'Lorem ipsum',
+  'Aliquam nobis',
+  'Ad enim temp',
+  'Placeat expedita',
+  'Delectus numquam',
+];
 
 const CatalogueDropDown = () => {
   const [showContent, setShowContent] = useState(false);
@@ -29,222 +47,40 @@ const CatalogueDropDown = () => {
   };
 
   return (
-    <NavLink to={'/goods'}>
-      {' '}
-      <DropdownContainer
-        onMouseEnter={handleHoverEnter}
-        onMouseLeave={handleHoverLeave}
-      >
+    <DropdownItemContainer
+      onMouseEnter={handleHoverEnter}
+      onMouseLeave={handleHoverLeave}
+    >
+      <NavLink to={'/goods'}>
         <GiHamburgerMenu style={{ marginRight: '10px' }} size={'20px'} />
-        <DropdownTitle>Каталог</DropdownTitle>
-        {showContent && (
-          <CatalougeList onClick={handleCloseList}>
-            <Catalougeitem>
-              <NavLink>
-                <img
-                  src="https://picsum.photos/100/100"
-                  alt=""
-                  width="100px"
-                  height="100px"
-                />
-                <h4>Чохли</h4>
-              </NavLink>
-              <SubparagraphList>
-                <li>
-                  <NavLink>Lorem ipsum</NavLink>
-                </li>
-                <li>
-                  <NavLink>Aliquam nobis</NavLink>
-                </li>
-                <li>
-                  <NavLink>Ad enim temp</NavLink>
-                </li>
-                <li>
-                  <NavLink>Placeat expedita</NavLink>
-                </li>
-                <li>
-                  <NavLink>Delectus numquam</NavLink>
-                </li>
-              </SubparagraphList>
-            </Catalougeitem>
+        Каталог
+      </NavLink>
 
-            <Catalougeitem>
-              <NavLink>
+      {showContent && (
+        <CatalougeList onClick={handleCloseList}>
+          {testArr.map(name => (
+            <Catalougeitem key={name}>
+              <NavLink to={`/goods/${name}`}>
                 <img
                   src="https://picsum.photos/100/100"
                   alt=""
                   width="100px"
                   height="100px"
                 />
-                <h4>Скло</h4>
+                <h4>{name}</h4>
               </NavLink>
               <SubparagraphList>
-                <li>
-                  <NavLink>Lorem ipsum</NavLink>
-                </li>
-                <li>
-                  <NavLink>Aliquam nobis</NavLink>
-                </li>
-                <li>
-                  <NavLink>Ad enim temp</NavLink>
-                </li>
-                <li>
-                  <NavLink>Placeat expedita</NavLink>
-                </li>
-                <li>
-                  <NavLink>Delectus numquam</NavLink>
-                </li>
+                {testArr2.map(item => (
+                  <li key={item}>
+                    <NavLink to={`/goods/${name}/${item}`}>{item}</NavLink>
+                  </li>
+                ))}
               </SubparagraphList>
             </Catalougeitem>
-
-            <Catalougeitem>
-              <NavLink>
-                <img
-                  src="https://picsum.photos/100/100"
-                  alt=""
-                  width="100px"
-                  height="100px"
-                />
-                <h4>Навушники</h4>
-              </NavLink>
-              <SubparagraphList>
-                <li>
-                  <NavLink>Lorem ipsum</NavLink>
-                </li>
-                <li>
-                  <NavLink>Aliquam nobis</NavLink>
-                </li>
-                <li>
-                  <NavLink>Ad enim temp</NavLink>
-                </li>
-                <li>
-                  <NavLink>Placeat expedita</NavLink>
-                </li>
-                <li>
-                  <NavLink>Delectus numquam</NavLink>
-                </li>
-              </SubparagraphList>
-            </Catalougeitem>
-
-            <Catalougeitem>
-              <NavLink>
-                <img
-                  src="https://picsum.photos/100/100"
-                  alt=""
-                  width="100px"
-                  height="100px"
-                />
-                <h4>Інші Аксесуари</h4>
-              </NavLink>
-              <SubparagraphList>
-                <li>
-                  <NavLink>Lorem ipsum</NavLink>
-                </li>
-                <li>
-                  <NavLink>Aliquam nobis</NavLink>
-                </li>
-                <li>
-                  <NavLink>Ad enim temp</NavLink>
-                </li>
-                <li>
-                  <NavLink>Placeat expedita</NavLink>
-                </li>
-                <li>
-                  <NavLink>Delectus numquam</NavLink>
-                </li>
-              </SubparagraphList>
-            </Catalougeitem>
-
-            <Catalougeitem>
-              <NavLink>
-                <img
-                  src="https://picsum.photos/100/100"
-                  alt=""
-                  width="100px"
-                  height="100px"
-                />
-                <h4>Побутова Техніка</h4>
-              </NavLink>
-              <SubparagraphList>
-                <li>
-                  <NavLink>Lorem ipsum .</NavLink>
-                </li>
-                <li>
-                  <NavLink>Aliquam nobis</NavLink>
-                </li>
-                <li>
-                  <NavLink>Ad enim</NavLink>
-                </li>
-                <li>
-                  <NavLink>Placeat expedita </NavLink>
-                </li>
-                <li>
-                  <NavLink>Delectus numquam </NavLink>
-                </li>
-              </SubparagraphList>
-            </Catalougeitem>
-
-            <Catalougeitem>
-              <NavLink>
-                <img
-                  src="https://picsum.photos/100/100"
-                  alt=""
-                  width="100px"
-                  height="100px"
-                />
-                <h4>Краса та Здоров'я</h4>
-              </NavLink>
-              <SubparagraphList>
-                <li>
-                  <NavLink>Lorem ipsum</NavLink>
-                </li>
-                <li>
-                  <NavLink>Aliquam nobis</NavLink>
-                </li>
-                <li>
-                  <NavLink>Ad enim temp</NavLink>
-                </li>
-                <li>
-                  <NavLink>Placeat expedita</NavLink>
-                </li>
-                <li>
-                  <NavLink>Delectus numquam</NavLink>
-                </li>
-              </SubparagraphList>
-            </Catalougeitem>
-
-            <Catalougeitem>
-              <NavLink>
-                <img
-                  src="https://picsum.photos/100/100"
-                  alt=""
-                  width="100px"
-                  height="100px"
-                />
-                <h4>Посуд та товари для дому</h4>
-              </NavLink>
-              <SubparagraphList>
-                <li>
-                  <NavLink>Lorem ipsum</NavLink>
-                </li>
-                <li>
-                  <NavLink>Aliquam nobis</NavLink>
-                </li>
-                <li>
-                  <NavLink>Ad enim temp</NavLink>
-                </li>
-                <li>
-                  <NavLink>Placeat expedita</NavLink>
-                </li>
-                <li>
-                  <NavLink>Delectus numquam</NavLink>
-                </li>
-              </SubparagraphList>
-            </Catalougeitem>
-          </CatalougeList>
-        )}
-      </DropdownContainer>
-    </NavLink>
+          ))}
+        </CatalougeList>
+      )}
+    </DropdownItemContainer>
   );
 };
 

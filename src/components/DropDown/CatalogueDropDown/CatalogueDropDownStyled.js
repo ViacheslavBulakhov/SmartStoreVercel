@@ -14,7 +14,8 @@ export const CatalougeList = styled.ul`
   border-radius: 5px;
 
   min-width: 160px;
-  box-shadow: var(--shadow);
+  // box-shadow: var(--shadow);
+  // filter: drop-shadow(0 -6mm 4mm #2196f3);
   z-index: 1;
 `;
 

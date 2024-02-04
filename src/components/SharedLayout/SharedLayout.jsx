@@ -27,13 +27,14 @@ const SharedLayout = () => {
       <Container>
         <SectionWrap>
           <SearchBox />
-
-          <CategoriesList>
-            <CatalogueDropDown />
-            {categories.map(item => (
-              <Dropdown key={item} name={item} />
-            ))}
-          </CategoriesList>
+          <nav>
+            <CategoriesList>
+              <CatalogueDropDown />
+              {categories.map(item => (
+                <Dropdown key={item} name={item} />
+              ))}
+            </CategoriesList>
+          </nav>
         </SectionWrap>
       </Container>
       <Suspense

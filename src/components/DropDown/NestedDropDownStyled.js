@@ -6,13 +6,14 @@ export const DropdownTitle = styled.p`
   cursor: pointer;
 `;
 
-export const NestedDropdownContent = styled.ul`
+export const NestedDropdownList = styled.ul`
   display: none;
 
   position: absolute;
   top: 0;
 
-  max-height: 300px;
+  height: 100%;
+
   width: max-content;
   max-width: calc(150px * 3 + 6px);
   flex-direction: column;
@@ -27,14 +28,20 @@ export const NestedDropdownContent = styled.ul`
   z-index: 1;
 `;
 
-export const NestedDropdownLink = styled.li`
-  color: black;
+export const NestedDropdownItem = styled.li`
   border-radius: 5px;
-  padding: 12px 16px;
+  overflow: hidden;
+
   text-decoration: none;
-  display: block;
+
   color: var(--color-text);
+
   &:hover {
     background-color: hsl(0deg 7.6% 81.25% / 38%);
+  }
+
+  & > a {
+    padding: 12px 16px;
+    display: block;
   }
 `;

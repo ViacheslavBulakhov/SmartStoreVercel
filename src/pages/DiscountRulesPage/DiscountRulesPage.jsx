@@ -27,8 +27,6 @@ const DiscountRulesPage = () => {
   return (
     <Main>
       <SectionWrap>
-        {/* <h4 style={{ fontSize: 'var(--fs-md)' }}>Карта знижок</h4> */}
-
         <DiscountDescriptionWrap>
           <DiscountDescriptionImg src={discount} alt="discount" />
 

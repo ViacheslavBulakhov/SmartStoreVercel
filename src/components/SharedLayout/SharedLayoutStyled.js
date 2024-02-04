@@ -18,12 +18,12 @@ export const CategoriesList = styled.ul`
   font-size: var(--fs-sm);
   font-weight: var(--fw-bold);
 
-  & > li:not(:nth-last-child(-n + 2)) > a > ul > li > a > ul {
-    left: 100%;
+  & > li:not(:nth-last-child(-n + 2)) > ul > li > ul {
+    left: 99%;
   }
 
-  & > li:nth-last-child(-n + 2) > a > ul > li > a > ul {
-    right: 100%;
+  & > li:nth-last-child(-n + 2) > ul > li > ul {
+    right: 99%;
   }
 `;
 

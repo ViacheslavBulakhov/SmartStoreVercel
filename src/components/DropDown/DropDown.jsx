@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import {
-  DropdownContainer,
-  DropdownContent,
-  DropdownLink,
-  DropdownTitle,
+  DropdownItem,
+  DropdownItemContainer,
+  DropdownList,
 } from './DropDownStyled';
 import NestedDropdown from './NestedDropDown';
 
@@ -27,26 +26,25 @@ const Dropdown = ({ name }) => {
   };
 
   return (
-    <DropdownContainer
+    <DropdownItemContainer
       onMouseEnter={handleHoverEnter}
       onMouseLeave={handleHoverLeave}
     >
-      <NavLink to={`/goods/${name.replace(/\s/g, '')}`}>
-        <DropdownTitle>{name}</DropdownTitle>
-        {showContent && (
-          <DropdownContent className="dropdown-content">
-            {dropArr.map(item => (
-              <DropdownLink key={item}>
-                <NavLink to={`/goods/${name.replace(/\s/g, '')}/${item}`}>
-                  {name} {item}
-                  <NestedDropdown item={item} name={name} />
-                </NavLink>
-              </DropdownLink>
-            ))}
-          </DropdownContent>
-        )}
-      </NavLink>
-    </DropdownContainer>
+      <NavLink to={`/goods/${name.replace(/\s/g, '')}`}>{name}</NavLink>
+
+      {showContent && (
+        <DropdownList className="dropdown-content">
+          {dropArr.map(item => (
+            <DropdownItem key={item}>
+              <NavLink to={`/goods/${name.replace(/\s/g, '')}/${item}`}>
+                {name} {item}
+              </NavLink>
+              <NestedDropdown item={item} name={name} />
+            </DropdownItem>
+          ))}
+        </DropdownList>
+      )}
+    </DropdownItemContainer>
   );
 };
 

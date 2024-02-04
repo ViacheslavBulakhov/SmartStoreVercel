@@ -1,37 +1,43 @@
-import { useRef } from 'react';
-import {
-  NestedDropdownContent,
-  NestedDropdownLink,
-} from './NestedDropDownStyled';
+import { useEffect, useRef } from 'react';
+import { NestedDropdownItem, NestedDropdownList } from './NestedDropDownStyled';
 import { NavLink } from 'react-router-dom';
 
 const NestedDropdown = ({ item, name }) => {
   const containerRef = useRef(null);
 
-  const handleScroll = event => {
+  useEffect(() => {
     const container = containerRef.current;
-    container.scrollLeft += event.deltaY;
-    event.preventDefault();
-  };
+
+    const handleWheel = event => {
+      containerRef.current.scrollLeft += event.deltaY * 0.3;
+      event.preventDefault();
+    };
+
+    container.addEventListener('wheel', handleWheel, { passive: false });
+
+    return () => {
+      container.removeEventListener('wheel', handleWheel);
+    };
+  }, []);
+
   const testArr = [
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
   ];
 
   return (
-    <NestedDropdownContent
+    <NestedDropdownList
       className="nested-dropdown-content"
       id={name}
       ref={containerRef}
-      onWheel={handleScroll}
     >
       {testArr.map((number, index) => (
-        <NestedDropdownLink key={index}>
+        <NestedDropdownItem key={index}>
           <NavLink to={`/goods/${name.replace(/\s/g, '')}/${item}/${number}`}>
             {name} {item} {number}
           </NavLink>
-        </NestedDropdownLink>
+        </NestedDropdownItem>
       ))}
-    </NestedDropdownContent>
+    </NestedDropdownList>
   );
 };
 
