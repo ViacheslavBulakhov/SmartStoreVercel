@@ -7,10 +7,13 @@ import GoodsListById from '../../components/Goods/GoodsListById/GoodsListById';
 import NamedGoodsList from '../../components/Goods/NamedGoodsList/NamedGoodsList';
 
 const GoodsSection = styled.section`
-  display: flex;
   margin-top: 10px;
   padding: 15px;
   background-color: var(--colors-ui-base);
+`;
+
+const CoodsWrap = styled.div`
+  display: flex;
 `;
 
 export const SharedLayoutForGoods = () => {
@@ -23,12 +26,12 @@ export const SharedLayoutForGoods = () => {
   return (
     <GoodsSection>
       <Main>
-        <div>
+        <CoodsWrap>
           <Aside />
           {isNamedGoodsList && <NamedGoodsList name={goodsName} />}
           {isGoodsListById && <GoodsListById />}
           {nestedId && <GoodsListByNestedId />}
-        </div>
+        </CoodsWrap>
       </Main>
     </GoodsSection>
   );

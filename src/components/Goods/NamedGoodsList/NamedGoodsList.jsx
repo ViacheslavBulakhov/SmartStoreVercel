@@ -2,8 +2,7 @@ import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { dropArr } from '../../DropDown/DropDown';
 
-const CardWrap = styled.li`
-  flex: 1 1 auto;
+const CardItemWrap = styled.li`
   width: calc(33.33% - 20px);
 
   padding: 10px;
@@ -32,9 +31,16 @@ const CardLink = styled(NavLink)`
 
 const NamedGoodsList = ({ name }) => {
   return (
-    <ul style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+    <ul
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '20px',
+        alignContent: 'flex-start',
+      }}
+    >
       {dropArr.map(item => (
-        <CardWrap key={item}>
+        <CardItemWrap key={item}>
           <article>
             <CardLink to={`/goods/${name}/${item}`} style={{}}>
               <img
@@ -48,7 +54,7 @@ const NamedGoodsList = ({ name }) => {
               </h3>
             </CardLink>
           </article>
-        </CardWrap>
+        </CardItemWrap>
       ))}
     </ul>
   );
