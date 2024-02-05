@@ -1,14 +1,21 @@
 import { createBrowserRouter } from 'react-router-dom';
-import SharedLayout from './components/SharedLayout/SharedLayout';
+
 import NotFound from './pages/NotFound';
-import { lazy } from 'react';
+// import { lazy } from 'react';
+
+import HomePage from './pages/HomePage/HomePage';
+import PaymentPage from './pages/PaymentPage/PaymentPage';
 import DiscountRulesPage from './pages/DiscountRulesPage/DiscountRulesPage';
 import DeliveryPage from './pages/DeliveryPage/DeliveryPage';
-import PaymentPage from './pages/PaymentPage/PaymentPage';
+import SharedLayout from './SharedLayout/SharedLayout';
+import SharedLayoutForGoods from './SharedLayout/SharedLayoutForGoods/SharedLayoutForGoods';
 
-import { SharedLayoutForGoods } from './components/SharedLayout/SharedLayoutForGoods/SharedLayoutForGoods';
-
-const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
+// const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
+// const DeliveryPage = lazy(() => import('./pages/DeliveryPage/DeliveryPage'));
+// const PaymentPage = lazy(() => import('./pages/PaymentPage/PaymentPage'));
+// const DiscountRulesPage = lazy(() =>
+//   import('./pages/DiscountRulesPage/DiscountRulesPage')
+// );
 
 const router = createBrowserRouter([
   {
@@ -48,25 +55,3 @@ const router = createBrowserRouter([
 ]);
 
 export default router;
-// children: [
-//           {
-//             path: '/goods/:chohly',
-//             element: <h1>ВСІ ЧОХЛИ</h1>,
-//           },
-// {
-//   path: '/goods/glass',
-//   element: <h1>all Glass </h1>,
-// },
-// {
-//   path: '/goods/headphone',
-//   element: <h1>all Headphone</h1>,
-// },
-// {
-//   path: '/goods/accessories',
-//   element: <h1> all Accessories</h1>,
-// },
-// {
-//   path: '/goods/HomeApliances',
-//   element: <h1> all HomeApliances</h1>,
-// },
-// ],

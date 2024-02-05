@@ -1,14 +1,13 @@
 import { CategoriesList, SectionWrap } from './SharedLayoutStyled';
-import Header from '../Header/Header';
-import { Container } from '../Container';
+import Header from '../components/Header/Header';
 
-import Dropdown from '../DropDown/DropDown';
-
-import SearchBox from '../SearchBox/SearchBox';
-import CatalogueDropDown from '../DropDown/CatalogueDropDown/CatalogueDropDown';
 import { Suspense } from 'react';
 import { HashLoader } from 'react-spinners';
 import { Outlet } from 'react-router-dom';
+import { Container } from '../components/Container';
+import SearchBox from '../components/SearchBox/SearchBox';
+import CatalogueDropDown from '../components/DropDown/CatalogueDropDown/CatalogueDropDown';
+import Dropdown from '../components/DropDown/DropDown';
 
 const categories = [
   'Чохли',
@@ -27,6 +26,7 @@ const SharedLayout = () => {
       <Container>
         <SectionWrap>
           <SearchBox />
+
           <nav>
             <CategoriesList>
               <CatalogueDropDown />

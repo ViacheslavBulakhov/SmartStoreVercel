@@ -1,4 +1,3 @@
-import { SectionWrap } from '../../components/SharedLayout/SharedLayoutStyled';
 import discount from '../../assets/discount.png';
 import {
   DiscountDescription,
@@ -26,7 +25,7 @@ const DiscountRulesPage = () => {
 
   return (
     <Main>
-      <SectionWrap>
+      <section>
         <DiscountDescriptionWrap>
           <DiscountDescriptionImg src={discount} alt="discount" />
 
@@ -74,7 +73,7 @@ const DiscountRulesPage = () => {
             {answersVisible[3] && <DiscountSize />}
           </FaqItem>
         </FaqList>
-      </SectionWrap>
+      </section>
     </Main>
   );
 };
