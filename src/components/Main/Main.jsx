@@ -2,9 +2,6 @@
 
 import styled from 'styled-components';
 import { Container } from '../Container';
-import { Suspense } from 'react';
-import { HashLoader } from 'react-spinners';
-import { Outlet } from 'react-router-dom';
 
 const MainEl = styled.main`
   padding: 2rem 0;

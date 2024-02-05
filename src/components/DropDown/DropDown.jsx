@@ -8,7 +8,7 @@ import NestedDropdown from './NestedDropDown';
 
 import { NavLink } from 'react-router-dom';
 
-const dropArr = ['Iphone', 'Samsung', 'Nokia', 'Philips', 'Other'];
+export const dropArr = ['Iphone', 'Samsung', 'Nokia', 'Philips', 'Other'];
 
 const Dropdown = ({ name }) => {
   const [showContent, setShowContent] = useState(false);
