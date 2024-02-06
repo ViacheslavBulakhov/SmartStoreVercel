@@ -3,7 +3,6 @@ import Main from '../../components/Main/Main';
 import { Aside } from '../../components/SharedLayoutForGoodsComponents/aside/Aside';
 import styled from 'styled-components';
 import GoodsListByNestedId from '../../components/Goods/GoodsListByNestedId/GoodsListByNestedId';
-import GoodsListById from '../../components/Goods/GoodsListById/GoodsListById';
 import NamedGoodsList from '../../components/Goods/NamedGoodsList/NamedGoodsList';
 
 const GoodsSection = styled.section`
@@ -28,8 +27,8 @@ export const SharedLayoutForGoods = () => {
       <Main>
         <CoodsWrap>
           <Aside />
-          {isNamedGoodsList && <NamedGoodsList name={goodsName} />}
-          {isGoodsListById && <GoodsListById />}
+          {isNamedGoodsList && <GoodsListByNestedId />}
+          {isGoodsListById && <NamedGoodsList name={goodsName} />}
           {nestedId && <GoodsListByNestedId />}
         </CoodsWrap>
       </Main>

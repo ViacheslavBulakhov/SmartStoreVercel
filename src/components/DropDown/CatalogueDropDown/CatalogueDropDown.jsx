@@ -51,7 +51,7 @@ const CatalogueDropDown = () => {
       onMouseEnter={handleHoverEnter}
       onMouseLeave={handleHoverLeave}
     >
-      <NavLink to={'/goods'}>
+      <NavLink>
         <GiHamburgerMenu style={{ marginRight: '10px' }} size={'20px'} />
         Каталог
       </NavLink>
