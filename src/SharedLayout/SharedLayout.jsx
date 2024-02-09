@@ -1,13 +1,14 @@
 import { CategoriesList, SectionWrap } from './SharedLayoutStyled';
 import Header from '../components/Header/Header';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { HashLoader } from 'react-spinners';
 import { Outlet } from 'react-router-dom';
 import { Container } from '../components/Container';
 import SearchBox from '../components/SearchBox/SearchBox';
 import CatalogueDropDown from '../components/DropDown/CatalogueDropDown/CatalogueDropDown';
 import Dropdown from '../components/DropDown/DropDown';
+import { useStore } from '../zustand/store';
 
 const categories = [
   'Чохли',
@@ -20,6 +21,11 @@ const categories = [
 ];
 
 const SharedLayout = () => {
+  const getGoods = useStore(state => state.setGoods);
+  useEffect(() => {
+    getGoods();
+  }, []);
+
   return (
     <>
       <Header />

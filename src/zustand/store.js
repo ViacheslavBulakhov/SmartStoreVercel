@@ -1,49 +1,51 @@
-import axios from "axios";
-import { create } from "zustand";
-import { ALL_COUNTRIES } from "../config";
-import { devtools } from "zustand/middleware";
+import axios from 'axios';
+import { create } from 'zustand';
+
+import { devtools } from 'zustand/middleware';
+import { ALL_GOODS } from '../config';
 
 export const useStore = create(
   devtools(
-    (set) => ({
-      countries: [],
+    set => ({
+      goods: [],
       filters: {
-        search: "",
+        search: '',
         region: null,
       },
 
-      setCountries: async () => {
-        const { data } = await axios.get(ALL_COUNTRIES);
+      setGoods: async () => {
+        const { data } = await axios.get(ALL_GOODS);
+        console.log(data);
         set(
-          (state) => ({
+          state => ({
             ...state,
-            countries: [...data],
+            goods: [...data],
           }),
           false,
-          "setCountries"
+          'setGoods'
         );
       },
 
-      setSearchFilter: (value) =>
+      setSearchFilter: value =>
         set(
-          (state) => ({
+          state => ({
             ...state,
             filters: { ...state.filters, search: value },
           }),
           false,
-          "setSearchFilter"
+          'setSearchFilter'
         ),
 
-      setRegionFilter: (value) =>
-        set(
-          (state) => ({
-            ...state,
-            filters: { ...state.filters, region: value },
-          }),
-          false,
-          "setRegionFilter"
-        ),
+      // setRegionFilter: value =>
+      //   set(
+      //     state => ({
+      //       ...state,
+      //       filters: { ...state.filters, region: value },
+      //     }),
+      //     false,
+      //     'setRegionFilter'
+      //   ),
     }),
-    { name: "Countries" }
+    { name: 'Countries' }
   )
 );

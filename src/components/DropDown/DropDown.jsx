@@ -16,13 +16,13 @@ const Dropdown = ({ name }) => {
   const handleHoverEnter = () => {
     setTimeout(() => {
       setShowContent(true);
-    }, 300);
+    }, 100);
   };
 
   const handleHoverLeave = () => {
     setTimeout(() => {
       setShowContent(false);
-    }, 300);
+    }, 100);
   };
 
   return (
