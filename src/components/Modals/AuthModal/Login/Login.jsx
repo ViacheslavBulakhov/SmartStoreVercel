@@ -5,18 +5,38 @@ import {
   AuthTitleWrap,
   Form,
   Input,
+  InputContainer,
   InputWrap,
   Label,
   SubmitFormBtn,
+  ToggleLoginWrap,
+  TogglePassWrap,
 } from '../AuthModalStyled';
+import { useAuth } from '../../../../zustand/store';
+import { FaRegEyeSlash } from 'react-icons/fa6';
+import { FaRegEye } from 'react-icons/fa6';
+import { useState } from 'react';
 
-const Login = ({ toggleModal }) => {
+const Login = ({ toggleModal, toggleLogin }) => {
+  const [isPassword, setIsPassword] = useState('password');
+  const { setUser } = useAuth();
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = data => console.log(data);
+
+  const togglePassword = () => {
+    console.log(isPassword);
+    setIsPassword(prev => (prev === 'password' ? 'text' : 'password'));
+  };
+
+  const onSubmit = data => {
+    console.log(data);
+    setUser(data);
+  };
+
   return (
     <AuthModalWrap>
       <AuthTitleWrap>
@@ -25,36 +45,69 @@ const Login = ({ toggleModal }) => {
       </AuthTitleWrap>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <InputWrap>
-          <Label htmlFor="login">Логін</Label>
+          <Label htmlFor="number">Логін</Label>
           <Input
-            id="login"
-            {...register('login', { required: true, maxLength: 30 })}
+            id="number"
+            defaultValue="+380"
+            {...register('number', {
+              required: true,
+              pattern: {
+                value: /^\+?[0-9]{8,15}$/,
+                message: 'Введіть коректний номер телефону',
+              },
+            })}
           />
-          {errors.login && errors.login.type === 'required' && (
+          {errors.number && errors.number.type === 'required' && (
             <span>Поле є обов'язковим</span>
           )}
-          {errors.login && errors.login.type === 'maxLength' && (
-            <span>Max length exceeded</span>
+          {errors.number && errors.number.type === 'maxLength' && (
+            <span>Максимальна довжина 30 символів</span>
+          )}
+          {errors.number && errors.number.type === 'pattern' && (
+            <span>{errors.login.message}</span>
           )}
         </InputWrap>
 
         <InputWrap>
           <Label htmlFor="password">Пароль</Label>
-          <Input
-            id="password"
-            type="password"
-            {...register('password', { required: true, maxLength: 10 })}
-          />
+          <InputContainer>
+            <Input
+              id="password"
+              type={isPassword}
+              {...register('password', {
+                required: true,
+                maxLength: 10,
+                minLength: 8,
+              })}
+            />
+            <TogglePassWrap onClick={togglePassword}>
+              {isPassword === 'password' ? (
+                <FaRegEyeSlash size={'20px'} />
+              ) : (
+                <FaRegEye size={'20px'} />
+              )}
+            </TogglePassWrap>
+          </InputContainer>
+
           {errors.password && errors.password.type === 'required' && (
             <span>Поле є обов'язковим</span>
           )}
           {errors.password && errors.password.type === 'maxLength' && (
-            <span>Max length exceeded</span>
+            <span>Maмаксимальна довжина 10 символів</span>
+          )}
+          {errors.password && errors.password.type === 'minLength' && (
+            <span>Мінімальна довжина 8 символів</span>
           )}
         </InputWrap>
 
         <SubmitFormBtn type="submit">Продовжити</SubmitFormBtn>
       </Form>
+      <ToggleLoginWrap>
+        <p>Не маєте аккаунт?</p>
+        <button type="button" onClick={toggleLogin}>
+          Регістрація
+        </button>
+      </ToggleLoginWrap>
     </AuthModalWrap>
   );
 };

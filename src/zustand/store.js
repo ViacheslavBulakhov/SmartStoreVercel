@@ -2,7 +2,43 @@ import axios from 'axios';
 import { create } from 'zustand';
 
 import { devtools } from 'zustand/middleware';
-import { ALL_GOODS } from '../config';
+import {
+  notifyErrorLogin,
+  notifyFulfilledLogin,
+} from '../components/Toasters/Toasters';
+
+axios.defaults.baseURL = 'https://smartstoredev.onrender.com/api';
+
+export const token = {
+  set(token) {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  },
+  unset() {
+    axios.defaults.headers.common.Authorization = '';
+  },
+};
+
+export const useAuth = create(
+  devtools(
+    set => ({
+      user: null,
+
+      setUser: async credentials => {
+        try {
+          const { data: user } = await axios.post('/auth/login', credentials);
+          token.set(user.token);
+          notifyFulfilledLogin();
+
+          set(state => ({ ...state, user }), false, 'setGoods');
+        } catch (error) {
+          notifyErrorLogin();
+          return;
+        }
+      },
+    }),
+    { name: 'Auth' }
+  )
+);
 
 export const useStore = create(
   devtools(
@@ -14,8 +50,8 @@ export const useStore = create(
       },
 
       setGoods: async () => {
-        const { data } = await axios.get(ALL_GOODS);
-        console.log(data);
+        const { data } = await axios.get('/goods');
+
         set(
           state => ({
             ...state,
@@ -35,16 +71,6 @@ export const useStore = create(
           false,
           'setSearchFilter'
         ),
-
-      // setRegionFilter: value =>
-      //   set(
-      //     state => ({
-      //       ...state,
-      //       filters: { ...state.filters, region: value },
-      //     }),
-      //     false,
-      //     'setRegionFilter'
-      //   ),
     }),
     { name: 'Countries' }
   )

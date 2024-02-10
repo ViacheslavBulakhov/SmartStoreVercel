@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
-import { createPortal } from "react-dom";
-import styled from "styled-components";
+import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
+import styled from 'styled-components';
 
 export const ModalOverlay = styled.div`
   position: fixed;
@@ -21,28 +21,45 @@ export const ModalWrap = styled.div`
   max-height: calc(100vh - 24px);
 `;
 
-const modalRoot = document.querySelector("#modal-root");
+const modalRoot = document.querySelector('#modal-root');
 
 const ModalPort = ({ toggleModal, children }) => {
-  const onCloseModal = (e) => {
-    if (e.target === e.currentTarget || e.code === "Escape") {
+  let mouseDown = false;
+  let mouseUp = false;
+
+  const onMouseDown = e => {
+    if (e.target === e.currentTarget) mouseDown = true;
+  };
+
+  const onMouseUp = () => {
+    mouseUp = true;
+  };
+
+  const onCloseModal = e => {
+    const isClick = mouseDown && mouseUp && e.target === e.currentTarget;
+
+    if (isClick || e.code === 'Escape') {
       toggleModal();
     }
   };
 
   useEffect(() => {
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
 
-    window.addEventListener("keydown", onCloseModal);
+    window.addEventListener('keydown', onCloseModal);
 
     return () => {
-      window.removeEventListener("keydown", onCloseModal);
-      document.body.style.overflow = "auto";
+      window.removeEventListener('keydown', onCloseModal);
+      document.body.style.overflow = 'auto';
     };
   }, [onCloseModal]);
 
   return createPortal(
-    <ModalOverlay onClick={onCloseModal}>
+    <ModalOverlay
+      onClick={onCloseModal}
+      onMouseDown={onMouseDown}
+      onMouseUp={onMouseUp}
+    >
       <ModalWrap>{children}</ModalWrap>
     </ModalOverlay>,
     modalRoot

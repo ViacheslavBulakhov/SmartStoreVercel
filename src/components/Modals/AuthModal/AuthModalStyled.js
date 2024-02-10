@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const AuthModalWrap = styled.div`
   max-width: 440px;
@@ -38,6 +38,7 @@ export const InputWrap = styled.div`
 export const Label = styled.label``;
 export const Input = styled.input`
   height: 40px;
+  width: 100%;
   padding-left: 12px;
   padding-right: 12px;
   border: 1px solid #d2d2d2;
@@ -46,6 +47,23 @@ export const Input = styled.input`
     outline: none;
   }
 `;
+
+export const InputContainer = styled.div`
+  position: relative;
+`;
+export const TogglePassWrap = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  & > svg {
+    color: black;
+  }
+`;
+
 export const SubmitFormBtn = styled.button`
   height: 40px;
   width: 100%;
@@ -58,4 +76,25 @@ export const SubmitFormBtn = styled.button`
   background-color: #1365a6;
   color: hsl(0, 0%, 100%);
   cursor: pointer;
+`;
+
+export const ToggleLoginWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding-bottom: 20px;
+
+  & > button {
+    border: none;
+    cursor: pointer;
+    font-weight: var(--fw-normal);
+    background: none;
+    color: var(--colors-text);
+    text-decoration: underline;
+
+    &:hover {
+      scale: 1.1;
+    }
+  }
 `;

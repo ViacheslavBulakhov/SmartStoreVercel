@@ -9,6 +9,7 @@ import SearchBox from '../components/SearchBox/SearchBox';
 import CatalogueDropDown from '../components/DropDown/CatalogueDropDown/CatalogueDropDown';
 import Dropdown from '../components/DropDown/DropDown';
 import { useStore } from '../zustand/store';
+import { Toaster } from 'react-hot-toast';
 
 const categories = [
   'Чохли',
@@ -29,6 +30,7 @@ const SharedLayout = () => {
   return (
     <>
       <Header />
+      <Toaster />
       <Container>
         <SectionWrap>
           <SearchBox />
