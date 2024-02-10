@@ -1,23 +1,23 @@
-import { useState } from "react";
-import { UserStatusWrap } from "../HeaderStyled";
-import { FaUser, FaUserCheck } from "react-icons/fa";
-import ModalPort from "../../ModalPort/ModalPort";
-import AuthModal from "../../Modals/AuthModal/AuthModal";
+import { useState } from 'react';
+import { UserStatusWrap } from '../HeaderStyled';
+import { FaUser, FaUserCheck } from 'react-icons/fa';
+import ModalPort from '../../ModalPort/ModalPort';
+import AuthModal from '../../Modals/AuthModal/AuthModal';
+import { useAuth } from '../../../zustand/store';
 
 const UserStatusBox = () => {
-  const [isUser, setIsUser] = useState(false);
+  const { isLoggedIn } = useAuth();
   const [isShowModal, setIsShowModal] = useState(false);
-  const toggleModal = () => setIsShowModal((prev) => !prev);
-  const toggleUser = () => setIsUser((prev) => !prev);
+  const toggleModal = () => setIsShowModal(prev => !prev);
+
   const onClickCart = () => {
     toggleModal();
-    toggleUser();
   };
+
   return (
     <>
-      {" "}
       <UserStatusWrap onClick={onClickCart} style={{}}>
-        {!isUser ? (
+        {!isLoggedIn ? (
           <FaUser color="var(--colors-text)" size="25px" />
         ) : (
           <FaUserCheck color="var(--colors-text)" size="30px" />

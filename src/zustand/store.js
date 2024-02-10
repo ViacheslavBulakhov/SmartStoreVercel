@@ -22,6 +22,7 @@ export const useAuth = create(
   devtools(
     set => ({
       user: null,
+      isLoggedIn: false,
 
       setUser: async credentials => {
         try {
@@ -29,7 +30,11 @@ export const useAuth = create(
           token.set(user.token);
           notifyFulfilledLogin();
 
-          set(state => ({ ...state, user }), false, 'setGoods');
+          set(
+            state => ({ ...state, user, isLoggedIn: true }),
+            false,
+            'setAuth'
+          );
         } catch (error) {
           notifyErrorLogin();
           return;
@@ -40,7 +45,7 @@ export const useAuth = create(
   )
 );
 
-export const useStore = create(
+export const useGoods = create(
   devtools(
     set => ({
       goods: [],
@@ -51,6 +56,7 @@ export const useStore = create(
 
       setGoods: async () => {
         const { data } = await axios.get('/goods');
+        console.log(data);
 
         set(
           state => ({

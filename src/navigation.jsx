@@ -9,6 +9,7 @@ import DiscountRulesPage from './pages/DiscountRulesPage/DiscountRulesPage';
 import DeliveryPage from './pages/DeliveryPage/DeliveryPage';
 import SharedLayout from './SharedLayout/SharedLayout';
 import SharedLayoutForGoods from './SharedLayout/SharedLayoutForGoods/SharedLayoutForGoods';
+import AdminPage from './pages/AdminPage/AdminPage';
 
 // const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
 // const DeliveryPage = lazy(() => import('./pages/DeliveryPage/DeliveryPage'));
@@ -27,15 +28,19 @@ const router = createBrowserRouter([
         path: '/',
         element: <HomePage />,
       },
+
       {
         path: '/payment',
         element: <PaymentPage />,
       },
+
       {
         path: '/rules',
         element: <DiscountRulesPage />,
       },
+
       { path: '/delivery', element: <DeliveryPage /> },
+
       {
         path: '/goods',
         element: <SharedLayoutForGoods />,
@@ -45,12 +50,18 @@ const router = createBrowserRouter([
         path: '/goods/:goodsName',
         element: <SharedLayoutForGoods />,
       },
+
       { path: '/goods/:goodsName/:id', element: <SharedLayoutForGoods /> },
+
       {
         path: '/goods/:goodsName/:id/:nestedId',
         element: <SharedLayoutForGoods />,
       },
     ],
+  },
+  {
+    path: '/admin',
+    element: <AdminPage />,
   },
 ]);
 
