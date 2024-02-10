@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 const GoodForm = () => {
@@ -7,10 +7,26 @@ const GoodForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const [filters, setFilters] = useState([{ name: '', value: '' }]);
+
+  const addFilter = () => {
+    setFilters([...filters, { name: '', value: '' }]);
+  };
+
+  const onFilterNameChange = (index, event) => {
+    const newFilters = [...filters];
+    newFilters[index].name = event.target.value;
+    setFilters(newFilters);
+  };
+
+  const onFilterValueChange = (index, event) => {
+    const newFilters = [...filters];
+    newFilters[index].value = event.target.value;
+    setFilters(newFilters);
+  };
 
   const onSubmit = data => {
-    console.log(data);
-    // Тут ви можете відправити дані до сервера або виконати інші дії з ними
+    console.log({ ...data, filters });
   };
 
   return (
@@ -77,10 +93,26 @@ const GoodForm = () => {
         />
       </div>
 
-      <div>
-        <label>Дані для фільтрів:</label>
-        <input type="text" {...register('filters')} />
-      </div>
+      {filters.map((filter, index) => (
+        <div key={index}>
+          <label>Filter Name:</label>
+          <input
+            type="text"
+            value={filter.name}
+            onChange={e => onFilterNameChange(index, e)}
+          />
+          <label>Filter Value:</label>
+          <input
+            type="text"
+            value={filter.value}
+            onChange={e => onFilterValueChange(index, e)}
+          />
+        </div>
+      ))}
+
+      <button type="button" onClick={addFilter}>
+        Додати фільтр
+      </button>
 
       <button type="submit">Додати</button>
     </form>
