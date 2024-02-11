@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 
-import { useGoods } from '../../zustand/store';
+import { useStore } from '../../zustand/store';
 
-import Card from './AdminComponent/Card';
 import styled from 'styled-components';
-import GoodForm from './AdminComponent/GoodForm';
+import Card from '../../components/AdminComponent/Card';
+import GoodForm from '../../components/AdminComponent/AddGoodsForm/GoodForm';
 
 const AdminList = styled.ul`
   display: flex;
@@ -12,19 +12,21 @@ const AdminList = styled.ul`
 `;
 
 const AdminPage = () => {
-  const { setGoods } = useGoods();
+  const { getGoods } = useStore();
 
-  const goods = useGoods(state => state.goods);
+  const goods = useStore(state => state.goods);
 
   useEffect(() => {
-    setGoods();
+    getGoods();
   }, []);
 
   return (
-    // <AdminList>
-    //   {goods.length && goods.map(item => <Card key={item._id} data={item} />)}
-    // </AdminList>
-    <GoodForm />
+    <>
+      <GoodForm />
+      <AdminList>
+        {goods.length && goods.map(item => <Card key={item._id} data={item} />)}
+      </AdminList>
+    </>
   );
 };
 

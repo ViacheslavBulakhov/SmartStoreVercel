@@ -28,6 +28,10 @@ const router = createBrowserRouter([
         path: '/',
         element: <HomePage />,
       },
+      {
+        path: '/admin',
+        element: <AdminPage />,
+      },
 
       {
         path: '/payment',
@@ -58,10 +62,6 @@ const router = createBrowserRouter([
         element: <SharedLayoutForGoods />,
       },
     ],
-  },
-  {
-    path: '/admin',
-    element: <AdminPage />,
   },
 ]);
 

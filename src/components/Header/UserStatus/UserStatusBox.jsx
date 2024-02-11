@@ -3,10 +3,10 @@ import { UserStatusWrap } from '../HeaderStyled';
 import { FaUser, FaUserCheck } from 'react-icons/fa';
 import ModalPort from '../../ModalPort/ModalPort';
 import AuthModal from '../../Modals/AuthModal/AuthModal';
-import { useAuth } from '../../../zustand/store';
+import { useStore } from '../../../zustand/store';
 
 const UserStatusBox = () => {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn } = useStore();
   const [isShowModal, setIsShowModal] = useState(false);
   const toggleModal = () => setIsShowModal(prev => !prev);
 

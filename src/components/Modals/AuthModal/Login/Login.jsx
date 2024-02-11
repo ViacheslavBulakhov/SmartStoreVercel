@@ -12,14 +12,15 @@ import {
   ToggleLoginWrap,
   TogglePassWrap,
 } from '../AuthModalStyled';
-import { useAuth } from '../../../../zustand/store';
+
 import { FaRegEyeSlash } from 'react-icons/fa6';
 import { FaRegEye } from 'react-icons/fa6';
 import { useState } from 'react';
+import { useStore } from '../../../../zustand/store';
 
 const Login = ({ toggleModal, toggleLogin }) => {
   const [isPassword, setIsPassword] = useState('password');
-  const { setUser } = useAuth();
+  const { setUser } = useStore();
 
   const {
     register,

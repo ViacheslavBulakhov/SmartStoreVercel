@@ -8,8 +8,9 @@ import { Container } from '../components/Container';
 import SearchBox from '../components/SearchBox/SearchBox';
 import CatalogueDropDown from '../components/DropDown/CatalogueDropDown/CatalogueDropDown';
 import Dropdown from '../components/DropDown/DropDown';
-import { useGoods } from '../zustand/store';
+
 import { Toaster } from 'react-hot-toast';
+import { useStore } from '../zustand/store';
 
 const categories = [
   'Чохли',
@@ -22,7 +23,7 @@ const categories = [
 ];
 
 const SharedLayout = () => {
-  const getGoods = useGoods(state => state.setGoods);
+  const { getGoods } = useStore();
   useEffect(() => {
     getGoods();
   }, []);

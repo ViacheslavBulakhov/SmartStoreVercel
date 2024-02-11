@@ -1,10 +1,10 @@
 import { IoSearch } from 'react-icons/io5';
 import { SearchInput, SearchInputWrap } from './SerachStyled';
-import { useGoods } from '../../../zustand/store';
+import { useStore } from '../../../zustand/store';
 
 const Search = () => {
-  const search = useGoods(state => state.filters.search);
-  const setSearchFilter = useGoods(state => state.setSearchFilter);
+  const search = useStore(state => state.filters.search);
+  const setSearchFilter = useStore(state => state.setSearchFilter);
 
   return (
     <SearchInputWrap>

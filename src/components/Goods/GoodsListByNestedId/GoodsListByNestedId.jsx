@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import GoodsCardById from './GoodsCardById';
-import { useGoods } from '../../../zustand/store';
+import { useStore } from '../../../zustand/store';
 
 const CardList = styled.ul`
   display: flex;
@@ -9,7 +9,7 @@ const CardList = styled.ul`
 `;
 
 const GoodsListByNestedId = () => {
-  const goods = useGoods(state => state.goods);
+  const goods = useStore(state => state.goods);
   return (
     <div style={{ flex: '0 0 75%', maxWidth: '75%' }}>
       <CardList>

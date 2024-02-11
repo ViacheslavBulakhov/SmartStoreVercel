@@ -3,11 +3,14 @@ import { create } from 'zustand';
 
 import { devtools } from 'zustand/middleware';
 import {
+  notifyError,
   notifyErrorLogin,
   notifyFulfilledLogin,
 } from '../components/Toasters/Toasters';
 
 axios.defaults.baseURL = 'https://smartstoredev.onrender.com/api';
+
+// axios.defaults.baseURL = 'http://localhost:3000/api';
 
 export const token = {
   set(token) {
@@ -18,11 +21,15 @@ export const token = {
   },
 };
 
-export const useAuth = create(
+export const useStore = create(
   devtools(
     set => ({
-      user: null,
-      isLoggedIn: false,
+      auth: { user: null, isLoggedIn: false },
+      goods: [],
+      filters: {
+        search: '',
+        region: null,
+      },
 
       setUser: async credentials => {
         try {
@@ -31,7 +38,7 @@ export const useAuth = create(
           notifyFulfilledLogin();
 
           set(
-            state => ({ ...state, user, isLoggedIn: true }),
+            state => ({ ...state, auth: { user, isLoggedIn: true } }),
             false,
             'setAuth'
           );
@@ -40,24 +47,23 @@ export const useAuth = create(
           return;
         }
       },
-    }),
-    { name: 'Auth' }
-  )
-);
 
-export const useGoods = create(
-  devtools(
-    set => ({
-      goods: [],
-      filters: {
-        search: '',
-        region: null,
-      },
-
-      setGoods: async () => {
-        const { data } = await axios.get('/goods');
+      removeUser: async () => {
+        const { data } = await axios.delete('/goods');
         console.log(data);
 
+        set(
+          state => ({
+            ...state,
+            auth: { user: null, isLoggedIn: false },
+          }),
+          false,
+          'setGoods'
+        );
+      },
+
+      getGoods: async () => {
+        const { data } = await axios.get('/goods');
         set(
           state => ({
             ...state,
@@ -66,6 +72,19 @@ export const useGoods = create(
           false,
           'setGoods'
         );
+      },
+
+      setNewGoods: async credentials => {
+        try {
+          const { data } = await axios.post(`/goods`, credentials);
+          console.log(data);
+          set(state => ({
+            ...state,
+            goods: [...state.goods, { ...data }],
+          }));
+        } catch (error) {
+          notifyError(error.message);
+        }
       },
 
       setSearchFilter: value =>
@@ -78,6 +97,6 @@ export const useGoods = create(
           'setSearchFilter'
         ),
     }),
-    { name: 'Countries' }
+    { name: 'Auth' }
   )
 );

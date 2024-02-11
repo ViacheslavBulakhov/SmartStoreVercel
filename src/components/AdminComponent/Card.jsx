@@ -8,7 +8,7 @@ import {
   CardLink,
   DescriptionWrap,
   StarWrap,
-} from '../../../components/Goods/GoodsListByNestedId/GoodsCardStyled';
+} from '../Goods/GoodsListByNestedId/GoodsCardStyled';
 import styled from 'styled-components';
 import axios from 'axios';
 

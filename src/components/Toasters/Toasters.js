@@ -18,3 +18,5 @@ export const notifyCreacteNewContact = () =>
 export const notifyDeleteContact = () => toast.success('Successfully deleted!');
 
 export const notifyUpdateContact = () => toast.success('Successfully update!');
+
+export const notifyError = (message = 'error') => toast.error(message);
