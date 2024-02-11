@@ -116,9 +116,6 @@ const GoodForm = () => {
           <textarea
             style={{ width: '100%', minHeight: '120px' }}
             type="text"
-            value={
-              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic porro dignissimos, perferendis blanditiis aperiam rerum ratione nihil, officia quam eaque at excepturi nam quibusdam odio tempore recusandae dolorem laboriosam qui.'
-            }
             {...register('description')}
           />
         </InputWrap>
