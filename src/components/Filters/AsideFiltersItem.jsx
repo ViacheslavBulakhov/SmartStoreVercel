@@ -1,9 +1,13 @@
 /* eslint-disable react/prop-types */
+import { useState } from 'react';
 import { useStore } from '../../zustand/store';
 import { CheckboxItem, FiltersItemWrap } from './AsideFiltersItemStyled';
+import { stringNormalize } from '../../utils';
 
 const AsideFiltersItem = ({ name }) => {
   const goods = useStore(state => state.goods);
+  const { checkBox } = useStore(state => state.filters);
+  const { setCheckBox } = useStore();
 
   const filtersData = goods
     .flatMap(item => item.filters)
@@ -22,9 +26,11 @@ const AsideFiltersItem = ({ name }) => {
       .length;
 
   const handleCheckboxChange = (item, checked) => {
-    console.log(
-      `Checkbox "${item} ${name}" is ${checked ? 'checked' : 'unchecked'}`
-    );
+    if (checked) {
+      setCheckBox([...checkBox, item]);
+    } else {
+      setCheckBox(checkBox.filter(i => i !== item));
+    }
   };
 
   return (
@@ -33,12 +39,15 @@ const AsideFiltersItem = ({ name }) => {
       <ul>
         {uniqueFilters.map(item => (
           <CheckboxItem key={item}>
-            <input
-              type="checkbox"
-              id={`${item}`}
-              onChange={e => handleCheckboxChange(item, e.target.checked)}
-            />
-            <label htmlFor={`${item}`}>{`${item}`}</label>
+            <div>
+              <input
+                type="checkbox"
+                id={`${item}`}
+                onChange={e => handleCheckboxChange(item, e.target.checked)}
+              />
+              <label htmlFor={`${item}`}>{`${item}`}</label>
+            </div>
+
             <span>{filteredCount(item)}</span>
           </CheckboxItem>
         ))}

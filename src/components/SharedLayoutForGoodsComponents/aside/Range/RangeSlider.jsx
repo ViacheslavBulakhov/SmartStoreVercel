@@ -1,8 +1,5 @@
-// import Slider from 'rc-slider';
-
+/* eslint-disable react/prop-types */
 import { Typography } from '@mui/material';
-import { RangeWrap } from './RangeSliderStyled';
-
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { useEffect, useState } from 'react';
@@ -50,5 +47,3 @@ export default function RangeSlider({ rangeValues, setRangeValues }) {
     </Box>
   );
 }
-
-// export default RangeSlider;

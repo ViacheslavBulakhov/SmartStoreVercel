@@ -31,7 +31,8 @@ export const useStore = create(
       currentList: [],
       filters: {
         search: '',
-        region: null,
+        rangeValues: null,
+        checkBox: [],
       },
 
       setUser: async credentials => {
@@ -76,8 +77,22 @@ export const useStore = create(
           'setGoods'
         );
       },
+
       setCurrentGoods: currentList => {
         set(state => ({ ...state, currentList }), false, 'setCurrentGoods');
+      },
+
+      setRangeValues: rangeValues => {
+        set(state => ({
+          ...state,
+          filters: { ...state.filters, rangeValues },
+        }));
+      },
+      setCheckBox: checkBox => {
+        set(state => ({
+          ...state,
+          filters: { ...state.filters, checkBox },
+        }));
       },
 
       setNewGoods: async credentials => {
