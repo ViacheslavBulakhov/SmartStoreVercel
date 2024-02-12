@@ -22,7 +22,7 @@ const NestedDropdown = ({ data, brand, item, name }) => {
     };
   }, []);
 
-  const filterdeData = data.filter(
+  const filtersData = data.filter(
     item => stringNormalize(item.brand) === stringNormalize(brand)
   );
 
@@ -32,7 +32,7 @@ const NestedDropdown = ({ data, brand, item, name }) => {
       id={name}
       ref={containerRef}
     >
-      {filterdeData.map(item => (
+      {filtersData.map(item => (
         <NestedDropdownItem key={item._id}>
           <NavLink
             to={stringNormalize(

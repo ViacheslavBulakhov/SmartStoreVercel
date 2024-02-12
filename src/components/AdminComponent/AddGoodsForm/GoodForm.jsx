@@ -12,16 +12,6 @@ import { FormWrap } from './GoodsFromStyled';
 import { useStore } from '../../../zustand/store';
 import { notifyError } from '../../Toasters/Toasters';
 
-const testFilters = [
-  {
-    name: 'Колір',
-    value: 'чорний',
-  },
-  { name: 'Тип Чохла', value: 'Панель' },
-
-  { name: 'Матеріал', value: 'Полікарбонат' },
-];
-
 const GoodForm = () => {
   const {
     register,
@@ -51,7 +41,7 @@ const GoodForm = () => {
   };
 
   const onSubmit = async data => {
-    const newData = { ...data, filters: testFilters };
+    const newData = { ...data, filters };
     console.log(newData);
 
     const formData = new FormData();

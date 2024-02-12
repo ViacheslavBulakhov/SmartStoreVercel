@@ -19,6 +19,10 @@ const Dropdown = ({ name }) => {
     item => stringNormalize(item.categories) === stringNormalize(name)
   );
 
+  const uniqueFilters = categoriesData
+    .map(item => item.brand)
+    .filter((filter, index, array) => array.indexOf(filter) === index);
+
   const handleHoverEnter = () => {
     setTimeout(() => {
       setShowContent(true);
@@ -40,16 +44,12 @@ const Dropdown = ({ name }) => {
 
       {showContent && categoriesData.length > 0 && (
         <DropdownList className="dropdown-content">
-          {categoriesData.map(item => (
-            <DropdownItem key={item._id}>
-              <NavLink to={`/goods/${stringNormalize(name)}/${item.brand}`}>
-                {name} {item.brand}
+          {uniqueFilters.map(item => (
+            <DropdownItem key={item}>
+              <NavLink to={`/goods/${stringNormalize(name)}/${item}`}>
+                {name} {item}
               </NavLink>
-              <NestedDropdown
-                data={categoriesData}
-                brand={item.brand}
-                name={name}
-              />
+              <NestedDropdown data={categoriesData} brand={item} name={name} />
             </DropdownItem>
           ))}
         </DropdownList>
