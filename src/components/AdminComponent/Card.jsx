@@ -28,10 +28,10 @@ const ChoiseWrap = styled.div`
 `;
 
 const Card = ({ data }) => {
-  const { imgUrl, title, amount, discount = 0, _id } = data;
+  const { imgUrl, title, amount, discount = 0, _id, description } = data;
 
   const deletteItem = async () => {
-    axios.defaults.headers.common.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzYyMWM5MzU0MTdmZDgyMzYwZTAzYyIsImlhdCI6MTcwNzU3MzQ1NiwiZXhwIjoxNzA3NjU2MjU2fQ.0Aqfy7iIrc1_4GMcH0dipM4zMOKdmvB2mNhy1yW6RdI`;
+    axios.defaults.headers.common.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzYyMWM5MzU0MTdmZDgyMzYwZTAzYyIsImlhdCI6MTcwNzcyNzg3MiwiZXhwIjoxNzA3ODEwNjcyfQ.ywJe9lfNwzsNiv7dLdMOYzarwYiBy3SylN5MckiCFcE`;
     try {
       const result = await axios.delete(`/goods/${_id}`);
       console.log(result);
@@ -107,11 +107,7 @@ const Card = ({ data }) => {
       </div>
       <StarWrap>{stars}</StarWrap>
       <DescriptionWrap>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
-          officiis ab est totam blanditiis incidunt unde ipsam officia quasi
-          enim, temporibus accusamus!
-        </p>
+        <p>{description}</p>
         {discount ? (
           <AmountWrap>
             <span>{amount}.00₴</span>

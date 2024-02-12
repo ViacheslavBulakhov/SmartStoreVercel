@@ -7,11 +7,17 @@ import {
 import NestedDropdown from './NestedDropDown';
 
 import { NavLink } from 'react-router-dom';
-
-export const dropArr = ['Iphone', 'Samsung', 'Nokia', 'Philips', 'Other'];
+import { useStore } from '../../zustand/store';
+import { stringNormalize } from '../../utils';
 
 const Dropdown = ({ name }) => {
   const [showContent, setShowContent] = useState(false);
+
+  const data = useStore(state => state.goods);
+
+  const categoriesData = data.filter(
+    item => stringNormalize(item.categories) === stringNormalize(name)
+  );
 
   const handleHoverEnter = () => {
     setTimeout(() => {
@@ -30,16 +36,20 @@ const Dropdown = ({ name }) => {
       onMouseEnter={handleHoverEnter}
       onMouseLeave={handleHoverLeave}
     >
-      <NavLink to={`/goods/${name.replace(/\s/g, '')}`}>{name}</NavLink>
+      <NavLink to={`/goods/${stringNormalize(name)}`}>{name}</NavLink>
 
-      {showContent && (
+      {showContent && categoriesData.length > 0 && (
         <DropdownList className="dropdown-content">
-          {dropArr.map(item => (
-            <DropdownItem key={item}>
-              <NavLink to={`/goods/${name.replace(/\s/g, '')}/${item}`}>
-                {name} {item}
+          {categoriesData.map(item => (
+            <DropdownItem key={item._id}>
+              <NavLink to={`/goods/${stringNormalize(name)}/${item.brand}`}>
+                {name} {item.brand}
               </NavLink>
-              <NestedDropdown item={item} name={name} />
+              <NestedDropdown
+                data={categoriesData}
+                brand={item.brand}
+                name={name}
+              />
             </DropdownItem>
           ))}
         </DropdownList>

@@ -1,8 +1,10 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useRef } from 'react';
 import { NestedDropdownItem, NestedDropdownList } from './NestedDropDownStyled';
 import { NavLink } from 'react-router-dom';
+import { stringNormalize } from '../../utils';
 
-const NestedDropdown = ({ item, name }) => {
+const NestedDropdown = ({ data, brand, item, name }) => {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -20,9 +22,9 @@ const NestedDropdown = ({ item, name }) => {
     };
   }, []);
 
-  const testArr = [
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-  ];
+  const filterdeData = data.filter(
+    item => stringNormalize(item.brand) === stringNormalize(brand)
+  );
 
   return (
     <NestedDropdownList
@@ -30,10 +32,14 @@ const NestedDropdown = ({ item, name }) => {
       id={name}
       ref={containerRef}
     >
-      {testArr.map((number, index) => (
-        <NestedDropdownItem key={index}>
-          <NavLink to={`/goods/${name.replace(/\s/g, '')}/${item}/${number}`}>
-            {name} {item} {number}
+      {filterdeData.map(item => (
+        <NestedDropdownItem key={item._id}>
+          <NavLink
+            to={stringNormalize(
+              `/goods/${item.categories}/${item.brand}/${item.model}`
+            )}
+          >
+            {item.brand} {item.model}
           </NavLink>
         </NestedDropdownItem>
       ))}

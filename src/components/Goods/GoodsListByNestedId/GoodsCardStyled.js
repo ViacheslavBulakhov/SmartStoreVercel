@@ -3,6 +3,11 @@ import styled from 'styled-components';
 
 export const CardItemWrap = styled.li`
   position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
   width: calc(33.33% - 20px);
 
   padding: 20px;
@@ -52,6 +57,14 @@ export const DescriptionWrap = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  & > p {
+    height: 200px;
+    overflow-y: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 
   & > div > span {
     color: #cbcfd4;

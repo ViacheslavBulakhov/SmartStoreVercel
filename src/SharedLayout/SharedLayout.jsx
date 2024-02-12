@@ -24,6 +24,8 @@ const categories = [
 
 const SharedLayout = () => {
   const { getGoods } = useStore();
+  // const data = useStore(state => state.goods);
+  // const categories = data.map(item => item.categories);
   useEffect(() => {
     getGoods();
   }, []);

@@ -9,6 +9,8 @@ import {
 } from '../components/Toasters/Toasters';
 
 axios.defaults.baseURL = 'https://smartstoredev.onrender.com/api';
+// axios.defaults.baseURL =
+//   'https://65ca0de33b05d29307df8cdc.mockapi.io/smart/api/goods';
 
 // axios.defaults.baseURL = 'http://localhost:3000/api';
 
@@ -26,6 +28,7 @@ export const useStore = create(
     set => ({
       auth: { user: null, isLoggedIn: false },
       goods: [],
+      currentList: [],
       filters: {
         search: '',
         region: null,
@@ -73,9 +76,15 @@ export const useStore = create(
           'setGoods'
         );
       },
+      setCurrentGoods: currentList => {
+        set(state => ({ ...state, currentList }), false, 'setCurrentGoods');
+      },
 
       setNewGoods: async credentials => {
         try {
+          token.set(
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzYyMWM5MzU0MTdmZDgyMzYwZTAzYyIsImlhdCI6MTcwNzcyNzg3MiwiZXhwIjoxNzA3ODEwNjcyfQ.ywJe9lfNwzsNiv7dLdMOYzarwYiBy3SylN5MckiCFcE'
+          );
           const { data } = await axios.post(`/goods`, credentials);
           console.log(data);
           set(state => ({

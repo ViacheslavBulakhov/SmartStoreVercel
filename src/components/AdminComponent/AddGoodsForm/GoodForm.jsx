@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import AddPhoto from '../AddPhoto/AddPhoto';
 
-import axios from 'axios';
 import {
   Form,
   InputWrap,
@@ -12,6 +11,16 @@ import {
 import { FormWrap } from './GoodsFromStyled';
 import { useStore } from '../../../zustand/store';
 import { notifyError } from '../../Toasters/Toasters';
+
+const testFilters = [
+  {
+    name: 'Колір',
+    value: 'чорний',
+  },
+  { name: 'Тип Чохла', value: 'Панель' },
+
+  { name: 'Матеріал', value: 'Полікарбонат' },
+];
 
 const GoodForm = () => {
   const {
@@ -42,7 +51,8 @@ const GoodForm = () => {
   };
 
   const onSubmit = async data => {
-    const newData = { ...data, filters };
+    const newData = { ...data, filters: testFilters };
+    console.log(newData);
 
     const formData = new FormData();
 

@@ -14,7 +14,7 @@ const GoodsCardById = ({ data }) => {
   const amount = data.amount;
   const discount = parseInt(data.discount);
 
-  const { imgUrl, title } = data;
+  const { imgUrl, title, description } = data;
 
   function applyDiscount(amount, discountPercent) {
     if (parseInt(discountPercent) < 0 || parseInt(discountPercent) > 100) {
@@ -78,11 +78,7 @@ const GoodsCardById = ({ data }) => {
       </div>
       <StarWrap>{stars}</StarWrap>
       <DescriptionWrap>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
-          officiis ab est totam blanditiis incidunt unde ipsam officia quasi
-          enim, temporibus accusamus!
-        </p>
+        <p>{description}</p>
         {discount ? (
           <AmountWrap>
             <span>{amount}.00₴</span>

@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { dropArr } from '../../DropDown/DropDown';
+import { useStore } from '../../../zustand/store';
 
 const CardItemWrap = styled.li`
-  width: calc(33.33% - 20px);
+  // width: calc(33.33% - 20px);
 
   padding: 10px;
 
@@ -29,7 +29,8 @@ const CardLink = styled(NavLink)`
   gap: 20px;
 `;
 
-const NamedGoodsList = ({ name }) => {
+const NamedGoodsList = () => {
+  const data = useStore(state => state.currentList);
   return (
     <ul
       style={{
@@ -39,19 +40,16 @@ const NamedGoodsList = ({ name }) => {
         alignContent: 'flex-start',
       }}
     >
-      {dropArr.map(item => (
-        <CardItemWrap key={item}>
+      {data.map(item => (
+        <CardItemWrap key={item._id}>
           <article>
-            <CardLink to={`/goods/${name}/${item}`} style={{}}>
-              <img
-                src="https://picsum.photos/100/100"
-                alt=""
-                width="100px"
-                height="100px"
-              />
-              <h3>
-                {name} {item}
-              </h3>
+            <CardLink
+              to={`/goods/${item.categories}/${item.brand}/${item.model}`}
+              style={{}}
+            >
+              <img src={item.imgUrl} alt="" width="100px" height="100px" />
+              <h3>{`${item.categories} ${item.brand}`}</h3>
+              <h4>{item.model}</h4>
             </CardLink>
           </article>
         </CardItemWrap>

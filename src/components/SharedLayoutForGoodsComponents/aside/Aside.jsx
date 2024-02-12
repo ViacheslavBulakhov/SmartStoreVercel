@@ -1,7 +1,21 @@
+/* eslint-disable react/prop-types */
 import AsideFiltersItem from '../../Filters/AsideFiltersItem';
 import CostBox from './CostBox/CostBox';
+import { useStore } from '../../../zustand/store';
 
-export const Aside = () => {
+export const Aside = ({ goodsName }) => {
+  const goods = useStore(state => state.goods);
+
+  const filteredGoods = goods.filter(item => item.categories === goodsName);
+
+  const filtersData = goods
+    .flatMap(item => item.filters)
+    .map(item => item.name.trim());
+
+  const uniqueFilters = filtersData.filter(
+    (filter, index, array) => array.indexOf(filter) === index
+  );
+
   return (
     <aside
       style={{
@@ -13,7 +27,7 @@ export const Aside = () => {
     >
       <ul>
         <CostBox />
-        {['Матеріал', 'Відтінок', 'Особливості'].map(item => (
+        {uniqueFilters.map(item => (
           <AsideFiltersItem key={item} name={item} />
         ))}
       </ul>
