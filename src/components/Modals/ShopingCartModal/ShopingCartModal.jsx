@@ -9,15 +9,18 @@ import {
 } from './ShopingCartModalStyled';
 
 import ShopingCard from './ShopingCard/ShopingCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ShopingCartModal = ({ toggleModal }) => {
   const [totalAmount, setTotalAmount] = useState(0);
+  const [buyingList, setBuyingList] = useState([]);
 
   const idList = useStore(state => state.idList);
   const data = useStore(state => state.goods);
 
-  const buyingList = data?.filter(item => idList.includes(item._id)) || [];
+  useEffect(() => {
+    setBuyingList(data?.filter(item => idList.includes(item._id)) || []);
+  }, [idList]);
 
   return (
     <ShopingModalWrap>
