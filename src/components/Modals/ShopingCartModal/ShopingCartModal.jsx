@@ -10,6 +10,7 @@ import {
 
 import ShopingCard from './ShopingCard/ShopingCard';
 import { useEffect, useState } from 'react';
+import { formatter } from '../../../utils';
 
 const ShopingCartModal = ({ toggleModal }) => {
   const [totalAmount, setTotalAmount] = useState(0);
@@ -32,7 +33,7 @@ const ShopingCartModal = ({ toggleModal }) => {
         <div>
           <p>
             В кошику<span>{` ${buyingList.length} товарів`}</span> на суму
-            <span>{` ${totalAmount}.00₴`}</span>
+            <span>{` ${formatter.format(totalAmount)}`}</span>
           </p>
           <p>
             При замовленні на 1000 грн або більше доставка буде безкоштовною

@@ -14,6 +14,7 @@ import {
   notifyError,
 } from '../../Toasters/Toasters';
 import { useStore } from '../../../zustand/store';
+import { formatter } from '../../../utils';
 
 const GoodsCardById = ({ data }) => {
   const { setNewIdList } = useStore();
@@ -116,13 +117,13 @@ const GoodsCardById = ({ data }) => {
         <p>{description}</p>
         {discount ? (
           <AmountWrap>
-            <span>{amount}.00₴</span>
-            <span>{applyDiscount(amount, discount)}.00₴</span>
+            <span>{formatter.format(amount)}</span>
+            <span>{formatter.format(applyDiscount(amount, discount))}</span>
           </AmountWrap>
         ) : (
           <AmountWrap>
             <span></span>
-            <span>{amount}.00₴</span>
+            <span>{formatter.format(amount)}</span>
           </AmountWrap>
         )}
 

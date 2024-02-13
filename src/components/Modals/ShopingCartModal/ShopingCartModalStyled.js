@@ -10,6 +10,10 @@ export const ShopingBox = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  & > ul {
+    max-height: 300px;
+    overflow-y: auto;
+  }
 
   & > div:first-child {
     display: flex;
