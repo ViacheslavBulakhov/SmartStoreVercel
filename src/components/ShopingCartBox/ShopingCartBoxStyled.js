@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ShopingCartWrap = styled.div`
   width: 25px;
@@ -11,7 +11,7 @@ export const ShopingCartWrap = styled.div`
 export const ShopingCount = styled.span`
   position: absolute;
   top: -15px;
-  right: -10px;
+  right: -15px;
 
   color: var(--color-text);
   display: grid;

@@ -12,7 +12,7 @@ const CardList = styled.ul`
 
 const GoodsListByNestedId = () => {
   const [filteredData, setFilteredData] = useState([]);
-  const goods = useStore(state => state.goods);
+  const goods = useStore(state => state.currentList);
   const { rangeValues, checkBox } = useStore(state => state.filters);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const GoodsListByNestedId = () => {
     if (checkBox.length === 0) return;
 
     const filterDataByCheckBox = check => {
-      const filteredDataByCheckBox = filteredData.filter(item =>
+      const filteredDataByCheckBox = goods.filter(item =>
         item.filters.some(
           filter => stringNormalize(filter.value) === stringNormalize(check)
         )

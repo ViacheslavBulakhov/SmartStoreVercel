@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { create } from 'zustand';
 
-import { devtools } from 'zustand/middleware';
+import { devtools, persist, createJSONStorage } from 'zustand/middleware';
+
 import {
   notifyError,
   notifyErrorLogin,
@@ -34,10 +35,12 @@ export const useStore = create(
         rangeValues: null,
         checkBox: [],
       },
+      idList: [],
 
       setUser: async credentials => {
         try {
           const { data: user } = await axios.post('/auth/login', credentials);
+
           token.set(user.token);
           notifyFulfilledLogin();
 
@@ -97,9 +100,6 @@ export const useStore = create(
 
       setNewGoods: async credentials => {
         try {
-          token.set(
-            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzYyMWM5MzU0MTdmZDgyMzYwZTAzYyIsImlhdCI6MTcwNzcyNzg3MiwiZXhwIjoxNzA3ODEwNjcyfQ.ywJe9lfNwzsNiv7dLdMOYzarwYiBy3SylN5MckiCFcE'
-          );
           const { data } = await axios.post(`/goods`, credentials);
           console.log(data);
           set(state => ({
@@ -111,6 +111,25 @@ export const useStore = create(
         }
       },
 
+      setNewIdList: (idList = []) =>
+        set(
+          state => ({
+            ...state,
+            idList,
+          }),
+          false,
+          'setNewIdList'
+        ),
+      removeIdItem: id =>
+        set(
+          state => ({
+            ...state,
+            idList: state.idList.filter(item => item !== id),
+          }),
+          false,
+          'setNewIdList'
+        ),
+
       setSearchFilter: value =>
         set(
           state => ({
@@ -121,6 +140,8 @@ export const useStore = create(
           'setSearchFilter'
         ),
     }),
-    { name: 'Auth' }
+    {
+      name: 'Goods',
+    }
   )
 );

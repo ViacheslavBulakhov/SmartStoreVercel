@@ -4,9 +4,7 @@ import CostBox from './CostBox/CostBox';
 import { useStore } from '../../../zustand/store';
 
 export const Aside = ({ goodsName }) => {
-  const goods = useStore(state => state.goods);
-
-  const filteredGoods = goods.filter(item => item.categories === goodsName);
+  const goods = useStore(state => state.currentList);
 
   const filtersData = goods
     .flatMap(item => item.filters)

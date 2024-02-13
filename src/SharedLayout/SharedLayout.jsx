@@ -24,8 +24,7 @@ const categories = [
 
 const SharedLayout = () => {
   const { getGoods } = useStore();
-  // const data = useStore(state => state.goods);
-  // const categories = data.map(item => item.categories);
+
   useEffect(() => {
     getGoods();
   }, []);
@@ -42,7 +41,7 @@ const SharedLayout = () => {
             <CategoriesList>
               <CatalogueDropDown />
               {categories.map(item => (
-                <Dropdown key={item} name={item} />
+                <Dropdown key={item} categoriName={item} />
               ))}
             </CategoriesList>
           </nav>

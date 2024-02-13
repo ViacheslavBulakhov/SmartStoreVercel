@@ -9,12 +9,19 @@ import {
   DescriptionWrap,
   StarWrap,
 } from './GoodsCardStyled';
+import {
+  notifyAddGoodsToShopingCart,
+  notifyError,
+} from '../../Toasters/Toasters';
+import { useStore } from '../../../zustand/store';
 
 const GoodsCardById = ({ data }) => {
+  const { setNewIdList } = useStore();
+
   const amount = data.amount;
   const discount = parseInt(data.discount);
 
-  const { imgUrl, title, description } = data;
+  const { imgUrl, title, description, _id } = data;
 
   function applyDiscount(amount, discountPercent) {
     if (parseInt(discountPercent) < 0 || parseInt(discountPercent) > 100) {
@@ -61,6 +68,28 @@ const GoodsCardById = ({ data }) => {
     }
   }
 
+  const onByClick = id => {
+    try {
+      let idList = JSON.parse(localStorage.getItem('idList')) || [];
+
+      if (!idList.includes(id)) {
+        const newArr = [...idList, id];
+
+        localStorage.setItem('idList', JSON.stringify(newArr));
+        setNewIdList(newArr);
+        notifyAddGoodsToShopingCart(title);
+        return;
+      } else {
+        notifyAddGoodsToShopingCart(title);
+      }
+    } catch (error) {
+      console.log('eror=>>>', error.message);
+      notifyError(
+        "Щось пішло не так, спробуйте пізніше або зв'яжіться з нами по телефону!"
+      );
+    }
+  };
+
   return (
     <CardItemWrap>
       <div>
@@ -91,7 +120,9 @@ const GoodsCardById = ({ data }) => {
           </AmountWrap>
         )}
 
-        <BuyBtn type="button">Купити</BuyBtn>
+        <BuyBtn type="button" onClick={() => onByClick(_id)}>
+          Купити
+        </BuyBtn>
       </DescriptionWrap>
     </CardItemWrap>
   );

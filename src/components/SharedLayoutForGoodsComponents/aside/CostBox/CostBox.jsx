@@ -3,11 +3,11 @@
 import RangeSlider from '../Range/RangeSlider';
 import { InputsWrap } from './CostBoxStyled';
 import { FiltersItemWrap } from '../../../Filters/AsideFiltersItemStyled';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useStore } from '../../../../zustand/store';
 
 const CostBox = () => {
-  const goods = useStore(state => state.goods);
+  const goods = useStore(state => state.currentList);
   const { rangeValues } = useStore(state => state.filters);
   const { setRangeValues } = useStore();
 

@@ -11,12 +11,17 @@ export const notifyErrorRegistration = () =>
   toast.error(
     'something went wrong, please check your name, email and password are entered correctly'
   );
-// FOR WORK WITH CONTACT TOASTERS
-export const notifyCreacteNewContact = () =>
+// FOR WORK WITH Goods TOASTERS
+export const notifyCreacteNewGoods = () =>
   toast.success('Successfully created!');
 
-export const notifyDeleteContact = () => toast.success('Successfully deleted!');
+export const notifyDeleteGoods = () => toast.success('Successfully deleted!');
 
-export const notifyUpdateContact = () => toast.success('Successfully update!');
+export const notifyUpdateGoods = () => toast.success('Successfully update!');
+
+// FOR WORK WITH USER ACTIONS
+
+export const notifyAddGoodsToShopingCart = value =>
+  toast.success(`${value} додано до кошика`);
 
 export const notifyError = (message = 'error') => toast.error(message);

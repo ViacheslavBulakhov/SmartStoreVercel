@@ -30,7 +30,7 @@ const CardLink = styled(NavLink)`
 `;
 
 const NamedGoodsList = () => {
-  const data = useStore(state => state.goods);
+  const data = useStore(state => state.currentList);
   return (
     <ul
       style={{

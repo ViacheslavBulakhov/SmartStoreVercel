@@ -1,11 +1,10 @@
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
 import { useStore } from '../../zustand/store';
 import { CheckboxItem, FiltersItemWrap } from './AsideFiltersItemStyled';
 import { stringNormalize } from '../../utils';
 
 const AsideFiltersItem = ({ name }) => {
-  const goods = useStore(state => state.goods);
+  const goods = useStore(state => state.currentList);
   const { checkBox } = useStore(state => state.filters);
   const { setCheckBox } = useStore();
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import {
   DropdownItem,
@@ -10,13 +11,13 @@ import { NavLink } from 'react-router-dom';
 import { useStore } from '../../zustand/store';
 import { stringNormalize } from '../../utils';
 
-const Dropdown = ({ name }) => {
+const Dropdown = ({ categoriName }) => {
   const [showContent, setShowContent] = useState(false);
 
   const data = useStore(state => state.goods);
 
   const categoriesData = data.filter(
-    item => stringNormalize(item.categories) === stringNormalize(name)
+    item => stringNormalize(item.categories) === stringNormalize(categoriName)
   );
 
   const uniqueFilters = categoriesData
@@ -40,16 +41,22 @@ const Dropdown = ({ name }) => {
       onMouseEnter={handleHoverEnter}
       onMouseLeave={handleHoverLeave}
     >
-      <NavLink to={`/goods/${stringNormalize(name)}`}>{name}</NavLink>
+      <NavLink to={`/goods/${stringNormalize(categoriName)}`}>
+        {categoriName}
+      </NavLink>
 
       {showContent && categoriesData.length > 0 && (
         <DropdownList className="dropdown-content">
-          {uniqueFilters.map(item => (
-            <DropdownItem key={item}>
-              <NavLink to={`/goods/${stringNormalize(name)}/${item}`}>
-                {name} {item}
+          {uniqueFilters.map(brand => (
+            <DropdownItem key={brand}>
+              <NavLink to={`/goods/${stringNormalize(categoriName)}/${brand}`}>
+                {categoriName} {brand}
               </NavLink>
-              <NestedDropdown data={categoriesData} brand={item} name={name} />
+              <NestedDropdown
+                data={categoriesData}
+                brand={brand}
+                categoriName={categoriName}
+              />
             </DropdownItem>
           ))}
         </DropdownList>
