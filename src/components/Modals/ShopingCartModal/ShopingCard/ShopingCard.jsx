@@ -48,6 +48,7 @@ const ShopingCard = ({ item, setTotalAmount }) => {
 
   useEffect(() => {
     setTotalAmount(prev => Number(prev) + Number(item.amount));
+    return () => setTotalAmount(prev => Number(prev) - Number(currentAmount));
   }, []);
 
   return (
