@@ -1,22 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 
 import NotFound from './pages/NotFound';
-// import { lazy } from 'react';
 
-import HomePage from './pages/HomePage/HomePage';
-import PaymentPage from './pages/PaymentPage/PaymentPage';
-import DiscountRulesPage from './pages/DiscountRulesPage/DiscountRulesPage';
-import DeliveryPage from './pages/DeliveryPage/DeliveryPage';
 import SharedLayout from './SharedLayout/SharedLayout';
-import SharedLayoutForGoods from './SharedLayout/SharedLayoutForGoods/SharedLayoutForGoods';
-import AdminPage from './pages/AdminPage/AdminPage';
-
-// const HomePage = lazy(() => import('./pages/HomePage/HomePage'));
-// const DeliveryPage = lazy(() => import('./pages/DeliveryPage/DeliveryPage'));
-// const PaymentPage = lazy(() => import('./pages/PaymentPage/PaymentPage'));
-// const DiscountRulesPage = lazy(() =>
-//   import('./pages/DiscountRulesPage/DiscountRulesPage')
-// );
 
 const router = createBrowserRouter([
   {
@@ -25,41 +11,93 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       {
-        path: '/',
-        element: <HomePage />,
+        index: true,
+
+        async lazy() {
+          let Index = await import('./pages/HomePage/HomePage');
+          return { Component: Index.default };
+        },
       },
       {
         path: '/admin',
-        element: <AdminPage />,
+
+        async lazy() {
+          let Index = await import('./pages/AdminPage/AdminPage');
+          return { Component: Index.default };
+        },
       },
 
       {
         path: '/payment',
-        element: <PaymentPage />,
+
+        async lazy() {
+          let Index = await import('./pages/PaymentPage/PaymentPage');
+          return { Component: Index.default };
+        },
       },
 
       {
         path: '/rules',
-        element: <DiscountRulesPage />,
+
+        async lazy() {
+          let Index = await import(
+            './pages/DiscountRulesPage/DiscountRulesPage'
+          );
+          return { Component: Index.default };
+        },
       },
 
-      { path: '/delivery', element: <DeliveryPage /> },
+      {
+        path: '/delivery',
+
+        async lazy() {
+          let Index = await import('./pages/DeliveryPage/DeliveryPage');
+          return { Component: Index.default };
+        },
+      },
 
       {
         path: '/goods',
-        element: <SharedLayoutForGoods />,
+
+        async lazy() {
+          let Index = await import(
+            './SharedLayout/SharedLayoutForGoods/SharedLayoutForGoods'
+          );
+          return { Component: Index.default };
+        },
       },
 
       {
         path: '/goods/:goodsName',
-        element: <SharedLayoutForGoods />,
+
+        async lazy() {
+          let Index = await import(
+            './SharedLayout/SharedLayoutForGoods/SharedLayoutForGoods'
+          );
+          return { Component: Index.default };
+        },
       },
 
-      { path: '/goods/:goodsName/:id', element: <SharedLayoutForGoods /> },
+      {
+        path: '/goods/:goodsName/:id',
+
+        async lazy() {
+          let Index = await import(
+            './SharedLayout/SharedLayoutForGoods/SharedLayoutForGoods'
+          );
+          return { Component: Index.default };
+        },
+      },
 
       {
         path: '/goods/:goodsName/:id/:nestedId',
-        element: <SharedLayoutForGoods />,
+
+        async lazy() {
+          let Index = await import(
+            './SharedLayout/SharedLayoutForGoods/SharedLayoutForGoods'
+          );
+          return { Component: Index.default };
+        },
       },
     ],
   },

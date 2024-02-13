@@ -9,6 +9,7 @@ import {
 import { RiDeleteBin5Fill } from 'react-icons/ri';
 import { notifyError } from '../../../Toasters/Toasters';
 import { useStore } from '../../../../zustand/store';
+import { formatter } from '../../../../utils';
 
 const ShopingCard = ({ item, setTotalAmount }) => {
   const [count, setCount] = useState(1);
@@ -70,7 +71,7 @@ const ShopingCard = ({ item, setTotalAmount }) => {
           />
           <span onClick={incrementCount}>+</span>
         </CountWrap>
-        <span>{`${item.amount * count}.00₴`}</span>
+        <span>{formatter.format(item.amount * count)}</span>
       </BaseInfoWrap>
 
       <div>
