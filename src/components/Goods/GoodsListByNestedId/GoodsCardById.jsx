@@ -94,7 +94,13 @@ const GoodsCardById = ({ data }) => {
     <CardItemWrap>
       <div>
         <CardLink>
-          <img src={imgUrl} alt="" width="200px" height="200px" />
+          <img
+            src={imgUrl}
+            alt={title}
+            width="200px"
+            height="200px"
+            loading="lazy"
+          />
           <h3>{title}</h3>
 
           {discount > 0 && (

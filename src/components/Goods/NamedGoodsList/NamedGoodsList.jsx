@@ -31,6 +31,19 @@ const CardLink = styled(NavLink)`
 
 const NamedGoodsList = () => {
   const data = useStore(state => state.currentList);
+
+  const uniqueModels = data.reduce((acc, currentItem) => {
+    const existingModelObject = acc.find(
+      obj => obj.model === currentItem.model
+    );
+
+    if (!existingModelObject) {
+      acc.push(currentItem);
+    }
+
+    return acc;
+  }, []);
+
   return (
     <ul
       style={{
@@ -40,14 +53,20 @@ const NamedGoodsList = () => {
         alignContent: 'flex-start',
       }}
     >
-      {data.map(item => (
+      {uniqueModels.map(item => (
         <CardItemWrap key={item._id}>
           <article>
             <CardLink
               to={`/goods/${item.categories}/${item.brand}/${item.model}`}
               style={{}}
             >
-              <img src={item.imgUrl} alt="" width="100px" height="100px" />
+              <img
+                src={item.imgUrl}
+                alt={item.model}
+                width="100px"
+                height="100px"
+                loading="lazy"
+              />
               <h3>{`${item.categories} ${item.brand}`}</h3>
               <h4>{item.model}</h4>
             </CardLink>

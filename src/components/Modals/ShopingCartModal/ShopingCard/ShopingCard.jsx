@@ -12,7 +12,7 @@ import { useStore } from '../../../../zustand/store';
 
 const ShopingCard = ({ item, setTotalAmount }) => {
   const [count, setCount] = useState(1);
-  const [currentAmount, setCurrentAmount] = useState(count * item.amount);
+  const [currentAmount, setCurrentAmount] = useState(() => count * item.amount);
 
   const { removeIdItem } = useStore();
   const data = useStore(state => state.goods);
@@ -29,6 +29,7 @@ const ShopingCard = ({ item, setTotalAmount }) => {
         JSON.stringify(data.filter(item => item !== id))
       );
       removeIdItem(id);
+      setTotalAmount(prev => Number(prev) - Number(currentAmount));
     } catch (error) {
       notifyError(
         "Щось пішло не так, спробуйте пізніше або зв'яжіться з нами по телефону!"
@@ -48,7 +49,6 @@ const ShopingCard = ({ item, setTotalAmount }) => {
 
   useEffect(() => {
     setTotalAmount(prev => Number(prev) + Number(item.amount));
-    return () => setTotalAmount(prev => Number(prev) - Number(currentAmount));
   }, []);
 
   return (
