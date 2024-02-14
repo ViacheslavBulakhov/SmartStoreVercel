@@ -13,18 +13,21 @@ const UserStatusBox = () => {
 
   const toggleModal = () => setIsShowModal(prev => !prev);
 
-  const onClickCart = () => {
-    const action = () => (isLoggedIn ? navigate('/user') : toggleModal());
-    action();
-  };
-
   return (
     <>
-      <UserStatusWrap onClick={onClickCart} style={{}}>
+      <UserStatusWrap>
         {!isLoggedIn ? (
-          <FaUser color="var(--colors-text)" size="25px" />
+          <FaUser
+            color="var(--colors-text)"
+            size="25px"
+            onClick={() => toggleModal()}
+          />
         ) : (
-          <FaUserCheck color="var(--colors-text)" size="30px" />
+          <FaUserCheck
+            color="var(--colors-text)"
+            size="30px"
+            onClick={() => navigate('/user')}
+          />
         )}
       </UserStatusWrap>
       {isShowModal && (
