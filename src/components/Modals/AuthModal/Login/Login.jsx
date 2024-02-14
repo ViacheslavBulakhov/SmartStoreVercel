@@ -22,17 +22,11 @@ import { useStore } from '../../../../zustand/store';
 const Login = ({ toggleModal, toggleLogin }) => {
   const [isPassword, setIsPassword] = useState('password');
   const { setUserLogIn } = useStore();
-  const isLoggedIn = useStore(state => state.auth.isLoggedIn);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  useEffect(() => {
-    toggleModal();
-  }, [isLoggedIn, toggleModal]);
 
   const togglePassword = () => {
     console.log(isPassword);
@@ -41,6 +35,7 @@ const Login = ({ toggleModal, toggleLogin }) => {
 
   const onSubmit = data => {
     setUserLogIn(data);
+    toggleModal();
   };
 
   return (

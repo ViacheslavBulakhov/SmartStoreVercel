@@ -20,7 +20,6 @@ import { useStore } from '../../../../zustand/store';
 
 const Registration = ({ toggleModal, toggleLogin }) => {
   const [isPassword, setIsPassword] = useState('password');
-  const isLoggedIn = useStore(state => state.auth.isLoggedIn);
   const { setUserRegister } = useStore();
 
   const {
@@ -29,18 +28,14 @@ const Registration = ({ toggleModal, toggleLogin }) => {
     formState: { errors },
   } = useForm();
 
-  useEffect(() => {
-    toggleModal();
-  }, [isLoggedIn, toggleModal]);
-
   const togglePassword = () => {
     console.log(isPassword);
     setIsPassword(prev => (prev === 'password' ? 'text' : 'password'));
   };
 
   const onSubmit = data => {
-    console.log(data);
     setUserRegister(data);
+    toggleModal();
   };
 
   return (

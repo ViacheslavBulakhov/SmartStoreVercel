@@ -5,34 +5,28 @@ import ModalPort from '../../ModalPort/ModalPort';
 import AuthModal from '../../Modals/AuthModal/AuthModal';
 // import { useStore } from '../../../zustand/store';
 import { useNavigate } from 'react-router-dom';
+import { useStore } from '../../../zustand/store';
 
 const UserStatusBox = () => {
   const [isShowModal, setIsShowModal] = useState(false);
-  // const isLoggedIn = useStore(state => state.auth.isLoggedIn);
-  const isLoggedIn = false;
+  const isLoggedIn = useStore(state => state.auth.isLoggedIn);
 
   const navigate = useNavigate();
 
   const toggleModal = () => setIsShowModal(prev => !prev);
-  console.log('render', isShowModal);
+
+  const onClickCart = () => {
+    const action = () => (isLoggedIn ? navigate('/user') : toggleModal());
+    action();
+  };
+
   return (
     <>
-      <UserStatusWrap>
+      <UserStatusWrap onClick={onClickCart}>
         {!isLoggedIn ? (
-          <FaUser
-            color="var(--colors-text)"
-            size="25px"
-            onClick={() => {
-              console.log(isLoggedIn);
-              toggleModal();
-            }}
-          />
+          <FaUser color="var(--colors-text)" size="25px" />
         ) : (
-          <FaUserCheck
-            color="var(--colors-text)"
-            size="30px"
-            onClick={() => navigate('/user')}
-          />
+          <FaUserCheck color="var(--colors-text)" size="30px" />
         )}
       </UserStatusWrap>
       {isShowModal && (
@@ -43,5 +37,4 @@ const UserStatusBox = () => {
     </>
   );
 };
-
 export default UserStatusBox;
