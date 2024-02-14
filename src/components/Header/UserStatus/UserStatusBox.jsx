@@ -12,7 +12,7 @@ const UserStatusBox = () => {
   const navigate = useNavigate();
 
   const toggleModal = () => setIsShowModal(prev => !prev);
-  console.log(isLoggedIn);
+  console.log('render');
   return (
     <>
       <UserStatusWrap>
