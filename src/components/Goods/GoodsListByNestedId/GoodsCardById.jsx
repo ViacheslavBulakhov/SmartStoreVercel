@@ -14,7 +14,7 @@ import {
   notifyError,
 } from '../../Toasters/Toasters';
 import { useStore } from '../../../zustand/store';
-import { formatter } from '../../../utils';
+import { applyDiscount, formatter } from '../../../utils';
 
 const GoodsCardById = ({ data }) => {
   const { setNewIdList } = useStore();
@@ -23,23 +23,6 @@ const GoodsCardById = ({ data }) => {
   const discount = parseInt(data.discount);
 
   const { imgUrl, title, description, _id } = data;
-
-  function applyDiscount(amount, discountPercent) {
-    if (parseInt(discountPercent) < 0 || parseInt(discountPercent) > 100) {
-      return 'Некоректні дані';
-    }
-
-    // Обчислення суми знижки
-    let discountAmount = parseInt(amount) * (parseInt(discountPercent) / 100);
-
-    // Обчислення вартості зі знижкою
-    let discountedPrice = parseInt(amount) - discountAmount;
-
-    // Округлення до цілого числа
-    discountedPrice = Math.round(discountedPrice);
-
-    return discountedPrice;
-  }
 
   const countPositiveFeedbackPoints = () => {
     const total = 0;

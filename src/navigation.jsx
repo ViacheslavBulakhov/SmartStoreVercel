@@ -23,7 +23,9 @@ const router = createBrowserRouter([
 
         async lazy() {
           let Index = await import('./pages/AdminPage/AdminPage');
-          return { Component: Index.default };
+          return {
+            Component: Index.default,
+          };
         },
       },
 
@@ -96,6 +98,22 @@ const router = createBrowserRouter([
           let Index = await import(
             './SharedLayout/SharedLayoutForGoods/SharedLayoutForGoods'
           );
+          return { Component: Index.default };
+        },
+      },
+      {
+        path: '/order',
+
+        async lazy() {
+          let Index = await import('./pages/OrderPage/OrderPage');
+          return { Component: Index.default };
+        },
+      },
+      {
+        path: '/user',
+
+        async lazy() {
+          let Index = await import('./pages/UserPage/UserPage');
           return { Component: Index.default };
         },
       },

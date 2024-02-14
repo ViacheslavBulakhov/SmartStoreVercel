@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { create } from 'zustand';
 
-import { devtools, persist, createJSONStorage } from 'zustand/middleware';
+import { devtools } from 'zustand/middleware';
 
 import {
   notifyError,
@@ -10,8 +10,6 @@ import {
 } from '../components/Toasters/Toasters';
 
 axios.defaults.baseURL = 'https://smartstoredev.onrender.com/api';
-// axios.defaults.baseURL =
-//   'https://65ca0de33b05d29307df8cdc.mockapi.io/smart/api/goods';
 
 // axios.defaults.baseURL = 'http://localhost:3000/api';
 
@@ -37,7 +35,7 @@ export const useStore = create(
       },
       idList: [],
 
-      setUser: async credentials => {
+      setUserLogIn: async credentials => {
         try {
           const { data: user } = await axios.post('/auth/login', credentials);
 
@@ -45,7 +43,28 @@ export const useStore = create(
           notifyFulfilledLogin();
 
           set(
-            state => ({ ...state, auth: { user, isLoggedIn: true } }),
+            state => ({ ...state, auth: { ...user, isLoggedIn: true } }),
+            false,
+            'setAuth'
+          );
+        } catch (error) {
+          notifyErrorLogin();
+          return;
+        }
+      },
+
+      setUserRegister: async credentials => {
+        try {
+          const { data: user } = await axios.post(
+            '/auth/register',
+            credentials
+          );
+
+          token.set(user.token);
+          notifyFulfilledLogin();
+
+          set(
+            state => ({ ...state, auth: { ...user, isLoggedIn: true } }),
             false,
             'setAuth'
           );

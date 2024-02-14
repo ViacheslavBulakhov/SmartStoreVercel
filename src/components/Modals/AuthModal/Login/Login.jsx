@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useForm } from 'react-hook-form';
 import CloseBtn from '../../../Common/CloseBtn';
 import {
@@ -15,12 +16,13 @@ import {
 
 import { FaRegEyeSlash } from 'react-icons/fa6';
 import { FaRegEye } from 'react-icons/fa6';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useStore } from '../../../../zustand/store';
 
 const Login = ({ toggleModal, toggleLogin }) => {
   const [isPassword, setIsPassword] = useState('password');
-  const { setUser } = useStore();
+  const { setUserLogIn } = useStore();
+  const isLoggedIn = useStore(state => state.auth.isLoggedIn);
 
   const {
     register,
@@ -28,14 +30,17 @@ const Login = ({ toggleModal, toggleLogin }) => {
     formState: { errors },
   } = useForm();
 
+  useEffect(() => {
+    toggleModal();
+  }, [isLoggedIn, toggleModal]);
+
   const togglePassword = () => {
     console.log(isPassword);
     setIsPassword(prev => (prev === 'password' ? 'text' : 'password'));
   };
 
   const onSubmit = data => {
-    console.log(data);
-    setUser(data);
+    setUserLogIn(data);
   };
 
   return (
@@ -58,14 +63,14 @@ const Login = ({ toggleModal, toggleLogin }) => {
               },
             })}
           />
-          {errors.number && errors.number.type === 'required' && (
+          {errors?.number?.type === 'required' && (
             <span>Поле є обов'язковим</span>
           )}
-          {errors.number && errors.number.type === 'maxLength' && (
+          {errors?.number?.type === 'maxLength' && (
             <span>Максимальна довжина 30 символів</span>
           )}
-          {errors.number && errors.number.type === 'pattern' && (
-            <span>{errors.login.message}</span>
+          {errors?.number?.type === 'pattern' && (
+            <span>{errors?.login?.message}</span>
           )}
         </InputWrap>
 
@@ -90,13 +95,13 @@ const Login = ({ toggleModal, toggleLogin }) => {
             </TogglePassWrap>
           </InputContainer>
 
-          {errors.password && errors.password.type === 'required' && (
+          {errors?.password?.type === 'required' && (
             <span>Поле є обов'язковим</span>
           )}
-          {errors.password && errors.password.type === 'maxLength' && (
+          {errors?.password?.type === 'maxLength' && (
             <span>Maмаксимальна довжина 10 символів</span>
           )}
-          {errors.password && errors.password.type === 'minLength' && (
+          {errors?.password?.type === 'minLength' && (
             <span>Мінімальна довжина 8 символів</span>
           )}
         </InputWrap>
