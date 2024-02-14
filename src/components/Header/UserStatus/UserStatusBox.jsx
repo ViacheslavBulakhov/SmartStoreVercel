@@ -20,7 +20,10 @@ const UserStatusBox = () => {
           <FaUser
             color="var(--colors-text)"
             size="25px"
-            onClick={() => toggleModal()}
+            onClick={() => {
+              console.log(isLoggedIn);
+              toggleModal();
+            }}
           />
         ) : (
           <FaUserCheck
