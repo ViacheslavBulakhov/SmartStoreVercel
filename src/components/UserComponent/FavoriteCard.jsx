@@ -11,11 +11,16 @@ import {
   FavoriteCardDescriptionWrap,
   FavoriteCardWrap,
 } from './FavoriteCardStyled';
-import { height } from '@mui/system';
+
+import axios from 'axios';
+import { useStore } from '../../zustand/store';
 
 const FavoriteCard = ({ item }) => {
+  const { getGoods } = useStore();
   const deletteItem = async id => {
-    console.log(id);
+    const { data } = await axios.patch(`goods/${id}/favorite`);
+    getGoods();
+    console.log(data);
   };
   return (
     <FavoriteCardWrap>

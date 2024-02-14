@@ -1,26 +1,34 @@
 /* eslint-disable react/prop-types */
 
 import { FaStar } from 'react-icons/fa';
+import { FcLike, FcDislike } from 'react-icons/fc';
 import {
   AmountWrap,
   BuyBtn,
   CardItemWrap,
   CardLink,
   DescriptionWrap,
+  DiscountWrap,
+  FavoritesWrap,
   StarWrap,
 } from './GoodsCardStyled';
 import {
   notifyAddGoodsToShopingCart,
   notifyError,
+  notifySucces,
 } from '../../Toasters/Toasters';
 import { useStore } from '../../../zustand/store';
 import { applyDiscount, formatter } from '../../../utils';
+import axios from 'axios';
 
 const GoodsCardById = ({ data }) => {
   const { setNewIdList } = useStore();
+  const user = useStore(state => state.auth.user);
+  const { getGoods } = useStore();
 
   const amount = data.amount;
   const discount = parseInt(data.discount);
+  const isFavorite = data.favorites.includes(user?.id);
 
   const { imgUrl, title, description, _id } = data;
 
@@ -74,6 +82,19 @@ const GoodsCardById = ({ data }) => {
     }
   };
 
+  const handleFavorite = async id => {
+    try {
+      const result = await axios.patch(`goods/${id}/favorite`);
+      console.log(result.data.favorites);
+      if (result.status === 200) {
+        getGoods();
+      }
+      result.data.favorites && notifySucces('Товар успішно додано до закладок');
+    } catch (error) {
+      notifyError('Упс, щось пішло не так ...Спробуйте пізніше');
+    }
+  };
+
   return (
     <CardItemWrap>
       <div>
@@ -88,11 +109,14 @@ const GoodsCardById = ({ data }) => {
           <h3>{title}</h3>
 
           {discount > 0 && (
-            <div>
+            <DiscountWrap>
               <span>-{discount}%</span>
               <span>Акція</span>
-            </div>
+            </DiscountWrap>
           )}
+          <FavoritesWrap onClick={() => handleFavorite(_id)}>
+            {isFavorite ? <FcLike size={30} /> : <FcDislike size={30} />}
+          </FavoritesWrap>
         </CardLink>
       </div>
       <StarWrap>{stars}</StarWrap>

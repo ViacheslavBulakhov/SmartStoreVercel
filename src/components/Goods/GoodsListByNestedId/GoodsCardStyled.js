@@ -30,26 +30,36 @@ export const CardLink = styled(NavLink)`
   flex-direction: column;
   align-items: center;
   gap: 10px;
+`;
 
-  & > div {
-    position: absolute;
-    top: 20px;
-    left: 5px;
+export const DiscountWrap = styled.div`
+  position: absolute;
+  top: 20px;
+  left: 5px;
 
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
-    & > span {
-      color: white;
-      background-color: #eb5757;
-      font-size: 10px;
-      padding: 5px 8px;
+  & > span {
+    color: white;
+    background-color: #eb5757;
+    font-size: 10px;
+    padding: 5px 8px;
 
-      & + span {
-        background-color: rgb(0, 120, 255);
-      }
+    & + span {
+      background-color: rgb(0, 120, 255);
     }
+  }
+`;
+
+export const FavoritesWrap = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 5px;
+  z-index: 1;
+  &:hover {
+    scale: 1.1;
   }
 `;
 

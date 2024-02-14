@@ -3,11 +3,15 @@ import { NavLink } from 'react-router-dom';
 import { useStore } from '../../zustand/store';
 
 import FavoriteCard from '../../components/UserComponent/FavoriteCard';
+import axios from 'axios';
 
 const UserPage = () => {
-  const { number, role, personalDiscount } = useStore(state => state.auth.user);
+  const { number, role, personalDiscount, id } = useStore(
+    state => state.auth.user
+  );
 
   const goods = useStore(state => state.goods);
+  const filteredByFavorites = goods.filter(item => item.favorites.includes(id));
 
   return (
     <div>
@@ -24,7 +28,7 @@ const UserPage = () => {
       <div>
         <h2>Мої закладки</h2>
         <ul>
-          {goods.map(item => (
+          {filteredByFavorites.map(item => (
             <li key={item._id}>
               <FavoriteCard item={item} />
             </li>
