@@ -5,5 +5,7 @@ import { RouterProvider } from 'react-router-dom';
 import router from './navigation.jsx';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <RouterProvider router={router} />
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 );
