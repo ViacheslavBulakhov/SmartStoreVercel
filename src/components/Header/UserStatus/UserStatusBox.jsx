@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const UserStatusBox = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const isLoggedIn = useStore(state => state.auth.isLoggedIn);
+
   const navigate = useNavigate();
 
   const toggleModal = () => setIsShowModal(prev => !prev);
