@@ -18,14 +18,14 @@ const AdminPage = () => {
   const goods = useStore(state => state.goods);
 
   const isLoggedIn = useStore(state => state.auth.isLoggedIn);
-  const role = useStore(state => state.auth.user.role);
+  const user = useStore(state => state.auth.user);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if ((!isLoggedIn && role === 'user') || role !== 'admin') {
+    if ((!isLoggedIn && user?.role === 'user') || user?.role !== 'admin') {
       navigate('/');
     }
-  }, [isLoggedIn, navigate, role]);
+  }, []);
 
   useEffect(() => {
     getGoods();
