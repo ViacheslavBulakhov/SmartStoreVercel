@@ -102,6 +102,14 @@ const router = createBrowserRouter([
         },
       },
       {
+        path: '/goods/:goodsName/:id/:nestedId/:goodsId',
+
+        async lazy() {
+          let Index = await import('./pages/DetailsPage/DetailsPage');
+          return { Component: Index.default };
+        },
+      },
+      {
         path: '/order',
 
         async lazy() {

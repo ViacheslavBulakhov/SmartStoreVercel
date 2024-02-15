@@ -20,17 +20,18 @@ import {
 import { useStore } from '../../../zustand/store';
 import { applyDiscount, formatter } from '../../../utils';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const GoodsCardById = ({ data }) => {
   const { setNewIdList } = useStore();
   const user = useStore(state => state.auth.user);
   const { getGoods } = useStore();
+  let { goodsName, id, nestedId } = useParams();
 
-  const amount = data.amount;
   const discount = parseInt(data.discount);
   const isFavorite = data.favorites.includes(user?.id);
 
-  const { imgUrl, title, description, _id } = data;
+  const { imgUrl, title, description, _id, amount } = data;
 
   const countPositiveFeedbackPoints = () => {
     const total = 0;
@@ -75,12 +76,12 @@ const GoodsCardById = ({ data }) => {
         notifyAddGoodsToShopingCart(title);
       }
     } catch (error) {
-      console.log('eror=>>>', error.message);
       notifyError(
         "Щось пішло не так, спробуйте пізніше або зв'яжіться з нами по телефону!"
       );
     }
   };
+
   const handleFavorite = async id => {
     try {
       const result = await axios.patch(`goods/${id}/favorite`);
@@ -93,7 +94,6 @@ const GoodsCardById = ({ data }) => {
       }
       notifySucces('Товар успішно видалено з закладок закладок!');
     } catch (error) {
-      console.log();
       if (error?.response?.status === 401) {
         notifyError(
           'Для додавання товару в закладки необхідно увійти в акаунт!'
@@ -103,10 +103,11 @@ const GoodsCardById = ({ data }) => {
       notifyError('Упс, щось пішло не так ...Спробуйте пізніше');
     }
   };
+
   return (
     <CardItemWrap>
       <div>
-        <CardLink>
+        <CardLink to={`/goods/${goodsName}/${id}/${nestedId}/${_id}`}>
           <img
             src={imgUrl}
             alt={title}

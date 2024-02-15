@@ -17,7 +17,6 @@ const CostBox = () => {
       setRangeValues([Math.min(...arr), Math.max(...arr)]);
     }
     const array = goods.map(item => Number(item.amount));
-    console.log(array);
 
     findMaxMin(array);
   }, [goods]);

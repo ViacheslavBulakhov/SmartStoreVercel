@@ -20,6 +20,7 @@ const CoodsWrap = styled.div`
 
 export const SharedLayoutForGoods = () => {
   let { goodsName, id, nestedId } = useParams();
+
   const { setCurrentGoods } = useStore();
   const goods = useStore(state => state.goods);
 
@@ -45,7 +46,12 @@ export const SharedLayoutForGoods = () => {
     };
 
     isNamedGoodsList &&
-      setCurrentGoods([...goods.filter(item => item.categories === goodsName)]);
+      setCurrentGoods([
+        ...goods.filter(
+          item =>
+            stringNormalize(item.categories) === stringNormalize(goodsName)
+        ),
+      ]);
 
     isGoodsListById && setCurrentGoods(filterById());
 

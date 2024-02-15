@@ -57,7 +57,7 @@ export const FavoritesWrap = styled.div`
   position: absolute;
   top: 20px;
   right: 5px;
-  z-index: 1;
+
   &:hover {
     scale: 1.1;
   }
