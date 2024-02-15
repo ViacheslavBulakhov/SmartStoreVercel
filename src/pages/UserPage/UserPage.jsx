@@ -1,43 +1,50 @@
 /* eslint-disable react/prop-types */
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useStore } from '../../zustand/store';
 
 import FavoriteCard from '../../components/UserComponent/FavoriteCard';
-import axios from 'axios';
+import { useEffect } from 'react';
 
 const UserPage = () => {
-  const { number, role, personalDiscount, id } = useStore(
-    state => state.auth.user
-  );
+  const user = useStore(state => state.auth.user);
+  const navigate = useNavigate();
 
   const goods = useStore(state => state.goods);
-  const filteredByFavorites = goods.filter(item => item.favorites.includes(id));
+  const filteredByFavorites = goods.filter(item =>
+    item.favorites.includes(user?.id)
+  );
+
+  useEffect(() => {
+    if (!user) navigate('/');
+  }, []);
 
   return (
-    <div>
+    user && (
       <div>
-        <p>
-          Мій номер:
-          <span>{number}</span>
-        </p>
-        <p>
-          Mоя знижка:
-          <span>{personalDiscount}</span>
-        </p>
-      </div>
-      <div>
-        <h2>Мої закладки</h2>
-        <ul>
-          {filteredByFavorites.map(item => (
-            <li key={item._id}>
-              <FavoriteCard item={item} />
-            </li>
-          ))}
-        </ul>
-      </div>
+        <div>
+          <p>
+            Мій номер:
+            <span>{user.number}</span>
+          </p>
+          <p>
+            Mоя знижка:
+            <span>{user.personalDiscount}</span>
+          </p>
+        </div>
+        <div>
+          <h2>Мої закладки</h2>
+          <ul>
+            {filteredByFavorites.map(item => (
+              <li key={item._id}>
+                <FavoriteCard item={item} />
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      {role === 'admin' && <NavLink to={'/admin'}>Go to Admin</NavLink>}
-    </div>
+        {user.role === 'admin' && <NavLink to={'/admin'}>Go to Admin</NavLink>}
+      </div>
+    )
   );
 };
 

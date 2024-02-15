@@ -16,7 +16,7 @@ const ShopingCard = ({ item, setTotalAmount }) => {
   const [currentAmount, setCurrentAmount] = useState(() => count * item.amount);
 
   const { removeIdItem } = useStore();
-  const data = useStore(state => state.goods);
+  // const data = useStore(state => state.goods);
 
   const incrementCount = () => setCount(prev => prev + 1);
   const decrementCount = () => setCount(prev => prev - 1);
@@ -55,7 +55,7 @@ const ShopingCard = ({ item, setTotalAmount }) => {
   return (
     <ShopingCardWrap>
       <ImgCardWrap>
-        <img src={item.imgUrl} alt="" />
+        <img src={item.imgUrl} alt="" width={'100px'} height={'100px'} />
       </ImgCardWrap>
 
       <BaseInfoWrap>

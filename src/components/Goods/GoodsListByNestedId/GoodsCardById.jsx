@@ -81,20 +81,28 @@ const GoodsCardById = ({ data }) => {
       );
     }
   };
-
   const handleFavorite = async id => {
     try {
       const result = await axios.patch(`goods/${id}/favorite`);
-      console.log(result.data.favorites);
-      if (result.status === 200) {
-        getGoods();
+
+      if (result.status === 200) getGoods();
+
+      if (result.data.favorites.includes(user.id)) {
+        notifySucces('Товар успішно додано до закладок!');
+        return;
       }
-      result.data.favorites && notifySucces('Товар успішно додано до закладок');
+      notifySucces('Товар успішно видалено з закладок закладок!');
     } catch (error) {
+      console.log();
+      if (error?.response?.status === 401) {
+        notifyError(
+          'Для додавання товару в закладки необхідно увійти в акаунт!'
+        );
+        return;
+      }
       notifyError('Упс, щось пішло не так ...Спробуйте пізніше');
     }
   };
-
   return (
     <CardItemWrap>
       <div>
