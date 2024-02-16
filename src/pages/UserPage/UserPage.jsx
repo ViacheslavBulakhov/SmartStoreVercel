@@ -4,6 +4,7 @@ import { useStore } from '../../zustand/store';
 
 import FavoriteCard from '../../components/UserComponent/FavoriteCard';
 import { useEffect } from 'react';
+import { AdminLink } from './UserPageStyled';
 
 const UserPage = () => {
   const user = useStore(state => state.auth.user);
@@ -31,6 +32,10 @@ const UserPage = () => {
             <span>{user.personalDiscount}</span>
           </p>
         </div>
+        {user.role === 'admin' && (
+          <AdminLink to={'/admin'}>Go to Admin</AdminLink>
+        )}
+
         <div>
           <h2>Мої закладки</h2>
           <ul>
@@ -41,8 +46,6 @@ const UserPage = () => {
             ))}
           </ul>
         </div>
-
-        {user.role === 'admin' && <NavLink to={'/admin'}>Go to Admin</NavLink>}
       </div>
     )
   );
