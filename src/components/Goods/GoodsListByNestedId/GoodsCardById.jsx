@@ -107,15 +107,17 @@ const GoodsCardById = ({ data }) => {
   return (
     <CardItemWrap>
       <div>
-        <CardLink to={`/goods/${goodsName}/${id}/${nestedId}/${_id}`}>
-          <img
-            src={imgUrl}
-            alt={title}
-            width="200px"
-            height="200px"
-            loading="lazy"
-          />
-          <h3>{title}</h3>
+        <div>
+          <CardLink to={`/goods/${goodsName}/${id}/${nestedId}/${_id}`}>
+            <img
+              src={imgUrl}
+              alt={title}
+              width="200px"
+              height="200px"
+              loading="lazy"
+            />
+            <h3>{title}</h3>
+          </CardLink>
 
           {discount > 0 && (
             <DiscountWrap>
@@ -126,7 +128,7 @@ const GoodsCardById = ({ data }) => {
           <FavoritesWrap onClick={() => handleFavorite(_id)}>
             {isFavorite ? <FcLike size={30} /> : <FcDislike size={30} />}
           </FavoritesWrap>
-        </CardLink>
+        </div>
       </div>
       <StarWrap>{stars}</StarWrap>
       <DescriptionWrap>

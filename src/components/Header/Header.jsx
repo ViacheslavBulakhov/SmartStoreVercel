@@ -1,4 +1,4 @@
-import { IoMoon, IoMoonOutline } from 'react-icons/io5';
+import { IoLogOutSharp, IoMoon, IoMoonOutline } from 'react-icons/io5';
 
 import Logo from '../../assets/SmartStore.svg?react';
 
@@ -84,6 +84,7 @@ const Header = () => {
               )}
             </SwitcherWrap>
             <UserStatusBox />
+            <IoLogOutSharp size={30} />
           </UserBox>
         </Wrapper>
       </Container>

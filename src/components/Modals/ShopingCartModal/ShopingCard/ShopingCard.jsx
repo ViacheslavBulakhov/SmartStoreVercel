@@ -7,7 +7,7 @@ import {
   ShopingCardWrap,
 } from '../ShopingCartModalStyled';
 import { RiDeleteBin5Fill } from 'react-icons/ri';
-import { notifyError } from '../../../Toasters/Toasters';
+import { notifyError, notifySucces } from '../../../Toasters/Toasters';
 import { useStore } from '../../../../zustand/store';
 import { formatter } from '../../../../utils';
 
@@ -31,6 +31,7 @@ const ShopingCard = ({ item, setTotalAmount }) => {
       );
       removeIdItem(id);
       setTotalAmount(prev => Number(prev) - Number(currentAmount));
+      notifySucces('Товар видалено з кошику!');
     } catch (error) {
       notifyError(
         "Щось пішло не так, спробуйте пізніше або зв'яжіться з нами по телефону!"
