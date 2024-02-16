@@ -1,26 +1,51 @@
+import { useEffect, useState } from 'react';
 import { Container } from '../../components/Container';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
+import { notifyError } from '../../components/Toasters/Toasters';
+import { Wrap } from './DetailsPageStyled';
 
 const DetailsPage = () => {
+  const [data, setData] = useState('');
+  const { goodsId } = useParams();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const result = await axios.get(`/goods/${goodsId}`);
+        setData(result.data);
+      } catch (error) {
+        notifyError('Це посилання вже не дійсне');
+        navigate('/');
+      }
+    };
+    getData();
+  }, []);
+
   return (
     <Container>
-      <h2>Title</h2>
-      <div>
-        wrap
-        <div>
-          <div>
-            {/* <img src="" alt="" /> */}
-            імдж
-          </div>
-          <div>
-            <div>відгуки +фаворіт</div>
-            <div>модель+ціна</div>
+      <h2>{data.title}</h2>
 
-            <div>кількість+купити Батон</div>
-          </div>
+      <Wrap>
+        <div style={{ width: '50%' }}>
+          <img
+            src={data.imgUrl}
+            alt={data.title}
+            width={'100%'}
+            height={'auto'}
+          />
         </div>
-      </div>
+
+        <div>
+          <div>відгуки +фаворіт</div>
+          <div>модель+ціна</div>
+
+          <div>кількість+купити Батон</div>
+        </div>
+      </Wrap>
+
       <div>
-        DescriptionWrap
         <nav>
           <a rel="stylesheet" href="">
             Характеристики
@@ -32,24 +57,14 @@ const DetailsPage = () => {
         <div>
           <h2>Опис Товару</h2>
 
-          <h4>title</h4>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus
-            eligendi illum a nam perferendis. Illum culpa temporibus velit
-            necessitatibus! Ullam, possimus accusantium autem placeat vitae
-            itaque temporibus enim deserunt animi.
-          </p>
+          <h4>{data.title}</h4>
+          <p>{data.description}</p>
         </div>
         <div>
           <h2>Характеристики</h2>
 
-          <h4>title</h4>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Doloribus
-            eligendi illum a nam perferendis. Illum culpa temporibus velit
-            necessitatibus! Ullam, possimus accusantium autem placeat vitae
-            itaque temporibus enim deserunt animi.
-          </p>
+          <h4>{data.title}</h4>
+          <p>перебрати фільтри</p>
         </div>
         <div>
           <h2>

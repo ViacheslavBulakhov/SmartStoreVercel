@@ -16,6 +16,7 @@ import { Container } from '../Container';
 import UserStatusBox from './UserStatus/UserStatusBox';
 import SocialLinks from '../SocialLinks/SocialLinks';
 import { NavLink } from 'react-router-dom';
+import axios from 'axios';
 
 const Header = () => {
   const [theme, setTheme] = useState('light');
@@ -35,6 +36,11 @@ const Header = () => {
   }, []);
 
   const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
+
+  const onLogOut = async () => {
+    const result = await axios.post('/auth/logout');
+    console.log(result);
+  };
 
   return (
     <HeaderEl>
@@ -70,7 +76,7 @@ const Header = () => {
                 <a>Відгуки</a>
               </li>
               <li>
-                <a href="tel:+380 66 422 06 67">+380 66 422 06 67</a>
+                <a href="tel:+380 50 272 47 91">+380 50 272 47 91</a>
               </li>
             </NavLinkList>
           </nav>
@@ -84,7 +90,7 @@ const Header = () => {
               )}
             </SwitcherWrap>
             <UserStatusBox />
-            <IoLogOutSharp size={30} />
+            <IoLogOutSharp size={30} onClick={onLogOut} />
           </UserBox>
         </Wrapper>
       </Container>
