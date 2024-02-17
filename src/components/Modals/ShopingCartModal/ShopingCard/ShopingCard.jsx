@@ -16,7 +16,6 @@ const ShopingCard = ({ item, setTotalAmount }) => {
   const [currentAmount, setCurrentAmount] = useState(() => count * item.amount);
 
   const { removeIdItem } = useStore();
-  // const data = useStore(state => state.goods);
 
   const incrementCount = () => setCount(prev => prev + 1);
   const decrementCount = () => setCount(prev => prev - 1);

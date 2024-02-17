@@ -16,10 +16,12 @@ import { Container } from '../Container';
 import UserStatusBox from './UserStatus/UserStatusBox';
 import SocialLinks from '../SocialLinks/SocialLinks';
 import { NavLink } from 'react-router-dom';
-import axios from 'axios';
+import { useStore } from '../../zustand/store';
 
 const Header = () => {
   const [theme, setTheme] = useState('light');
+  const isLoggedIn = useStore(state => state.auth.isLoggedIn);
+  const { removeUser } = useStore();
 
   useEffect(() => {
     document.body.setAttribute('data-theme', theme);
@@ -37,9 +39,8 @@ const Header = () => {
 
   const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
 
-  const onLogOut = async () => {
-    const result = await axios.post('/auth/logout');
-    console.log(result);
+  const onLogOut = () => {
+    removeUser();
   };
 
   return (
@@ -90,7 +91,7 @@ const Header = () => {
               )}
             </SwitcherWrap>
             <UserStatusBox />
-            <IoLogOutSharp size={30} onClick={onLogOut} />
+            {isLoggedIn && <IoLogOutSharp size={30} onClick={onLogOut} />}
           </UserBox>
         </Wrapper>
       </Container>

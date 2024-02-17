@@ -2,11 +2,28 @@ import { useEffect, useState } from 'react';
 import { Container } from '../../components/Container';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { notifyError } from '../../components/Toasters/Toasters';
-import { Wrap } from './DetailsPageStyled';
+import { notifyError, notifySucces } from '../../components/Toasters/Toasters';
+import {
+  ReviewsBox,
+  ReviewsWrap,
+  TextDescription,
+  Wrap,
+} from './DetailsPageStyled';
+import { FaStar } from 'react-icons/fa';
+import {
+  AmountWrap,
+  FavoritesWrap,
+  StarWrap,
+} from '../../components/Goods/GoodsListByNestedId/GoodsCardStyled';
+import { FcDislike, FcLike } from 'react-icons/fc';
+import { useStore } from '../../zustand/store';
+import { applyDiscount, formatter } from '../../utils';
 
 const DetailsPage = () => {
   const [data, setData] = useState('');
+  const user = useStore(state => state.auth.user);
+  const { getGoods } = useStore();
+
   const { goodsId } = useParams();
   const navigate = useNavigate();
 
@@ -23,6 +40,31 @@ const DetailsPage = () => {
     getData();
   }, []);
 
+  const handleFavorite = async id => {
+    try {
+      const result = await axios.patch(`goods/${id}/favorite`);
+
+      if (result.status === 200) getGoods();
+
+      if (result.data.favorites.includes(user.id)) {
+        notifySucces('Товар успішно додано до закладок!');
+        return;
+      }
+      notifySucces('Товар успішно видалено з закладок закладок!');
+    } catch (error) {
+      if (error?.response?.status === 401) {
+        notifyError(
+          'Для додавання товару в закладки необхідно увійти в акаунт!'
+        );
+        return;
+      }
+      notifyError('Упс, щось пішло не так ...Спробуйте пізніше');
+    }
+  };
+
+  const isFavorite = user ? data.favorites.includes(user?.id) : false;
+  const discount = parseInt(data.discount);
+
   return (
     <Container>
       <h2>{data.title}</h2>
@@ -37,11 +79,54 @@ const DetailsPage = () => {
           />
         </div>
 
-        <div>
-          <div>відгуки +фаворіт</div>
-          <div>модель+ціна</div>
+        <div style={{ width: '50%', padding: '20px' }}>
+          <ReviewsBox>
+            <ReviewsWrap>
+              <StarWrap>
+                <FaStar size={25} color="rgb(201 183 77)" />
+                <FaStar size={25} color="rgb(201 183 77)" />
+                <FaStar size={25} color="rgb(201 183 77)" />
+                <FaStar size={25} color="rgb(201 183 77)" />
+                <FaStar size={25} />
+              </StarWrap>
 
-          <div>кількість+купити Батон</div>
+              <TextDescription>
+                Відгуки: <span>{`(count)`}</span>
+              </TextDescription>
+            </ReviewsWrap>
+
+            <div
+              style={{ cursor: 'pointer' }}
+              onClick={() => handleFavorite(data._id)}
+            >
+              {isFavorite ? <FcLike size={30} /> : <FcDislike size={30} />}
+            </div>
+          </ReviewsBox>
+
+          <ReviewsBox>
+            <TextDescription>
+              Модель: <span>{`${data.model}`}</span>
+            </TextDescription>
+            {discount ? (
+              <div>
+                <TextDescription>
+                  Вартість:<span>{formatter.format(data.amount)}</span>
+                </TextDescription>
+                <TextDescription>
+                  Вартість:
+                  <span>
+                    {formatter.format(applyDiscount(data.amount, discount))}
+                  </span>
+                </TextDescription>
+              </div>
+            ) : (
+              <div>
+                <TextDescription>
+                  Вартість: <span>{formatter.format(data.amount)}</span>
+                </TextDescription>
+              </div>
+            )}
+          </ReviewsBox>
         </div>
       </Wrap>
 

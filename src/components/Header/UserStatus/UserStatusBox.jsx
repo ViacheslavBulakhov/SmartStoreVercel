@@ -6,7 +6,6 @@ import AuthModal from '../../Modals/AuthModal/AuthModal';
 // import { useStore } from '../../../zustand/store';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../../zustand/store';
-import { IoLogOutSharp } from 'react-icons/io5';
 
 const UserStatusBox = () => {
   const [isShowModal, setIsShowModal] = useState(false);

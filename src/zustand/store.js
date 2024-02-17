@@ -7,10 +7,10 @@ import {
   notifyError,
   notifyErrorLogin,
   notifyFulfilledLogin,
+  notifySucces,
 } from '../components/Toasters/Toasters';
 
 axios.defaults.baseURL = 'https://smartstoredev.onrender.com/api';
-
 // axios.defaults.baseURL = 'http://localhost:3000/api';
 
 export const token = {
@@ -59,7 +59,7 @@ export const useStore = create(
             '/auth/register',
             credentials
           );
-
+          console.log(user.token);
           token.set(user.token);
           notifyFulfilledLogin();
 
@@ -75,17 +75,22 @@ export const useStore = create(
       },
 
       removeUser: async () => {
-        const { data } = await axios.delete('/goods');
-        console.log(data);
+        try {
+          await axios.post('/auth/logout');
+          token.unset();
 
-        set(
-          state => ({
-            ...state,
-            auth: { user: null, isLoggedIn: false },
-          }),
-          false,
-          'setGoods'
-        );
+          set(
+            state => ({
+              ...state,
+              auth: { user: null, isLoggedIn: false },
+            }),
+            false,
+            'setGoods'
+          );
+          notifySucces('Сесію у вашому акаунті завершено!');
+        } catch (error) {
+          notifyError();
+        }
       },
 
       getGoods: async () => {
@@ -110,6 +115,7 @@ export const useStore = create(
           filters: { ...state.filters, rangeValues },
         }));
       },
+
       setCheckBox: checkBox => {
         set(state => ({
           ...state,
@@ -139,6 +145,7 @@ export const useStore = create(
           false,
           'setNewIdList'
         ),
+
       removeIdItem: id =>
         set(
           state => ({
