@@ -10,7 +10,7 @@ import {
   StarWrap,
 } from '../Goods/GoodsListByNestedId/GoodsCardStyled';
 import styled from 'styled-components';
-import axios from 'axios';
+import { useStore } from '../../zustand/store';
 
 const ChoiseWrap = styled.div`
   border: var(--border-base);
@@ -29,15 +29,9 @@ const ChoiseWrap = styled.div`
 
 const Card = ({ data }) => {
   const { imgUrl, title, amount, discount = 0, _id, description } = data;
-
+  const { removeGoods } = useStore();
   const deletteItem = async () => {
-    axios.defaults.headers.common.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1YzYyMWM5MzU0MTdmZDgyMzYwZTAzYyIsImlhdCI6MTcwNzcyNzg3MiwiZXhwIjoxNzA3ODEwNjcyfQ.ywJe9lfNwzsNiv7dLdMOYzarwYiBy3SylN5MckiCFcE`;
-    try {
-      const result = await axios.delete(`/goods/${_id}`);
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
+    removeGoods(_id);
   };
 
   function applyDiscount(amount, discountPercent) {

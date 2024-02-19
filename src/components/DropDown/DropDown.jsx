@@ -20,8 +20,12 @@ const Dropdown = ({ categoriName }) => {
     item => stringNormalize(item.categories) === stringNormalize(categoriName)
   );
 
+  const checkArr = ['чохли', 'скло', 'навушники'];
+  const typeOrBrand = checkArr.includes(stringNormalize(categoriName));
+  const objKey = typeOrBrand ? 'brand' : 'type';
+
   const uniqueFilters = categoriesData
-    .map(item => item.brand)
+    .map(item => item[objKey])
     .filter((filter, index, array) => array.indexOf(filter) === index);
 
   const handleHoverEnter = () => {
@@ -47,15 +51,16 @@ const Dropdown = ({ categoriName }) => {
 
       {showContent && categoriesData.length > 0 && (
         <DropdownList className="dropdown-content">
-          {uniqueFilters.map(brand => (
-            <DropdownItem key={brand}>
-              <NavLink to={`/goods/${stringNormalize(categoriName)}/${brand}`}>
-                {categoriName} {brand}
+          {uniqueFilters.map(item => (
+            <DropdownItem key={item}>
+              <NavLink to={`/goods/${stringNormalize(categoriName)}/${item}`}>
+                {item}
               </NavLink>
               <NestedDropdown
                 data={categoriesData}
-                brand={brand}
+                type={item}
                 categoriName={categoriName}
+                objKey={objKey}
               />
             </DropdownItem>
           ))}

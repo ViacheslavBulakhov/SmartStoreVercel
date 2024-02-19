@@ -4,7 +4,7 @@ import { NestedDropdownItem, NestedDropdownList } from './NestedDropDownStyled';
 import { NavLink } from 'react-router-dom';
 import { stringNormalize } from '../../utils';
 
-const NestedDropdown = ({ data, brand, categoriName }) => {
+const NestedDropdown = ({ data, type, categoriName, objKey }) => {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const NestedDropdown = ({ data, brand, categoriName }) => {
   }, []);
 
   const filtersData = data.filter(
-    item => stringNormalize(item.brand) === stringNormalize(brand)
+    item => stringNormalize(item[objKey]) === stringNormalize(type)
   );
 
   const uniqueFilters = filtersData
@@ -39,9 +39,9 @@ const NestedDropdown = ({ data, brand, categoriName }) => {
       {uniqueFilters.map(model => (
         <NestedDropdownItem key={model}>
           <NavLink
-            to={stringNormalize(`/goods/${categoriName}/${brand}/${model}`)}
+            to={stringNormalize(`/goods/${categoriName}/${type}/${model}`)}
           >
-            {brand} {model}
+            {model}
           </NavLink>
         </NestedDropdownItem>
       ))}

@@ -28,20 +28,28 @@ export const SharedLayoutForGoods = () => {
   const isGoodsListById = id && !nestedId;
 
   useEffect(() => {
-    const filterById = () => {
-      return goods.filter(
-        item =>
-          stringNormalize(item.categories) === stringNormalize(goodsName) &&
-          stringNormalize(item.brand) === stringNormalize(id)
-      );
-    };
+    const checkArr = ['чохли', 'скло', 'навушники'];
+    const typeOrBrand = checkArr.includes(stringNormalize(goodsName));
+
+    const filterById = () =>
+      goods.filter(item => {
+        const isCategories =
+          stringNormalize(item.categories) === stringNormalize(goodsName);
+
+        const isBrand = typeOrBrand
+          ? stringNormalize(item.brand) === stringNormalize(id)
+          : stringNormalize(item.type) === stringNormalize(id);
+
+        return isCategories && isBrand;
+      });
 
     const filterByNestedId = () => {
-      return goods.filter(
-        item =>
-          stringNormalize(item.categories) === stringNormalize(goodsName) &&
-          stringNormalize(item.brand) === stringNormalize(id) &&
-          stringNormalize(item.model) === stringNormalize(nestedId)
+      return goods.filter(item =>
+        stringNormalize(item.categories) === stringNormalize(goodsName) &&
+        typeOrBrand
+          ? stringNormalize(item.brand) === stringNormalize(id)
+          : stringNormalize(item.type) === stringNormalize(id) &&
+            stringNormalize(item.model) === stringNormalize(nestedId)
       );
     };
 

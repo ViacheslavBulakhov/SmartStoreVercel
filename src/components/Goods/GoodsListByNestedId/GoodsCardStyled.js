@@ -23,6 +23,10 @@ export const CardItemWrap = styled.li`
   &:hover {
     background-color: hsl(243.69deg 16.79% 90.54% / 81%);
   }
+
+  body[data-theme='dark'] &:hover {
+    background-color: hsl(210 73% 24% / 1);
+  }
 `;
 
 export const CardLink = styled(NavLink)`

@@ -33,6 +33,10 @@ export const Form = styled.form`
 export const InputWrap = styled.div`
   display: flex;
   flex-direction: column;
+  & > span {
+    color: red;
+    font-weight: var(--fw-bold);
+  }
 `;
 
 export const Label = styled.label``;

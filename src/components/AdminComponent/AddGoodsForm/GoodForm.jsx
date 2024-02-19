@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
 import AddPhoto from '../AddPhoto/AddPhoto';
 
 import {
@@ -10,6 +11,7 @@ import {
 } from '../../Modals/AuthModal/AuthModalStyled';
 import { FormWrap } from './GoodsFromStyled';
 import { useStore } from '../../../zustand/store';
+import { schema } from './yupSchema';
 import { notifyError } from '../../Toasters/Toasters';
 
 const GoodForm = () => {
@@ -17,7 +19,9 @@ const GoodForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
 
   const [filters, setFilters] = useState([{ name: '', value: '' }]);
   const [photo, setPhoto] = useState(null);
@@ -42,7 +46,6 @@ const GoodForm = () => {
 
   const onSubmit = async data => {
     const newData = { ...data, filters };
-    console.log(newData);
 
     const formData = new FormData();
 
@@ -59,6 +62,7 @@ const GoodForm = () => {
         formData.append(key, value);
       }
     });
+
     setNewGoods(formData);
   };
 
@@ -69,6 +73,12 @@ const GoodForm = () => {
           <Label>Категорія:</Label>
           <Input type="text" {...register('categories', { required: true })} />
           {errors.categories && <span>{errors.categories.message}</span>}
+        </InputWrap>
+
+        <InputWrap>
+          <Label>Тип:</Label>
+          <Input type="text" {...register('type', { required: true })} />
+          {errors.type && <span>{errors.type.message}</span>}
         </InputWrap>
 
         <InputWrap>
@@ -102,11 +112,13 @@ const GoodForm = () => {
         <InputWrap>
           <Label>Знижка:</Label>
           <Input type="number" {...register('discount')} />
+          {errors.discount && <span>{errors.discount.message}</span>}
         </InputWrap>
 
         <InputWrap>
           <Label>Кількість:</Label>
           <Input type="number" {...register('count')} />
+          {errors.count && <span>{errors.count.message}</span>}
         </InputWrap>
 
         <AddPhoto setPhoto={setPhoto} />

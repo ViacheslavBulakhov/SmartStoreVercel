@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 import { useStore } from '../../../zustand/store';
+import { stringNormalize } from '../../../utils';
 
 const CardItemWrap = styled.li`
   // width: calc(33.33% - 20px);
@@ -32,6 +33,10 @@ const CardLink = styled(NavLink)`
 const NamedGoodsList = () => {
   const data = useStore(state => state.currentList);
 
+  const checkArr = ['чохли', 'скло', 'навушники'];
+  const typeOrBrand =
+    data.length > 0 && checkArr.includes(stringNormalize(data[0]?.categories));
+
   const uniqueModels = data.reduce((acc, currentItem) => {
     const existingModelObject = acc.find(
       obj => obj.model === currentItem.model
@@ -57,7 +62,9 @@ const NamedGoodsList = () => {
         <CardItemWrap key={item._id}>
           <article>
             <CardLink
-              to={`/goods/${item.categories}/${item.brand}/${item.model}`}
+              to={`/goods/${item.categories}/${
+                typeOrBrand ? item.brand : item.type
+              }/${item.model}`}
               style={{}}
             >
               <img

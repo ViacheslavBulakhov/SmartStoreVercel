@@ -126,31 +126,51 @@ export const useStore = create(
       setNewGoods: async credentials => {
         try {
           const { data } = await axios.post(`/goods`, credentials);
-          console.log(data);
+
           set(state => ({
             ...state,
             goods: [...state.goods, { ...data }],
           }));
+          notifySucces('Товар успішно додано!');
         } catch (error) {
-          notifyError(error.message);
+          error.response.status === 500
+            ? notifyError('Додайте фото товару')
+            : notifyError(error.message);
         }
       },
 
-      setNewIdList: (idList = []) =>
-        set(
-          state => ({
-            ...state,
-            idList,
-          }),
-          false,
-          'setNewIdList'
-        ),
+      removeGoods: async id => {
+        try {
+          await axios.delete(`/goods/${id}`);
+          set(
+            state => ({
+              ...state,
+              goods: [...state.goods.filter(item => item._id !== id)],
+            }),
+            false,
+            'removeGoods'
+          );
+          notifySucces('Товар успішно видалено!');
+        } catch (error) {
+          notifyError();
+        }
+      },
 
       removeIdItem: id =>
         set(
           state => ({
             ...state,
             idList: state.idList.filter(item => item !== id),
+          }),
+          false,
+          'removeIdItem'
+        ),
+
+      setNewIdList: (idList = []) =>
+        set(
+          state => ({
+            ...state,
+            idList,
           }),
           false,
           'setNewIdList'
