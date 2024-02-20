@@ -18,7 +18,11 @@ import {
   notifySucces,
 } from '../../Toasters/Toasters';
 import { useStore } from '../../../zustand/store';
-import { applyDiscount, formatter } from '../../../utils';
+import {
+  applyDiscount,
+  calculateAverageRating,
+  formatter,
+} from '../../../utils';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
@@ -28,38 +32,11 @@ const GoodsCardById = ({ data }) => {
   const { getGoods } = useStore();
   let { goodsName, id, nestedId } = useParams();
 
-  const discount = parseInt(data.discount);
-  const isFavorite = data.favorites.includes(user?.id);
+  const discount = data && parseInt(data.discount);
+  const isFavorite = data && data.favorites.includes(user?.id);
+  const ratingArr = data && data.reviews.map(item => item.feedbackPoints);
 
   const { imgUrl, title, description, _id, amount } = data;
-
-  const countPositiveFeedbackPoints = () => {
-    const total = 0;
-    const good = 0;
-
-    // Розрахунок відсотка позитивного відгуку
-    const percentage = (good / total) * 100;
-
-    // Розрахунок кількості зірочок від 0 до 5
-    const stars = Math.ceil(percentage / 20);
-
-    // Перевірка, щоб не було більше 5 зірочок
-    const cappedStars = Math.min(stars, 5);
-
-    return cappedStars;
-  };
-
-  const starsCount = countPositiveFeedbackPoints();
-
-  let stars = [];
-
-  for (let i = 0; i < 5; i++) {
-    if (i < starsCount) {
-      stars.push(<FaStar key={i} size={25} color="rgb(201 183 77)" />);
-    } else {
-      stars.push(<FaStar key={i} size={25} />);
-    }
-  }
 
   const onByClick = id => {
     try {
@@ -130,7 +107,19 @@ const GoodsCardById = ({ data }) => {
           </FavoritesWrap>
         </div>
       </div>
-      <StarWrap>{stars}</StarWrap>
+      <StarWrap>
+        {[...Array(5)].map((_, index) => (
+          <FaStar
+            key={index}
+            size={25}
+            color={
+              index < calculateAverageRating(ratingArr)
+                ? 'rgb(201 183 77)'
+                : 'gray'
+            }
+          />
+        ))}
+      </StarWrap>
       <DescriptionWrap>
         <p>{description}</p>
         {discount ? (

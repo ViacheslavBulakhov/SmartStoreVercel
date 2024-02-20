@@ -3,7 +3,6 @@ import { UserStatusWrap } from '../HeaderStyled';
 import { FaUser, FaUserCheck } from 'react-icons/fa';
 import ModalPort from '../../ModalPort/ModalPort';
 import AuthModal from '../../Modals/AuthModal/AuthModal';
-// import { useStore } from '../../../zustand/store';
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../../zustand/store';
 

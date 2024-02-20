@@ -8,11 +8,12 @@ import {
   InputWrap,
   Label,
   Input,
+  TextAreaInput,
 } from '../../Modals/AuthModal/AuthModalStyled';
 import { FormWrap } from './GoodsFromStyled';
 import { useStore } from '../../../zustand/store';
-import { schema } from './yupSchema';
-import { notifyError } from '../../Toasters/Toasters';
+
+import { addGoodsSchema } from '../../../schemas';
 
 const GoodForm = () => {
   const {
@@ -20,7 +21,7 @@ const GoodForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema),
+    resolver: yupResolver(addGoodsSchema),
   });
 
   const [filters, setFilters] = useState([{ name: '', value: '' }]);
@@ -125,7 +126,7 @@ const GoodForm = () => {
 
         <InputWrap>
           <Label>Опис:</Label>
-          <textarea
+          <TextAreaInput
             style={{ width: '100%', minHeight: '120px' }}
             type="text"
             {...register('description')}

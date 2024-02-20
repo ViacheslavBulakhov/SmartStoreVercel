@@ -3,6 +3,8 @@ import styled from 'styled-components';
 
 export const AdminLink = styled(NavLink)`
   border-radius: 20px;
+
+  margin-top: 20px;
   padding: 10px 10px;
 
   font-weight: var(--fw-bold);
@@ -31,5 +33,28 @@ export const AdminLink = styled(NavLink)`
       rgba(122, 16, 124, 1) 43%,
       rgba(0, 212, 255, 1) 100%
     );
+  }
+`;
+
+export const DescriptionWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  margin: 20px 0;
+
+  width: 50%;
+
+  & > p {
+    display: block;
+    box-shadow: var(--shadow);
+    padding: 10px;
+    border-radius: 20px;
+    font-size: var(--fs-md);
+    font-weight: var(--fw-normal);
+    & > span {
+      margin-left: auto;
+      font-weight: var(--fw-bold);
+    }
   }
 `;

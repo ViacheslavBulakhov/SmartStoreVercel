@@ -4,7 +4,8 @@ import { useStore } from '../../zustand/store';
 
 import FavoriteCard from '../../components/UserComponent/FavoriteCard';
 import { useEffect } from 'react';
-import { AdminLink } from './UserPageStyled';
+import { AdminLink, DescriptionWrap } from './UserPageStyled';
+import { Container } from '../../components/Container';
 
 const UserPage = () => {
   const user = useStore(state => state.auth.user);
@@ -21,20 +22,25 @@ const UserPage = () => {
 
   return (
     user && (
-      <div>
-        <div>
-          <p>
-            Мій номер:
-            <span>{user.number}</span>
-          </p>
-          <p>
-            Mоя знижка:
-            <span>{user.personalDiscount}</span>
-          </p>
-        </div>
+      <Container>
         {user.role === 'admin' && (
           <AdminLink to={'/admin'}>Go to Admin</AdminLink>
         )}
+
+        <DescriptionWrap>
+          <p>
+            Мій номер:
+            <span> {user.number}</span>
+          </p>
+          <p>
+            Сумма моїх покупок:
+            <span> user</span>
+          </p>
+          <p>
+            Mоя знижка:
+            <span> {user.personalDiscount}%</span>
+          </p>
+        </DescriptionWrap>
 
         <div>
           <h2>Мої закладки</h2>
@@ -46,7 +52,7 @@ const UserPage = () => {
             ))}
           </ul>
         </div>
-      </div>
+      </Container>
     )
   );
 };

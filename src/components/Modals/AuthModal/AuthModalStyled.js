@@ -52,6 +52,22 @@ export const Input = styled.input`
   }
 `;
 
+export const TextAreaInput = styled.textarea`
+  width: 100%;
+  min-height: 120px;
+  max-width: 100%;
+
+  padding-left: 12px;
+  padding-right: 12px;
+
+  border: 1px solid #d2d2d2;
+  border-radius: 8px;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 export const InputContainer = styled.div`
   position: relative;
 `;

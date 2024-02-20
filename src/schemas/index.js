@@ -1,6 +1,6 @@
 import * as yup from 'yup';
 
-export const schema = yup
+export const addGoodsSchema = yup
   .object({
     categories: yup.string().required(),
     type: yup.string().required(),
@@ -15,5 +15,12 @@ export const schema = yup
       .transform(value => (isNaN(value) ? undefined : value))
       .nullable(),
     count: yup.number().positive().integer().required(),
+  })
+  .required();
+
+export const addReviewsSchema = yup
+  .object({
+    name: yup.string().required("Імя є обов'язковим полем"),
+    text: yup.string().required("Текст відгуку є обов'язковим полем"),
   })
   .required();

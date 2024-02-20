@@ -10,17 +10,17 @@ import {
   Wrap,
 } from './DetailsPageStyled';
 import { FaStar } from 'react-icons/fa';
-import {
-  AmountWrap,
-  FavoritesWrap,
-  StarWrap,
-} from '../../components/Goods/GoodsListByNestedId/GoodsCardStyled';
+import { StarWrap } from '../../components/Goods/GoodsListByNestedId/GoodsCardStyled';
 import { FcDislike, FcLike } from 'react-icons/fc';
 import { useStore } from '../../zustand/store';
-import { applyDiscount, formatter } from '../../utils';
+import { applyDiscount, calculateAverageRating, formatter } from '../../utils';
+import ModalPort from '../../components/ModalPort/ModalPort';
+import ReviewsForm from '../../components/Modals/ReviewsForm/ReviewsForm';
 
 const DetailsPage = () => {
-  const [data, setData] = useState('');
+  const [data, setData] = useState(null);
+  const [isShowModal, setIsShowModal] = useState(false);
+
   const user = useStore(state => state.auth.user);
   const { getGoods } = useStore();
 
@@ -39,6 +39,8 @@ const DetailsPage = () => {
     };
     getData();
   }, []);
+
+  const toggleModal = () => setIsShowModal(prev => !prev);
 
   const handleFavorite = async id => {
     try {
@@ -63,105 +65,123 @@ const DetailsPage = () => {
   };
 
   const isFavorite = user ? data.favorites.includes(user?.id) : false;
-  const discount = parseInt(data.discount);
+  const discount = data && parseInt(data.discount);
+  const ratingArr = data && data.reviews.map(item => item.feedbackPoints);
 
   return (
-    <Container>
-      <h2>{data.title}</h2>
+    data && (
+      <>
+        <Container>
+          <h2>{data.title}</h2>
 
-      <Wrap>
-        <div style={{ width: '50%' }}>
-          <img
-            src={data.imgUrl}
-            alt={data.title}
-            width={'100%'}
-            height={'auto'}
-          />
-        </div>
-
-        <div style={{ width: '50%', padding: '20px' }}>
-          <ReviewsBox>
-            <ReviewsWrap>
-              <StarWrap>
-                <FaStar size={25} color="rgb(201 183 77)" />
-                <FaStar size={25} color="rgb(201 183 77)" />
-                <FaStar size={25} color="rgb(201 183 77)" />
-                <FaStar size={25} color="rgb(201 183 77)" />
-                <FaStar size={25} />
-              </StarWrap>
-
-              <TextDescription>
-                Відгуки: <span>{`(count)`}</span>
-              </TextDescription>
-            </ReviewsWrap>
-
-            <div
-              style={{ cursor: 'pointer' }}
-              onClick={() => handleFavorite(data._id)}
-            >
-              {isFavorite ? <FcLike size={30} /> : <FcDislike size={30} />}
+          <Wrap>
+            <div style={{ width: '50%' }}>
+              <img
+                src={data.imgUrl}
+                alt={data.title}
+                width={'100%'}
+                height={'auto'}
+              />
             </div>
-          </ReviewsBox>
 
-          <ReviewsBox>
-            <TextDescription>
-              Модель: <span>{`${data.model}`}</span>
-            </TextDescription>
-            {discount ? (
-              <div>
+            <div style={{ width: '50%', padding: '20px' }}>
+              <ReviewsBox>
+                <ReviewsWrap>
+                  <StarWrap>
+                    {[...Array(5)].map((_, index) => (
+                      <FaStar
+                        key={index}
+                        size={25}
+                        color={
+                          index < calculateAverageRating(ratingArr)
+                            ? 'rgb(201 183 77)'
+                            : 'gray'
+                        }
+                      />
+                    ))}
+                  </StarWrap>
+
+                  <TextDescription>
+                    Відгуки: <span>{`(count)`}</span>
+                  </TextDescription>
+                </ReviewsWrap>
+
+                <div
+                  style={{ cursor: 'pointer' }}
+                  onClick={() => handleFavorite(data._id)}
+                >
+                  {isFavorite ? <FcLike size={30} /> : <FcDislike size={30} />}
+                </div>
+              </ReviewsBox>
+
+              <ReviewsBox>
                 <TextDescription>
-                  Вартість:<span>{formatter.format(data.amount)}</span>
+                  Модель: <span>{`${data.model}`}</span>
                 </TextDescription>
-                <TextDescription>
-                  Вартість:
-                  <span>
-                    {formatter.format(applyDiscount(data.amount, discount))}
-                  </span>
-                </TextDescription>
-              </div>
-            ) : (
-              <div>
-                <TextDescription>
-                  Вартість: <span>{formatter.format(data.amount)}</span>
-                </TextDescription>
-              </div>
-            )}
-          </ReviewsBox>
-        </div>
-      </Wrap>
+                {discount ? (
+                  <div>
+                    <TextDescription>
+                      Вартість:<span>{formatter.format(data.amount)}</span>
+                    </TextDescription>
+                    <TextDescription>
+                      Вартість:
+                      <span>
+                        {formatter.format(applyDiscount(data.amount, discount))}
+                      </span>
+                    </TextDescription>
+                  </div>
+                ) : (
+                  <div>
+                    <TextDescription>
+                      Вартість: <span>{formatter.format(data.amount)}</span>
+                    </TextDescription>
+                  </div>
+                )}
+              </ReviewsBox>
+            </div>
+          </Wrap>
 
-      <div>
-        <nav>
-          <a rel="stylesheet" href="">
-            Характеристики
-          </a>
-          <a rel="stylesheet" href="">
-            Відгуків
-          </a>
-        </nav>
-        <div>
-          <h2>Опис Товару</h2>
+          <div>
+            <nav>
+              <a rel="stylesheet" href="">
+                Характеристики
+              </a>
+              <a rel="stylesheet" href="">
+                Відгуків
+              </a>
+            </nav>
+            <div>
+              <h2>Опис Товару</h2>
 
-          <h4>{data.title}</h4>
-          <p>{data.description}</p>
-        </div>
-        <div>
-          <h2>Характеристики</h2>
+              <h4>{data.title}</h4>
+              <p>{data.description}</p>
+            </div>
+            <div>
+              <h2>Характеристики</h2>
 
-          <h4>{data.title}</h4>
-          <p>перебрати фільтри</p>
-        </div>
-        <div>
-          <h2>
-            Відгуки<span>count</span>
-          </h2>
-          <ul>
-            <li>карти відгуків</li>
-          </ul>
-          <button type="button">Додати відгук</button>
-        </div>
-      </div>
-    </Container>
+              <h4>{data.title}</h4>
+              <p>перебрати фільтри</p>
+            </div>
+            <div>
+              <h2>
+                Відгуки<span>count</span>
+              </h2>
+              <ul>
+                <li>карти відгуків</li>
+              </ul>
+              <button type="button" onClick={toggleModal}>
+                Додати відгук
+              </button>
+            </div>
+          </div>
+        </Container>
+        {isShowModal && (
+          <ModalPort toggleModal={toggleModal}>
+            <ReviewsForm toggleModal={toggleModal} data={data} />
+          </ModalPort>
+        )}
+      </>
+    )
   );
 };
 
