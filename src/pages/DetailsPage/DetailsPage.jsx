@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { notifyError, notifySucces } from '../../components/Toasters/Toasters';
 import {
+  AddReviewsBtn,
+  CrossSpan,
   ReviewsBox,
   ReviewsWrap,
   TextDescription,
@@ -16,6 +18,7 @@ import { useStore } from '../../zustand/store';
 import { applyDiscount, calculateAverageRating, formatter } from '../../utils';
 import ModalPort from '../../components/ModalPort/ModalPort';
 import ReviewsForm from '../../components/Modals/ReviewsForm/ReviewsForm';
+import ReviewsCard from '../../components/DetailsComponent/ReviewsCard/ReviewsCard';
 
 const DetailsPage = () => {
   const [data, setData] = useState(null);
@@ -102,7 +105,7 @@ const DetailsPage = () => {
                   </StarWrap>
 
                   <TextDescription>
-                    Відгуки: <span>{`(count)`}</span>
+                    Відгуки: <span>{ratingArr.length}</span>
                   </TextDescription>
                 </ReviewsWrap>
 
@@ -121,13 +124,11 @@ const DetailsPage = () => {
                 {discount ? (
                   <div>
                     <TextDescription>
-                      Вартість:<span>{formatter.format(data.amount)}</span>
-                    </TextDescription>
-                    <TextDescription>
                       Вартість:
-                      <span>
+                      <CrossSpan>
                         {formatter.format(applyDiscount(data.amount, discount))}
-                      </span>
+                      </CrossSpan>{' '}
+                      <span>{formatter.format(data.amount)}</span>
                     </TextDescription>
                   </div>
                 ) : (
@@ -138,40 +139,41 @@ const DetailsPage = () => {
                   </div>
                 )}
               </ReviewsBox>
+
+              <div>
+                <h2>Опис Товару</h2>
+
+                <h4>{data.title}</h4>
+                <p>{data.description}</p>
+              </div>
+              <div>
+                <h2>Характеристики</h2>
+
+                <h4>{data.title}</h4>
+                <p>фільтри</p>
+              </div>
             </div>
           </Wrap>
 
           <div>
-            <nav>
-              <a rel="stylesheet" href="">
-                Характеристики
-              </a>
-              <a rel="stylesheet" href="">
-                Відгуків
-              </a>
-            </nav>
             <div>
-              <h2>Опис Товару</h2>
+              <div
+                style={{ display: 'flex', alignItems: 'center', gap: '20px' }}
+              >
+                <h2>
+                  Відгуки:<span> {ratingArr.length}</span>
+                </h2>
 
-              <h4>{data.title}</h4>
-              <p>{data.description}</p>
-            </div>
-            <div>
-              <h2>Характеристики</h2>
+                <AddReviewsBtn type="button" onClick={toggleModal}>
+                  Додати відгук
+                </AddReviewsBtn>
+              </div>
 
-              <h4>{data.title}</h4>
-              <p>перебрати фільтри</p>
-            </div>
-            <div>
-              <h2>
-                Відгуки<span>count</span>
-              </h2>
               <ul>
-                <li>карти відгуків</li>
+                {data.reviews.map(item => (
+                  <ReviewsCard key={item._id} item={item} />
+                ))}
               </ul>
-              <button type="button" onClick={toggleModal}>
-                Додати відгук
-              </button>
             </div>
           </div>
         </Container>
