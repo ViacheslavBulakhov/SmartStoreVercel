@@ -9,8 +9,6 @@ export const ReviewsCardWrap = styled.li`
   display: flex;
   gap: 20px;
 
-  margin-top: 20px;
-
   & > div:first-child {
     display: flex;
     flex-direction: column;

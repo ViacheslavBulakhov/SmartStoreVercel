@@ -5,12 +5,19 @@ import { ReviewsCardWrap } from './ReviewsCardStyled';
 
 /* eslint-disable react/prop-types */
 const ReviewsCard = ({ item }) => {
+  const dateObject = new Date(item.date);
+  const day = dateObject.getDate().toString().padStart(2, '0');
+  const month = (dateObject.getMonth() + 1).toString().padStart(2, '0');
+  const year = dateObject.getFullYear();
+
+  const formattedDate = `${day}.${month}.${year}`;
+
   return (
     <ReviewsCardWrap>
       <div>
         <RiUserVoiceFill size={'50px'} />
         <h3>{item.name}</h3>
-        <span>date</span>
+        <span>{formattedDate}</span>
         <StarWrap>
           {[...Array(5)].map((_, index) => (
             <FaStar

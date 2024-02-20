@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Container } from '../../components/Container';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -6,7 +6,11 @@ import { notifyError, notifySucces } from '../../components/Toasters/Toasters';
 import {
   AddReviewsBtn,
   CrossSpan,
+  DetailPageTitle,
+  ReviewsActionWrap,
   ReviewsBox,
+  ReviewsLink,
+  ReviewsList,
   ReviewsWrap,
   TextDescription,
   Wrap,
@@ -25,10 +29,10 @@ const DetailsPage = () => {
   const [isShowModal, setIsShowModal] = useState(false);
 
   const user = useStore(state => state.auth.user);
-  const { getGoods } = useStore();
 
   const { goodsId } = useParams();
   const navigate = useNavigate();
+  const reviewsRef = useRef(null);
 
   useEffect(() => {
     const getData = async () => {
@@ -49,7 +53,7 @@ const DetailsPage = () => {
     try {
       const result = await axios.patch(`goods/${id}/favorite`);
 
-      if (result.status === 200) getGoods();
+      if (result.status === 200) setData(result.data);
 
       if (result.data.favorites.includes(user.id)) {
         notifySucces('Товар успішно додано до закладок!');
@@ -67,7 +71,7 @@ const DetailsPage = () => {
     }
   };
 
-  const isFavorite = user ? data.favorites.includes(user?.id) : false;
+  const isFavorite = data && user ? data.favorites.includes(user?.id) : false;
   const discount = data && parseInt(data.discount);
   const ratingArr = data && data.reviews.map(item => item.feedbackPoints);
 
@@ -75,7 +79,7 @@ const DetailsPage = () => {
     data && (
       <>
         <Container>
-          <h2>{data.title}</h2>
+          <DetailPageTitle>{data.title}</DetailPageTitle>
 
           <Wrap>
             <div style={{ width: '50%' }}>
@@ -87,7 +91,12 @@ const DetailsPage = () => {
               />
             </div>
 
-            <div style={{ width: '50%', padding: '20px' }}>
+            <div
+              style={{
+                width: '50%',
+                padding: '20px',
+              }}
+            >
               <ReviewsBox>
                 <ReviewsWrap>
                   <StarWrap>
@@ -104,9 +113,13 @@ const DetailsPage = () => {
                     ))}
                   </StarWrap>
 
-                  <TextDescription>
+                  <ReviewsLink
+                    onClick={() =>
+                      reviewsRef.current.scrollIntoView({ behavior: 'smooth' })
+                    }
+                  >
                     Відгуки: <span>{ratingArr.length}</span>
-                  </TextDescription>
+                  </ReviewsLink>
                 </ReviewsWrap>
 
                 <div
@@ -157,9 +170,7 @@ const DetailsPage = () => {
 
           <div>
             <div>
-              <div
-                style={{ display: 'flex', alignItems: 'center', gap: '20px' }}
-              >
+              <ReviewsActionWrap ref={reviewsRef}>
                 <h2>
                   Відгуки:<span> {ratingArr.length}</span>
                 </h2>
@@ -167,13 +178,13 @@ const DetailsPage = () => {
                 <AddReviewsBtn type="button" onClick={toggleModal}>
                   Додати відгук
                 </AddReviewsBtn>
-              </div>
+              </ReviewsActionWrap>
 
-              <ul>
+              <ReviewsList>
                 {data.reviews.map(item => (
                   <ReviewsCard key={item._id} item={item} />
                 ))}
-              </ul>
+              </ReviewsList>
             </div>
           </div>
         </Container>

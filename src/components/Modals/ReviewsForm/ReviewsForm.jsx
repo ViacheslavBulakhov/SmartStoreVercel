@@ -43,7 +43,7 @@ const ReviewsForm = ({ toggleModal, data }) => {
       return;
     }
     await axios.put(`/goods/addReviews/${data._id}`, {
-      reviews: { ...credentials, feedbackPoints: rating },
+      reviews: { ...credentials, feedbackPoints: rating, date: new Date() },
     });
   };
 
