@@ -8,7 +8,7 @@ const AddPhoto = ({ setPhoto }) => {
 
   const onDrop = useCallback(
     acceptedFiles => {
-      console.log(acceptedFiles[0]);
+      console.log(acceptedFiles);
       setSelectedFile(acceptedFiles[0]);
       setPhoto(acceptedFiles[0]);
     },

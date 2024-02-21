@@ -14,6 +14,7 @@ import { FormWrap } from './GoodsFromStyled';
 import { useStore } from '../../../zustand/store';
 
 import { addGoodsSchema } from '../../../schemas';
+import AddExtraPhoto from '../addExtraPhoto/AddExtraPhoto';
 
 const GoodForm = () => {
   const {
@@ -26,6 +27,7 @@ const GoodForm = () => {
 
   const [filters, setFilters] = useState([{ name: '', value: '' }]);
   const [photo, setPhoto] = useState(null);
+  const [extraPhotos, setExtraPhotos] = useState([]);
 
   const { setNewGoods } = useStore();
 
@@ -54,6 +56,11 @@ const GoodForm = () => {
       photo && formData.append('img', photo);
     }
 
+    {
+      extraPhotos.length > 0 &&
+        extraPhotos.map(({ file }) => formData.append('extraPhotos', file));
+    }
+
     Object.entries(newData).forEach(([key, value]) => {
       if (Array.isArray(value)) {
         const jsonValue = JSON.stringify(value);
@@ -75,55 +82,46 @@ const GoodForm = () => {
           <Input type="text" {...register('categories', { required: true })} />
           {errors.categories && <span>{errors.categories.message}</span>}
         </InputWrap>
-
         <InputWrap>
           <Label>Тип:</Label>
           <Input type="text" {...register('type', { required: true })} />
           {errors.type && <span>{errors.type.message}</span>}
         </InputWrap>
-
         <InputWrap>
           <Label>Бренд:</Label>
           <Input type="text" {...register('brand', { required: true })} />
           {errors.brand && <span>{errors.brand.message}</span>}
         </InputWrap>
-
         <InputWrap>
           <Label>Назва\Заголовок:</Label>
           <Input type="text" {...register('title', { required: true })} />
           {errors.title && <span>{errors.title.message}</span>}
         </InputWrap>
-
         <InputWrap>
           <Label>Модель:</Label>
           <Input type="text" {...register('model')} />
         </InputWrap>
-
         <InputWrap>
           <Label>Виробник:</Label>
           <Input type="text" {...register('maker')} />
         </InputWrap>
-
         <InputWrap>
           <Label>Вартість:</Label>
           <Input type="text" {...register('amount', { required: true })} />
           {errors.amount && <span>{errors.amount.message}</span>}
         </InputWrap>
-
         <InputWrap>
           <Label>Знижка:</Label>
           <Input type="number" {...register('discount')} />
           {errors.discount && <span>{errors.discount.message}</span>}
         </InputWrap>
-
         <InputWrap>
           <Label>Кількість:</Label>
           <Input type="number" {...register('count')} />
           {errors.count && <span>{errors.count.message}</span>}
         </InputWrap>
-
         <AddPhoto setPhoto={setPhoto} />
-
+        <AddExtraPhoto setExtraPhotos={setExtraPhotos} />
         <InputWrap>
           <Label>Опис:</Label>
           <TextAreaInput
@@ -132,7 +130,6 @@ const GoodForm = () => {
             {...register('description')}
           />
         </InputWrap>
-
         {filters.map((filter, index) => (
           <InputWrap key={index}>
             <Label>Назва Фільтру:</Label>
@@ -149,11 +146,9 @@ const GoodForm = () => {
             />
           </InputWrap>
         ))}
-
         <button type="button" onClick={addFilter}>
           Додати фільтр
         </button>
-
         <button type="submit">Створити</button>
       </Form>
     </FormWrap>
