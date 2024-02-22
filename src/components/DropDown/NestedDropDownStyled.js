@@ -12,8 +12,10 @@ export const NestedDropdownList = styled.ul`
   position: absolute;
   top: 0;
 
+  min-height: 300px;
   height: 100%;
 
+  min-width: 200px;
   width: max-content;
   max-width: calc(150px * 3 + 6px);
   flex-direction: column;
@@ -35,6 +37,7 @@ export const NestedDropdownItem = styled.li`
   text-decoration: none;
 
   color: var(--color-text);
+  width: 100%;
 
   &:hover {
     background-color: hsl(0deg 7.6% 81.25% / 38%);

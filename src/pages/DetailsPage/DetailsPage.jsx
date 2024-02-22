@@ -23,6 +23,7 @@ import { applyDiscount, calculateAverageRating, formatter } from '../../utils';
 import ModalPort from '../../components/ModalPort/ModalPort';
 import ReviewsForm from '../../components/Modals/ReviewsForm/ReviewsForm';
 import ReviewsCard from '../../components/DetailsComponent/ReviewsCard/ReviewsCard';
+import ImageCarousel from '../../components/DetailsComponent/ImageCarousel/ImageCarousel';
 
 const DetailsPage = () => {
   const [data, setData] = useState(null);
@@ -82,14 +83,7 @@ const DetailsPage = () => {
           <DetailPageTitle>{data.title}</DetailPageTitle>
 
           <Wrap>
-            <div style={{ width: '50%' }}>
-              <img
-                src={data.imgUrl}
-                alt={data.title}
-                width={'100%'}
-                height={'auto'}
-              />
-            </div>
+            <ImageCarousel data={data}></ImageCarousel>
 
             <div
               style={{
