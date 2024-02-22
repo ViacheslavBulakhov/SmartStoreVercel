@@ -74,7 +74,7 @@ const NamedGoodsList = () => {
                 height="100px"
                 loading="lazy"
               />
-              <h3>{`${item.categories} ${item.brand}`}</h3>
+              <h3>{`${!typeOrBrand ? item.type : ''} ${item.brand}`}</h3>
               <h4>{item.model}</h4>
             </CardLink>
           </article>
