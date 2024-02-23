@@ -1,10 +1,10 @@
-import axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
-import slideImg1 from "../../assets/photo.jpg";
+import axios from 'axios';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import slideImg1 from '../../assets/photo.jpg';
 
-import Slider from "react-slick";
-import styled from "styled-components";
+import Slider from 'react-slick';
+import styled from 'styled-components';
 
 const IMG = styled.img`
   width: 1170px;
@@ -31,7 +31,7 @@ var settings = {
   pauseOnHover: true,
   pauseOnFocus: true,
   pauseOnDotsHover: true,
-  dotsClass: "slick-dots slick-dotka",
+  dotsClass: 'slick-dots slick-dotka',
   arrows: false,
   swipeToSlide: true,
   adaptiveHeight: true,
@@ -41,19 +41,20 @@ export const SalesPosts = () => {
   const [imgData, setImgData] = useState([]);
 
   useEffect(() => {
-    if (!imgData.length)
-      axios
-        .get("https://picsum.photos/v2/list")
-        .then(({ data }) => setImgData(data));
-    // eslint-disable-next-line
-  }, []);
+    if (!imgData.length) {
+      fetch('https://picsum.photos/v2/list')
+        .then(response => response.json())
+        .then(data => setImgData(data))
+        .catch(error => console.error('Error fetching data:', error));
+    }
+  }, [imgData]);
   const data = imgData.length ? imgData.slice(0, 4) : [];
 
   return (
     <SliderWrap>
       <Slider {...settings}>
         <IMG src={slideImg1} />
-        {data.map((item) => {
+        {data.map(item => {
           return (
             <SalePostImgWrap key={item}>
               <IMG src={`${item.download_url}`} />
