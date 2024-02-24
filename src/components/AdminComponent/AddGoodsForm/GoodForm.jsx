@@ -1,4 +1,5 @@
-import { useState } from 'react';
+/* eslint-disable react/prop-types */
+import { useState, useMemo, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import AddPhoto from '../AddPhoto/AddPhoto';
@@ -15,14 +16,41 @@ import { useStore } from '../../../zustand/store';
 
 import { addGoodsSchema } from '../../../schemas';
 import AddExtraPhoto from '../addExtraPhoto/AddExtraPhoto';
+import axios from 'axios';
 
-const GoodForm = () => {
+const GoodForm = ({ data }) => {
+  const initialValues = data
+    ? {
+        categories: data.categories,
+
+        type: data.type,
+
+        brand: data.brand,
+
+        title: data.title,
+
+        model: data.model,
+
+        maker: data.maker,
+
+        amount: data.amount,
+
+        discount: data.discount,
+
+        count: data.count,
+
+        description: data.description,
+      }
+    : {};
+
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     resolver: yupResolver(addGoodsSchema),
+    defaultValues: initialValues,
   });
 
   const [filters, setFilters] = useState([{ name: '', value: '' }]);
@@ -47,8 +75,8 @@ const GoodForm = () => {
     setFilters(newFilters);
   };
 
-  const onSubmit = async data => {
-    const newData = { ...data, filters };
+  const onSubmit = async formInputsData => {
+    const newData = { ...formInputsData, filters };
 
     const formData = new FormData();
 
@@ -58,7 +86,11 @@ const GoodForm = () => {
 
     {
       extraPhotos.length > 0 &&
-        extraPhotos.map(({ file }) => formData.append('extraPhotos', file));
+        extraPhotos.map(item => {
+          item.file
+            ? formData.append('extraPhotos', item.file)
+            : formData.append('oldExtraPhotos', item.id);
+        });
     }
 
     Object.entries(newData).forEach(([key, value]) => {
@@ -71,7 +103,12 @@ const GoodForm = () => {
       }
     });
 
-    setNewGoods(formData);
+    const update = async (formData, id) => {
+      const result = await axios.put(`/goods/${id}`, formData);
+    };
+
+    data ? update(formData, data._id) : setNewGoods(formData);
+    // reset();
   };
 
   return (
@@ -120,8 +157,11 @@ const GoodForm = () => {
           <Input type="number" {...register('count')} />
           {errors.count && <span>{errors.count.message}</span>}
         </InputWrap>
-        <AddPhoto setPhoto={setPhoto} />
-        <AddExtraPhoto setExtraPhotos={setExtraPhotos} />
+        <AddPhoto setPhoto={setPhoto} imgUrl={data && data?.imgUrl} />
+        <AddExtraPhoto
+          setExtraPhotos={setExtraPhotos}
+          extraPhotosfromData={data && data?.extraPhotos}
+        />
         <InputWrap>
           <Label>Опис:</Label>
           <TextAreaInput

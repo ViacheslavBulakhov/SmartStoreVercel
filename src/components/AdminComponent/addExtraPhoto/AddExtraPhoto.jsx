@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { PhotoContainer } from '../AddPhoto/AddPhotoStyled';
 
@@ -10,7 +10,7 @@ const photosListStyle = {
   flexWrap: 'wrap',
 };
 
-const AddExtraPhoto = ({ setExtraPhotos }) => {
+const AddExtraPhoto = ({ setExtraPhotos, extraPhotosfromData }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const onDrop = useCallback(acceptedFiles => {
@@ -29,6 +29,18 @@ const AddExtraPhoto = ({ setExtraPhotos }) => {
     setExtraPhotos(selectedFiles);
   }, [selectedFiles, setExtraPhotos]);
 
+  useEffect(() => {
+    if (extraPhotosfromData) {
+      setSelectedFiles(prev => {
+        const existingFileIds = new Set(prev.map(photo => photo.id));
+        const newFiles = extraPhotosfromData.filter(
+          photo => !existingFileIds.has(photo.id)
+        );
+        return [...prev, ...newFiles];
+      });
+    }
+  }, [extraPhotosfromData]);
+
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
@@ -37,7 +49,11 @@ const AddExtraPhoto = ({ setExtraPhotos }) => {
         {selectedFiles.length > 0 &&
           selectedFiles.map(photo => (
             <div key={photo.id}>
-              <PhotoContainer src={URL.createObjectURL(photo.file)} />
+              {photo?.url ? (
+                <PhotoContainer src={photo.url} />
+              ) : (
+                <PhotoContainer src={URL.createObjectURL(photo.file)} />
+              )}
               <button type="button" onClick={() => removePhoto(photo.id)}>
                 Видалити
               </button>

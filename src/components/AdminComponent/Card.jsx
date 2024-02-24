@@ -11,6 +11,8 @@ import {
 } from '../Goods/GoodsListByNestedId/GoodsCardStyled';
 import styled from 'styled-components';
 import { useStore } from '../../zustand/store';
+import UpdateGoods from './UpdateGoods/UpdateGoods';
+import { useState } from 'react';
 
 const ChoiseWrap = styled.div`
   border: var(--border-base);
@@ -28,10 +30,17 @@ const ChoiseWrap = styled.div`
 `;
 
 const Card = ({ data }) => {
-  const { imgUrl, title, amount, discount = 0, _id, description } = data;
+  const [isUpdate, setIsUpdate] = useState(false);
   const { removeGoods } = useStore();
+
+  const { imgUrl, title, amount, discount = 0, _id, description } = data;
+
   const deletteItem = async () => {
     removeGoods(_id);
+  };
+
+  const toggleModal = () => {
+    setIsUpdate(prev => !prev);
   };
 
   function applyDiscount(amount, discountPercent) {
@@ -80,41 +89,44 @@ const Card = ({ data }) => {
   }
 
   return (
-    <CardItemWrap>
-      <ChoiseWrap>
-        <RiDeleteBin5Fill size={'25px'} onClick={deletteItem} />
-        <RiEdit2Fill size={'25px'} />
-      </ChoiseWrap>
+    <>
+      <CardItemWrap>
+        <ChoiseWrap>
+          <RiDeleteBin5Fill size={'25px'} onClick={deletteItem} />
+          <RiEdit2Fill size={'25px'} onClick={toggleModal} />
+        </ChoiseWrap>
 
-      <div>
-        <CardLink>
-          <img src={imgUrl} alt="" width="200px" height="200px" />
-          <h3>{title}</h3>
+        <div>
+          <CardLink>
+            <img src={imgUrl} alt="" width="200px" height="200px" />
+            <h3>{title}</h3>
 
-          {discount > 0 && (
-            <div>
-              <span>-{discount}%</span>
-              <span>Акція</span>
-            </div>
+            {discount > 0 && (
+              <div>
+                <span>-{discount}%</span>
+                <span>Акція</span>
+              </div>
+            )}
+          </CardLink>
+        </div>
+        <StarWrap>{stars}</StarWrap>
+        <DescriptionWrap>
+          <p>{description}</p>
+          {discount ? (
+            <AmountWrap>
+              <span>{amount}.00₴</span>
+              <span>{applyDiscount(amount, discount)}.00₴</span>
+            </AmountWrap>
+          ) : (
+            <AmountWrap>
+              <span></span>
+              <span>{amount}.00₴</span>
+            </AmountWrap>
           )}
-        </CardLink>
-      </div>
-      <StarWrap>{stars}</StarWrap>
-      <DescriptionWrap>
-        <p>{description}</p>
-        {discount ? (
-          <AmountWrap>
-            <span>{amount}.00₴</span>
-            <span>{applyDiscount(amount, discount)}.00₴</span>
-          </AmountWrap>
-        ) : (
-          <AmountWrap>
-            <span></span>
-            <span>{amount}.00₴</span>
-          </AmountWrap>
-        )}
-      </DescriptionWrap>
-    </CardItemWrap>
+        </DescriptionWrap>
+      </CardItemWrap>
+      {isUpdate && <UpdateGoods toggleModal={toggleModal} data={data} />}
+    </>
   );
 };
 

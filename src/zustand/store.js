@@ -10,8 +10,8 @@ import {
   notifySucces,
 } from '../components/Toasters/Toasters';
 
-axios.defaults.baseURL = 'https://smartstoredev.onrender.com/api';
-// axios.defaults.baseURL = 'http://localhost:3000/api';
+// axios.defaults.baseURL = 'https://smartstoredev.onrender.com/api';
+axios.defaults.baseURL = 'http://localhost:3000/api';
 
 export const token = {
   set(token) {
