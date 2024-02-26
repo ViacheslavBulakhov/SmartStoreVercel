@@ -53,12 +53,14 @@ const GoodForm = ({ data }) => {
     defaultValues: initialValues,
   });
 
-  const [filters, setFilters] = useState([{ name: '', value: '' }]);
+  const [filters, setFilters] = useState(() =>
+    data && data?.filters ? data.filters : [{ name: '', value: '' }]
+  );
   const [photo, setPhoto] = useState(null);
   const [extraPhotos, setExtraPhotos] = useState([]);
+  const [extraPhotosForDelete, setExtraPhotosForDelete] = useState([]);
 
   const { setNewGoods } = useStore();
-
   const addFilter = () => {
     setFilters([...filters, { name: '', value: '' }]);
   };
@@ -76,21 +78,28 @@ const GoodForm = ({ data }) => {
   };
 
   const onSubmit = async formInputsData => {
-    const newData = { ...formInputsData, filters };
+    const newData = { ...formInputsData };
 
+    if (filters.length === 0) {
+      newData.filters = [{ name: '', value: '' }];
+    } else {
+      newData.filters = filters;
+    }
+    console.log(newData);
     const formData = new FormData();
 
-    {
-      photo && formData.append('img', photo);
+    photo && formData.append('img', photo);
+
+    if (extraPhotos.length > 0) {
+      for (let photo of extraPhotos) {
+        photo.file && formData.append('extraPhotos', photo.file);
+      }
     }
 
-    {
-      extraPhotos.length > 0 &&
-        extraPhotos.map(item => {
-          item.file
-            ? formData.append('extraPhotos', item.file)
-            : formData.append('oldExtraPhotos', item.id);
-        });
+    if (extraPhotosForDelete.length > 0) {
+      for (let photoId of extraPhotosForDelete) {
+        formData.append('extraPhotosForDelete', photoId);
+      }
     }
 
     Object.entries(newData).forEach(([key, value]) => {
@@ -157,11 +166,19 @@ const GoodForm = ({ data }) => {
           <Input type="number" {...register('count')} />
           {errors.count && <span>{errors.count.message}</span>}
         </InputWrap>
+
+        {/* add photo -------------*/}
+
         <AddPhoto setPhoto={setPhoto} imgUrl={data && data?.imgUrl} />
+
+        {/* add extra photo --------------*/}
+
         <AddExtraPhoto
           setExtraPhotos={setExtraPhotos}
           extraPhotosfromData={data && data?.extraPhotos}
+          setExtraPhotosForDelete={setExtraPhotosForDelete}
         />
+
         <InputWrap>
           <Label>Опис:</Label>
           <TextAreaInput
@@ -170,6 +187,7 @@ const GoodForm = ({ data }) => {
             {...register('description')}
           />
         </InputWrap>
+
         {filters.map((filter, index) => (
           <InputWrap key={index}>
             <Label>Назва Фільтру:</Label>
@@ -184,11 +202,27 @@ const GoodForm = ({ data }) => {
               value={filter.value}
               onChange={e => onFilterValueChange(index, e)}
             />
+
+            <button
+              type="button"
+              style={{ maxWidth: '200px' }}
+              onClick={() =>
+                setFilters(prev => [
+                  ...prev.filter(
+                    item =>
+                      item.name !== filter.name && item.value !== filter.value
+                  ),
+                ])
+              }
+            >
+              Видалити Фільтр
+            </button>
           </InputWrap>
         ))}
         <button type="button" onClick={addFilter}>
           Додати фільтр
         </button>
+
         <button type="submit">Створити</button>
       </Form>
     </FormWrap>

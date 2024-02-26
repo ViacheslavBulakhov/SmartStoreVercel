@@ -10,7 +10,11 @@ const photosListStyle = {
   flexWrap: 'wrap',
 };
 
-const AddExtraPhoto = ({ setExtraPhotos, extraPhotosfromData }) => {
+const AddExtraPhoto = ({
+  setExtraPhotos,
+  extraPhotosfromData,
+  setExtraPhotosForDelete,
+}) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
   const onDrop = useCallback(acceptedFiles => {
@@ -23,6 +27,9 @@ const AddExtraPhoto = ({ setExtraPhotos, extraPhotosfromData }) => {
 
   const removePhoto = id => {
     setSelectedFiles(prev => prev.filter(photo => photo.id !== id));
+    if (extraPhotosfromData.map(item => item.id).includes(id)) {
+      setExtraPhotosForDelete(prev => [...prev, id]);
+    }
   };
 
   useEffect(() => {
