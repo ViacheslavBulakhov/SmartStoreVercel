@@ -17,6 +17,7 @@ import { useStore } from '../../../zustand/store';
 import { addGoodsSchema } from '../../../schemas';
 import AddExtraPhoto from '../addExtraPhoto/AddExtraPhoto';
 import axios from 'axios';
+import { HashLoader } from 'react-spinners';
 
 const GoodForm = ({ data }) => {
   const initialValues = data
@@ -60,7 +61,8 @@ const GoodForm = ({ data }) => {
   const [extraPhotos, setExtraPhotos] = useState([]);
   const [extraPhotosForDelete, setExtraPhotosForDelete] = useState([]);
 
-  const { setNewGoods } = useStore();
+  const { setNewGoods, updateGoods } = useStore();
+  const isLoading = useStore(store => store.isLoading);
   const addFilter = () => {
     setFilters([...filters, { name: '', value: '' }]);
   };
@@ -85,7 +87,6 @@ const GoodForm = ({ data }) => {
     } else {
       newData.filters = filters;
     }
-    console.log(newData);
     const formData = new FormData();
 
     photo && formData.append('img', photo);
@@ -112,120 +113,139 @@ const GoodForm = ({ data }) => {
       }
     });
 
-    const update = async (formData, id) => {
-      const result = await axios.put(`/goods/${id}`, formData);
-    };
-
-    data ? update(formData, data._id) : setNewGoods(formData);
-    // reset();
+    data ? updateGoods(data._id, formData) : setNewGoods(formData);
+    data ? console.log('update') : reset();
   };
 
   return (
-    <FormWrap>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <InputWrap>
-          <Label>Категорія:</Label>
-          <Input type="text" {...register('categories', { required: true })} />
-          {errors.categories && <span>{errors.categories.message}</span>}
-        </InputWrap>
-        <InputWrap>
-          <Label>Тип:</Label>
-          <Input type="text" {...register('type', { required: true })} />
-          {errors.type && <span>{errors.type.message}</span>}
-        </InputWrap>
-        <InputWrap>
-          <Label>Бренд:</Label>
-          <Input type="text" {...register('brand', { required: true })} />
-          {errors.brand && <span>{errors.brand.message}</span>}
-        </InputWrap>
-        <InputWrap>
-          <Label>Назва\Заголовок:</Label>
-          <Input type="text" {...register('title', { required: true })} />
-          {errors.title && <span>{errors.title.message}</span>}
-        </InputWrap>
-        <InputWrap>
-          <Label>Модель:</Label>
-          <Input type="text" {...register('model')} />
-        </InputWrap>
-        <InputWrap>
-          <Label>Виробник:</Label>
-          <Input type="text" {...register('maker')} />
-        </InputWrap>
-        <InputWrap>
-          <Label>Вартість:</Label>
-          <Input type="text" {...register('amount', { required: true })} />
-          {errors.amount && <span>{errors.amount.message}</span>}
-        </InputWrap>
-        <InputWrap>
-          <Label>Знижка:</Label>
-          <Input type="number" {...register('discount')} />
-          {errors.discount && <span>{errors.discount.message}</span>}
-        </InputWrap>
-        <InputWrap>
-          <Label>Кількість:</Label>
-          <Input type="number" {...register('count')} />
-          {errors.count && <span>{errors.count.message}</span>}
-        </InputWrap>
-
-        {/* add photo -------------*/}
-
-        <AddPhoto setPhoto={setPhoto} imgUrl={data && data?.imgUrl} />
-
-        {/* add extra photo --------------*/}
-
-        <AddExtraPhoto
-          setExtraPhotos={setExtraPhotos}
-          extraPhotosfromData={data && data?.extraPhotos}
-          setExtraPhotosForDelete={setExtraPhotosForDelete}
-        />
-
-        <InputWrap>
-          <Label>Опис:</Label>
-          <TextAreaInput
-            style={{ width: '100%', minHeight: '120px' }}
-            type="text"
-            {...register('description')}
-          />
-        </InputWrap>
-
-        {filters.map((filter, index) => (
-          <InputWrap key={index}>
-            <Label>Назва Фільтру:</Label>
+    <>
+      <FormWrap>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <InputWrap>
+            <Label>Категорія:</Label>
             <Input
               type="text"
-              value={filter.name}
-              onChange={e => onFilterNameChange(index, e)}
+              {...register('categories', { required: true })}
             />
-            <Label>Значення Фільтру:</Label>
-            <Input
-              type="text"
-              value={filter.value}
-              onChange={e => onFilterValueChange(index, e)}
-            />
-
-            <button
-              type="button"
-              style={{ maxWidth: '200px' }}
-              onClick={() =>
-                setFilters(prev => [
-                  ...prev.filter(
-                    item =>
-                      item.name !== filter.name && item.value !== filter.value
-                  ),
-                ])
-              }
-            >
-              Видалити Фільтр
-            </button>
+            {errors.categories && <span>{errors.categories.message}</span>}
           </InputWrap>
-        ))}
-        <button type="button" onClick={addFilter}>
-          Додати фільтр
-        </button>
+          <InputWrap>
+            <Label>Тип:</Label>
+            <Input type="text" {...register('type', { required: true })} />
+            {errors.type && <span>{errors.type.message}</span>}
+          </InputWrap>
+          <InputWrap>
+            <Label>Бренд:</Label>
+            <Input type="text" {...register('brand', { required: true })} />
+            {errors.brand && <span>{errors.brand.message}</span>}
+          </InputWrap>
+          <InputWrap>
+            <Label>Назва\Заголовок:</Label>
+            <Input type="text" {...register('title', { required: true })} />
+            {errors.title && <span>{errors.title.message}</span>}
+          </InputWrap>
+          <InputWrap>
+            <Label>Модель:</Label>
+            <Input type="text" {...register('model')} />
+          </InputWrap>
+          <InputWrap>
+            <Label>Виробник:</Label>
+            <Input type="text" {...register('maker')} />
+          </InputWrap>
+          <InputWrap>
+            <Label>Вартість:</Label>
+            <Input type="text" {...register('amount', { required: true })} />
+            {errors.amount && <span>{errors.amount.message}</span>}
+          </InputWrap>
+          <InputWrap>
+            <Label>Знижка:</Label>
+            <Input type="number" {...register('discount')} />
+            {errors.discount && <span>{errors.discount.message}</span>}
+          </InputWrap>
+          <InputWrap>
+            <Label>Кількість:</Label>
+            <Input type="number" {...register('count')} />
+            {errors.count && <span>{errors.count.message}</span>}
+          </InputWrap>
 
-        <button type="submit">Створити</button>
-      </Form>
-    </FormWrap>
+          {/* add photo -------------*/}
+
+          <AddPhoto setPhoto={setPhoto} imgUrl={data && data?.imgUrl} />
+
+          {/* add extra photo --------------*/}
+
+          <AddExtraPhoto
+            setExtraPhotos={setExtraPhotos}
+            extraPhotosfromData={data && data?.extraPhotos}
+            setExtraPhotosForDelete={setExtraPhotosForDelete}
+          />
+
+          <InputWrap>
+            <Label>Опис:</Label>
+            <TextAreaInput
+              style={{ width: '100%', minHeight: '120px' }}
+              type="text"
+              {...register('description')}
+            />
+          </InputWrap>
+
+          {filters.map((filter, index) => (
+            <InputWrap key={index}>
+              <Label>Назва Фільтру:</Label>
+              <Input
+                type="text"
+                value={filter.name}
+                onChange={e => onFilterNameChange(index, e)}
+              />
+              <Label>Значення Фільтру:</Label>
+              <Input
+                type="text"
+                value={filter.value}
+                onChange={e => onFilterValueChange(index, e)}
+              />
+
+              <button
+                type="button"
+                style={{ maxWidth: '200px' }}
+                onClick={() =>
+                  setFilters(prev => [
+                    ...prev.filter(
+                      item =>
+                        item.name !== filter.name && item.value !== filter.value
+                    ),
+                  ])
+                }
+              >
+                Видалити Фільтр
+              </button>
+            </InputWrap>
+          ))}
+          <button type="button" onClick={addFilter}>
+            Додати фільтр
+          </button>
+
+          <button type="submit">Створити</button>
+        </Form>
+      </FormWrap>
+      {isLoading && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+          }}
+        >
+          <HashLoader
+            color="green"
+            loading="true"
+            size={200}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      )}
+    </>
   );
 };
 

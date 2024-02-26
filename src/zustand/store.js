@@ -34,6 +34,7 @@ export const useStore = create(
         checkBox: [],
       },
       idList: [],
+      isLoading: false,
 
       setUserLogIn: async credentials => {
         try {
@@ -125,6 +126,7 @@ export const useStore = create(
 
       setNewGoods: async credentials => {
         try {
+          set(state => ({ ...state, isLoading: true }));
           const { data } = await axios.post(`/goods`, credentials);
 
           set(state => ({
@@ -136,11 +138,43 @@ export const useStore = create(
           error.response.status === 500
             ? notifyError('Додайте фото товару')
             : notifyError(error.message);
+        } finally {
+          set(state => ({ ...state, isLoading: false }));
+        }
+      },
+
+      updateGoods: async (id, credentials) => {
+        try {
+          set(state => ({ ...state, isLoading: true }));
+          const { data } = await axios.put(`/goods/${id}`, credentials);
+          console.log(data);
+          set(
+            state => ({
+              ...state,
+              goods: state.goods.map(item => {
+                if (item._id === id) {
+                  return { ...item, ...data };
+                }
+
+                return item;
+              }),
+            }),
+            false,
+            'updateGoods'
+          );
+          notifySucces('Товар успішно оновлено!');
+        } catch (error) {
+          error.response.status === 500
+            ? notifyError('Додайте фото товару')
+            : notifyError(error.message);
+        } finally {
+          set(state => ({ ...state, isLoading: false }));
         }
       },
 
       removeGoods: async id => {
         try {
+          set(state => ({ ...state, isLoading: true }));
           await axios.delete(`/goods/${id}`);
           set(
             state => ({
@@ -153,6 +187,8 @@ export const useStore = create(
           notifySucces('Товар успішно видалено!');
         } catch (error) {
           notifyError();
+        } finally {
+          set(state => ({ ...state, isLoading: false }));
         }
       },
 
