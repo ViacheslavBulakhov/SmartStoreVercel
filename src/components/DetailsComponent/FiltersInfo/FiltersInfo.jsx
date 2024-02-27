@@ -30,7 +30,7 @@ const Td = styled.td`
 
 const Tr = styled.tr`
   &:nth-child(odd) {
-    background-color: #f2f2f2; /* Затемнений фон для парних рядків */
+    background-color: rgba(211, 204, 204, 0.38);
   }
 `;
 
