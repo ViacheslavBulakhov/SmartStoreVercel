@@ -2,13 +2,36 @@
 
 import styled from 'styled-components';
 
-const TextStyled = styled.p`
-  display: flex;
-  justify-content: space-between;
-  border-bottom: dotted;
+const Table = styled.table`
+  border-collapse: collapse;
+  border: var(--border-base);
+  border-radius: 5px;
+
+  width: 100%;
+  overflow: hidden;
+`;
+
+const Td = styled.td`
+  border: none;
+  padding: 8px;
   font-size: var(--fs-md);
-  font-weight: var(--fw-bold);
-  margin-top: 10px;
+
+  &:first-child {
+    text-align: start;
+
+    font-weight: var(--fw-bold);
+  }
+
+  &:last-child {
+    text-align: end;
+    font-weight: var(--fw-normal);
+  }
+`;
+
+const Tr = styled.tr`
+  &:nth-child(odd) {
+    background-color: #f2f2f2; /* Затемнений фон для парних рядків */
+  }
 `;
 
 const FiltersInfo = ({ data }) => {
@@ -29,12 +52,16 @@ const FiltersInfo = ({ data }) => {
 
   return (
     <div>
-      {result.map(item => (
-        <TextStyled key={item.name}>
-          {item.name}
-          <span>({item.value.join(', ')})</span>
-        </TextStyled>
-      ))}
+      <Table>
+        <tbody>
+          {result.map(item => (
+            <Tr key={item.name}>
+              <Td>{item.name}</Td>
+              <Td>{item.value.join(', ')}</Td>
+            </Tr>
+          ))}
+        </tbody>
+      </Table>
     </div>
   );
 };
