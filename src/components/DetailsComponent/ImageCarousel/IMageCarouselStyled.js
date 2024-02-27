@@ -6,6 +6,8 @@ export const MainImg = styled.div`
   background-image: url(${({ $url }) => $url});
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 20px;
 `;
 
 export const ExtraPhotosList = styled.ul`

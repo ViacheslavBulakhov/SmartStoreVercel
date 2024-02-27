@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 export const Wrap = styled.div`
   display: flex;
+
+  padding: 20px;
+  gap: 20px;
+
   box-shadow: var(--shadow);
 `;
 
@@ -25,6 +29,18 @@ export const TextDescription = styled.p`
   }
 `;
 
+export const DescriptionInfoWrap = styled.div`
+  box-shadow: var(--shadow);
+  border: var(--border-base);
+  border-radius: 20px;
+  padding: 20px;
+
+  & > h4 {
+    text-decoration: underline;
+    margin: 10px 0;
+  }
+`;
+
 export const ReviewsBox = styled.div`
   display: flex;
   align-items: center;
@@ -34,9 +50,6 @@ export const ReviewsBox = styled.div`
   border: var(--border-base);
   border-radius: 20px;
   height: 70px;
-  &:first-child {
-    margin-bottom: 20px;
-  }
 `;
 
 export const AddReviewsBtn = styled.button`

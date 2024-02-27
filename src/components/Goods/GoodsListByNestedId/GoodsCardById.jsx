@@ -4,7 +4,6 @@ import { FaStar } from 'react-icons/fa';
 import { FcLike, FcDislike } from 'react-icons/fc';
 import {
   AmountWrap,
-  BuyBtn,
   CardItemWrap,
   CardLink,
   DescriptionWrap,
@@ -12,11 +11,7 @@ import {
   FavoritesWrap,
   StarWrap,
 } from './GoodsCardStyled';
-import {
-  notifyAddGoodsToShopingCart,
-  notifyError,
-  notifySucces,
-} from '../../Toasters/Toasters';
+import { notifyError, notifySucces } from '../../Toasters/Toasters';
 import { useStore } from '../../../zustand/store';
 import {
   applyDiscount,
@@ -25,9 +20,9 @@ import {
 } from '../../../utils';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import Buybtn from '../../Common/Buybtn';
 
 const GoodsCardById = ({ data }) => {
-  const { setNewIdList } = useStore();
   const user = useStore(state => state.auth.user);
   const { getGoods } = useStore();
   let { goodsName, id, nestedId } = useParams();
@@ -37,27 +32,6 @@ const GoodsCardById = ({ data }) => {
   const ratingArr = data && data.reviews.map(item => item.feedbackPoints);
 
   const { imgUrl, title, description, _id, amount } = data;
-
-  const onByClick = id => {
-    try {
-      let idList = JSON.parse(localStorage.getItem('idList')) || [];
-
-      if (!idList.includes(id)) {
-        const newArr = [...idList, id];
-
-        localStorage.setItem('idList', JSON.stringify(newArr));
-        setNewIdList(newArr);
-        notifyAddGoodsToShopingCart(title);
-        return;
-      } else {
-        notifyAddGoodsToShopingCart(title);
-      }
-    } catch (error) {
-      notifyError(
-        "Щось пішло не так, спробуйте пізніше або зв'яжіться з нами по телефону!"
-      );
-    }
-  };
 
   const handleFavorite = async id => {
     try {
@@ -134,9 +108,7 @@ const GoodsCardById = ({ data }) => {
           </AmountWrap>
         )}
 
-        <BuyBtn type="button" onClick={() => onByClick(_id)}>
-          Купити
-        </BuyBtn>
+        <Buybtn data={data} />
       </DescriptionWrap>
     </CardItemWrap>
   );

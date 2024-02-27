@@ -1,4 +1,5 @@
-import { IoLogOutSharp, IoMoon, IoMoonOutline } from 'react-icons/io5';
+import { IoLogOutSharp, IoMoon } from 'react-icons/io5';
+import { MdOutlineWbSunny } from 'react-icons/md';
 
 import Logo from '../../assets/SmartStore.svg?react';
 
@@ -85,7 +86,7 @@ const Header = () => {
           <UserBox>
             <SwitcherWrap onClick={toggleTheme}>
               {theme === 'light' ? (
-                <IoMoonOutline size={'25px'} />
+                <MdOutlineWbSunny size={'25px'} />
               ) : (
                 <IoMoon size={'25px'} />
               )}

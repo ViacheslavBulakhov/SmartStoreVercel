@@ -32,7 +32,16 @@ const ImageCarousel = ({ data }) => {
   return (
     <>
       {imgArray.length > 0 && (
-        <div style={{ width: '50%' }}>
+        <div
+          style={{
+            width: '50%',
+            height: 'fit-content',
+            boxShadow: 'var(--shadow)',
+            border: 'var(--border-base)',
+            borderRadius: '20px',
+            padding: '10px',
+          }}
+        >
           <MainImg $url={imgArray[currentImg].url} />
           <ExtraPhotosList>
             {imgArray.map((item, index) => {

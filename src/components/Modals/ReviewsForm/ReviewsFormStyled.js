@@ -34,6 +34,7 @@ export const ReviewImgBox = styled.div`
 
   font-size: var(--fs-md);
   font-weight: var(--fw-bold);
+  padding: 0 20px;
 `;
 
 export const RatingWrap = styled.div`

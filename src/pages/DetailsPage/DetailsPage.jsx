@@ -6,6 +6,7 @@ import { notifyError, notifySucces } from '../../components/Toasters/Toasters';
 import {
   AddReviewsBtn,
   CrossSpan,
+  DescriptionInfoWrap,
   DetailPageTitle,
   ReviewsActionWrap,
   ReviewsBox,
@@ -24,6 +25,8 @@ import ModalPort from '../../components/ModalPort/ModalPort';
 import ReviewsForm from '../../components/Modals/ReviewsForm/ReviewsForm';
 import ReviewsCard from '../../components/DetailsComponent/ReviewsCard/ReviewsCard';
 import ImageCarousel from '../../components/DetailsComponent/ImageCarousel/ImageCarousel';
+import Buybtn from '../../components/Common/Buybtn';
+import FiltersInfo from '../../components/DetailsComponent/FiltersInfo/FiltersInfo';
 
 const DetailsPage = () => {
   const [data, setData] = useState(null);
@@ -88,7 +91,9 @@ const DetailsPage = () => {
             <div
               style={{
                 width: '50%',
-                padding: '20px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
               }}
             >
               <ReviewsBox>
@@ -147,18 +152,21 @@ const DetailsPage = () => {
                 )}
               </ReviewsBox>
 
-              <div>
+              <ReviewsBox>
+                <Buybtn data={data} />
+              </ReviewsBox>
+
+              <DescriptionInfoWrap>
                 <h2>Опис Товару</h2>
 
-                <h4>{data.title}</h4>
                 <p>{data.description}</p>
-              </div>
-              <div>
+              </DescriptionInfoWrap>
+
+              <DescriptionInfoWrap>
                 <h2>Характеристики</h2>
 
-                <h4>{data.title}</h4>
-                <p>фільтри</p>
-              </div>
+                <FiltersInfo data={data.filters} />
+              </DescriptionInfoWrap>
             </div>
           </Wrap>
 
