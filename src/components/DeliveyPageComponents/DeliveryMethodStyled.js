@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import UkrPostPng from '../../assets/ukrPoshtaPng.png';
 
 export const MethodList = styled.ul`
   display: grid;
@@ -17,7 +18,8 @@ export const MethodItem = styled.li`
   border: var(--border-base);
   margin-top: 10px;
 
-  & > svg {
+  & > svg,
+  & > div > svg {
     width: 100px;
     height: 70px;
     border: var(--border-base);
@@ -28,4 +30,14 @@ export const MethodItem = styled.li`
       margin-top: 10px;
     }
   }
+`;
+
+export const UkrPostLogo = styled.div`
+  width: 100px;
+  height: 70px;
+  border: var(--border-base);
+  background-image: url(${UkrPostPng});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 `;

@@ -11,17 +11,23 @@ import {
 import ShopingCard from './ShopingCard/ShopingCard';
 import { useEffect, useState } from 'react';
 import { formatter } from '../../../utils';
+import { sendMail } from '../../../services/sendMail';
 
 const ShopingCartModal = ({ toggleModal }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [buyingList, setBuyingList] = useState([]);
 
   const idList = useStore(state => state.idList);
+
   const data = useStore(state => state.goods);
 
   useEffect(() => {
     setBuyingList(data?.filter(item => idList.includes(item._id)) || []);
   }, [idList]);
+
+  const onByClick = () => {
+    sendMail(buyingList);
+  };
 
   return (
     <ShopingModalWrap>
@@ -40,19 +46,28 @@ const ShopingCartModal = ({ toggleModal }) => {
           </p>
         </div>
 
-        <ul>
-          {buyingList.map(item => (
-            <li key={item._id}>
-              <ShopingCard item={item} setTotalAmount={setTotalAmount} />
-            </li>
-          ))}
-        </ul>
+        {buyingList.length > 0 && (
+          <ul>
+            {buyingList.map((item, index) => (
+              <li key={item._id}>
+                <ShopingCard
+                  item={item}
+                  setTotalAmount={setTotalAmount}
+                  setBuyingList={setBuyingList}
+                  index={index}
+                />
+              </li>
+            ))}
+          </ul>
+        )}
 
         <BtnWrap>
           <button type="button" onClick={toggleModal}>
             Продовжити Покупки
           </button>
-          <button type="button">Оформити Замовлення</button>
+          <button type="button" onClick={onByClick}>
+            Оформити Замовлення
+          </button>
         </BtnWrap>
       </ShopingBox>
     </ShopingModalWrap>

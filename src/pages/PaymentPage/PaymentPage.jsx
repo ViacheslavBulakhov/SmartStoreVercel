@@ -1,10 +1,12 @@
 import {
   MethodItem,
   MethodList,
+  UkrPostLogo,
 } from '../../components/DeliveyPageComponents/DeliveryMethodStyled';
 
 import NovaSvg from '../../assets/novaPoshta.svg?react';
-import UkrPostSvg from '../../assets/novaPoshta.svg?react';
+import VisaSvg from '../../assets/visa.svg?react';
+import MasterCardSvg from '../../assets/mastercard.svg?react';
 
 import Main from '../../components/Main/Main';
 
@@ -13,7 +15,11 @@ const PaymentPage = () => {
     <Main>
       <MethodList>
         <MethodItem>
-          <NovaSvg />
+          <div>
+            <VisaSvg />
+            <MasterCardSvg />
+          </div>
+
           <div>
             <h4>Оплата банківською карткою</h4>
             <p>
@@ -36,7 +42,7 @@ const PaymentPage = () => {
           </div>
         </MethodItem>
         <MethodItem>
-          <UkrPostSvg />
+          <UkrPostLogo />
           <div>
             <h4>Оплата у відділенні Укрпошти</h4>
             <p>

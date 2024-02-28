@@ -70,9 +70,11 @@ export const SharedLayoutForGoods = () => {
     <GoodsSection>
       <Main>
         <CoodsWrap>
-          {!isGoodsListById && <Aside goodsName={goodsName} />}
-          {isNamedGoodsList && <GoodsListByNestedId />}
-          {isGoodsListById && <NamedGoodsList name={goodsName} />}
+          {/* {!isGoodsListById && <Aside goodsName={goodsName} />} */}
+          <Aside goodsName={goodsName} />
+          {/* {isNamedGoodsList && <GoodsListByNestedId />}
+          {isGoodsListById && <NamedGoodsList name={goodsName} />} */}
+          {(isNamedGoodsList || isGoodsListById) && <GoodsListByNestedId />}
           {nestedId && <GoodsListByNestedId />}
         </CoodsWrap>
       </Main>

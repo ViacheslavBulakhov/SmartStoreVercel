@@ -1,6 +1,5 @@
-import { MethodItem, MethodList } from './DeliveryMethodStyled';
+import { MethodItem, MethodList, UkrPostLogo } from './DeliveryMethodStyled';
 import NovaSvg from '../../assets/novaPoshta.svg?react';
-import UkrPostSvg from '../../assets/novaPoshta.svg?react';
 
 const DeliveryMethod = () => {
   return (
@@ -17,6 +16,7 @@ const DeliveryMethod = () => {
           </p>
         </div>
       </MethodItem>
+
       <MethodItem>
         <NovaSvg />
         <div>
@@ -29,8 +29,9 @@ const DeliveryMethod = () => {
           </p>
         </div>
       </MethodItem>
+
       <MethodItem>
-        <UkrPostSvg />
+        <UkrPostLogo />
         <div>
           <h4>Доставка Укрпоштою Експрес</h4>
           <p>
@@ -42,8 +43,9 @@ const DeliveryMethod = () => {
           </p>
         </div>
       </MethodItem>
+
       <MethodItem>
-        <UkrPostSvg />
+        <UkrPostLogo />
         <div>
           <h4>Доставка Укрпоштою Експрес з оплатою при отриманні</h4>
           <p>

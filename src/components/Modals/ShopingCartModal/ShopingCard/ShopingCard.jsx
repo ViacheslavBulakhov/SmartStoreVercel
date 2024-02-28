@@ -11,10 +11,9 @@ import { notifyError, notifySucces } from '../../../Toasters/Toasters';
 import { useStore } from '../../../../zustand/store';
 import { formatter } from '../../../../utils';
 
-const ShopingCard = ({ item, setTotalAmount }) => {
+const ShopingCard = ({ item, index, setTotalAmount, setBuyingList }) => {
   const [count, setCount] = useState(1);
   const [currentAmount, setCurrentAmount] = useState(() => count * item.amount);
-
   const { removeIdItem } = useStore();
 
   const incrementCount = () => setCount(prev => prev + 1);
@@ -39,23 +38,43 @@ const ShopingCard = ({ item, setTotalAmount }) => {
   };
 
   useEffect(() => {
+    setBuyingList(prev =>
+      prev.map(goods =>
+        goods._id === item._id ? { ...goods, buyCount: count } : goods
+      )
+    );
+  }, [count]);
+
+  useEffect(() => {
     const amount = Number(count) * Number(item.amount);
 
     setTotalAmount(
       prevTotalAmount =>
         prevTotalAmount - Number(currentAmount) + Number(amount)
     );
+
     setCurrentAmount(amount);
-  }, [count, item.amount]);
+  }, [count, currentAmount, item.amount, setTotalAmount]);
 
   useEffect(() => {
-    setTotalAmount(prev => Number(prev) + Number(item.amount));
-  }, []);
+    setTotalAmount(prevTotalAmount => {
+      if (index === 0) {
+        return Number(item.amount);
+      } else {
+        return prevTotalAmount + Number(item.amount);
+      }
+    });
+  }, [index, item.amount, setTotalAmount]);
 
   return (
     <ShopingCardWrap>
       <ImgCardWrap>
-        <img src={item.imgUrl} alt="" width={'100px'} height={'100px'} />
+        <img
+          src={item.imgUrl}
+          alt={item.title}
+          width={'100px'}
+          height={'100px'}
+        />
       </ImgCardWrap>
 
       <BaseInfoWrap>
