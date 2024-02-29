@@ -10,6 +10,63 @@ const CardList = styled.ul`
   gap: 10px;
 `;
 
+// фільтрація списку === відображаються тільки ті товари які відповідають всим обраним фільтрам
+// const GoodsListByNestedId = () => {
+//   const [filteredData, setFilteredData] = useState([]);
+//   const goods = useStore(state => state.currentList);
+//   const { rangeValues, checkBox } = useStore(state => state.filters);
+
+//   useEffect(() => {
+//     setFilteredData(goods);
+//   }, [goods]);
+
+//   useEffect(() => {
+//     if (!rangeValues) return;
+
+//     const filteredDataByAmount = goods.filter(item => {
+//       const amount = parseFloat(item.amount);
+//       const [min, max] = rangeValues.map(parseFloat);
+
+//       return amount >= min && amount <= max;
+//     });
+
+//     setFilteredData(filteredDataByAmount);
+//   }, [rangeValues, goods]);
+
+//   useEffect(() => {
+//     if (checkBox.length === 0) {
+//       setFilteredData(goods);
+//       return;
+//     }
+
+//     const filterDataByCheckBox = () => {
+//       const filteredDataByCheckBox = goods.filter(item =>
+//         checkBox.every(check =>
+//           item.filters.some(
+//             filter => stringNormalize(filter.value) === stringNormalize(check)
+//           )
+//         )
+//       );
+
+//       setFilteredData(filteredDataByCheckBox);
+//     };
+
+//     filterDataByCheckBox();
+//   }, [checkBox, goods]);
+
+//   return (
+//     <div style={{ flex: '0 0 75%', maxWidth: '75%' }}>
+//       <CardList>
+//         {filteredData.length > 0 &&
+//           filteredData.map(item => (
+//             <GoodsCardById data={item} key={item._id} />
+//           ))}
+//       </CardList>
+//     </div>
+//   );
+// };
+
+// фільтрація списку === якщо хоч один із пунктів відповідає товару то від буде відображений
 const GoodsListByNestedId = () => {
   const [filteredData, setFilteredData] = useState([]);
   const goods = useStore(state => state.currentList);
@@ -17,44 +74,46 @@ const GoodsListByNestedId = () => {
 
   useEffect(() => {
     setFilteredData(goods);
-  }, []);
+  }, [goods]); // Оновлено для відстеження змін goods
 
   useEffect(() => {
-    if (!rangeValues) return;
-    const filteredDataByAmount = (minMax = null) => {
-      const withFilter = goods.filter(item => {
-        const amount = parseFloat(item.amount);
-        const [min, max] = minMax.map(parseFloat);
+    if (!rangeValues && checkBox.length === 0) {
+      setFilteredData(goods); // Повертаємо повний список товарів, якщо всі фільтри зняті
+      return;
+    }
 
-        return amount >= min && amount <= max;
-      });
+    const filteredDataByAmount = goods.filter(item => {
+      const amount = parseFloat(item.amount);
+      const [min, max] = rangeValues.map(parseFloat);
 
-      setFilteredData(withFilter);
-    };
+      return amount >= min && amount <= max;
+    });
 
-    checkBox.length === 0 && filteredDataByAmount(rangeValues);
-  }, [rangeValues, goods, checkBox]);
+    setFilteredData(filteredDataByAmount);
+  }, [rangeValues, goods, checkBox]); // Оновлено для відстеження змін rangeValues, goods і checkBox
 
   useEffect(() => {
     if (checkBox.length === 0) return;
 
-    const filterDataByCheckBox = check => {
+    const filterDataByCheckBox = () => {
       const filteredDataByCheckBox = goods.filter(item =>
-        item.filters.some(
-          filter => stringNormalize(filter.value) === stringNormalize(check)
+        item.filters.some(filter =>
+          checkBox.some(
+            check => stringNormalize(filter.value) === stringNormalize(check)
+          )
         )
       );
 
       setFilteredData(filteredDataByCheckBox);
     };
 
-    checkBox.map(item => filterDataByCheckBox(item));
-  }, [checkBox]);
+    filterDataByCheckBox();
+  }, [checkBox, goods]); // Оновлено для відстеження змін checkBox і goods
 
   return (
     <div style={{ flex: '0 0 75%', maxWidth: '75%' }}>
       <CardList>
-        {goods.length > 0 &&
+        {filteredData.length > 0 &&
           filteredData.map(item => (
             <GoodsCardById data={item} key={item._id} />
           ))}

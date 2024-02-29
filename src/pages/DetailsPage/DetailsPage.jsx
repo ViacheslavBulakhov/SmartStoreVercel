@@ -6,6 +6,7 @@ import { notifyError, notifySucces } from '../../components/Toasters/Toasters';
 import {
   AddReviewsBtn,
   CrossSpan,
+  DeliveryAndDiscountInfoBox,
   DescriptionInfoWrap,
   DetailPageTitle,
   ReviewsActionWrap,
@@ -17,6 +18,8 @@ import {
   Wrap,
 } from './DetailsPageStyled';
 import { FaStar } from 'react-icons/fa';
+import { TbTruckDelivery } from 'react-icons/tb';
+import { BiSolidDiscount } from 'react-icons/bi';
 import { StarWrap } from '../../components/Goods/GoodsListByNestedId/GoodsCardStyled';
 import { FcDislike, FcLike } from 'react-icons/fc';
 import { useStore } from '../../zustand/store';
@@ -27,6 +30,7 @@ import ReviewsCard from '../../components/DetailsComponent/ReviewsCard/ReviewsCa
 import ImageCarousel from '../../components/DetailsComponent/ImageCarousel/ImageCarousel';
 import Buybtn from '../../components/Common/Buybtn';
 import FiltersInfo from '../../components/DetailsComponent/FiltersInfo/FiltersInfo';
+import IsDelivery from '../../components/DetailsComponent/IsDelivery/IsDelivery';
 
 const DetailsPage = () => {
   const [data, setData] = useState(null);
@@ -153,7 +157,26 @@ const DetailsPage = () => {
               </ReviewsBox>
 
               <ReviewsBox>
+                <IsDelivery count={data.count} />
+
                 <Buybtn data={data} />
+              </ReviewsBox>
+
+              <ReviewsBox
+                style={{
+                  height: 'fit-content',
+                  alignItems: 'flex-start',
+                  flexDirection: 'column',
+                }}
+              >
+                <DeliveryAndDiscountInfoBox>
+                  <TbTruckDelivery size={'30px'} />{' '}
+                  <p>Безкоштовна доставка при замовленні від 1500 грн</p>
+                </DeliveryAndDiscountInfoBox>
+                <DeliveryAndDiscountInfoBox>
+                  <BiSolidDiscount size={'30px'} />
+                  <p>Отримайте картку знижок при замовленні від 300 грн</p>
+                </DeliveryAndDiscountInfoBox>
               </ReviewsBox>
 
               <DescriptionInfoWrap>

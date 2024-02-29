@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useStore } from '../../zustand/store';
 import { CheckboxItem, FiltersItemWrap } from './AsideFiltersItemStyled';
-import { stringNormalize } from '../../utils';
 
 const AsideFiltersItem = ({ name }) => {
   const goods = useStore(state => state.currentList);

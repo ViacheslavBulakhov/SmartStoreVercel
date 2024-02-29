@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const ShopingModalWrap = styled.div`
   background-color: var(--colors-bg);
   border-radius: 20px;
+  position: relative;
 `;
 
 export const ShopingBox = styled.div`

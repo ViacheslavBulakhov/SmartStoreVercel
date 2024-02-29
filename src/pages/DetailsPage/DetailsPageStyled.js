@@ -107,3 +107,11 @@ export const ReviewsActionWrap = styled.div`
   border-radius: 20px;
   padding: 10px;
 `;
+
+export const DeliveryAndDiscountInfoBox = styled.div`
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #e25b49;
+  text-decoration: underline;
+`;

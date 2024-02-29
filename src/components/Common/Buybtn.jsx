@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
 import styled from 'styled-components';
 import { notifyAddGoodsToShopingCart, notifyError } from '../Toasters/Toasters';
 import { useStore } from '../../zustand/store';
@@ -16,19 +15,26 @@ const BuyBtn = styled.button`
   box-shadow: var(--shadow);
 
   text-transform: uppercase;
-  color: var(--colors-text);
+  // color: var(--colors-text);
+  color: black;
   font-size: var(--fs-sd);
   font-weight: var(--fw-normal);
 
-  background-color: hsl(0deg 7.6% 81.25% / 38%);
+  // background-color: hsl(0deg 7.6% 81.25% / 38%);
+  background-color: #3dc539;
 
   transition: background 0.15s ease 0.05s;
   cursor: pointer;
 
   &:hover {
     background-color: #dee2e6;
-    transform: translate(-5px, -5px);
+
+    scale: 1.03;
     box-shadow: 5px 5px 15px 1px rgba(0, 0, 0, 0.7);
+  }
+
+  &:active {
+    scale: 0.9;
   }
 `;
 
@@ -56,9 +62,15 @@ const Buybtn = ({ data }) => {
       );
     }
   };
+
   return (
-    <BuyBtn type="button" onClick={() => onByClick(_id)}>
-      Купити
+    <BuyBtn
+      type="button"
+      onClick={() =>
+        data.count > 0 ? onByClick(_id) : console.log('Сповістити мене')
+      }
+    >
+      {data.count > 0 ? 'Купити' : 'Сповістити про наявність'}
     </BuyBtn>
   );
 };

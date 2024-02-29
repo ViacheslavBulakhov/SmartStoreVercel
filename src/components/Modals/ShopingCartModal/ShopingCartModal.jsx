@@ -11,11 +11,12 @@ import {
 import ShopingCard from './ShopingCard/ShopingCard';
 import { useEffect, useState } from 'react';
 import { formatter } from '../../../utils';
-import { sendMail } from '../../../services/sendMail';
+import UserCredentialsForm from '../UserCredentialsForm/UserCredentialsForm';
 
 const ShopingCartModal = ({ toggleModal }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [buyingList, setBuyingList] = useState([]);
+  const [isUser, setIsUser] = useState(false);
 
   const idList = useStore(state => state.idList);
 
@@ -25,9 +26,7 @@ const ShopingCartModal = ({ toggleModal }) => {
     setBuyingList(data?.filter(item => idList.includes(item._id)) || []);
   }, [idList]);
 
-  const onByClick = () => {
-    sendMail(buyingList);
-  };
+  const toggleUserForm = () => setIsUser(prev => !prev);
 
   return (
     <ShopingModalWrap>
@@ -65,11 +64,17 @@ const ShopingCartModal = ({ toggleModal }) => {
           <button type="button" onClick={toggleModal}>
             Продовжити Покупки
           </button>
-          <button type="button" onClick={onByClick}>
+          <button type="button" onClick={toggleUserForm}>
             Оформити Замовлення
           </button>
         </BtnWrap>
       </ShopingBox>
+      {isUser && (
+        <UserCredentialsForm
+          toggleUserForm={toggleUserForm}
+          buyingList={buyingList}
+        />
+      )}
     </ShopingModalWrap>
   );
 };
