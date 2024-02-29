@@ -40,6 +40,8 @@ export const useStore = create(
         try {
           const { data: user } = await axios.post('/auth/login', credentials);
 
+          localStorage.setItem('token', user.token);
+
           token.set(user.token);
           notifyFulfilledLogin();
 
@@ -51,6 +53,29 @@ export const useStore = create(
         } catch (error) {
           notifyErrorLogin();
           return;
+        }
+      },
+
+      refreshUser: async () => {
+        const localToken = localStorage.getItem('token');
+        if (localToken) {
+          token.set(localToken);
+        }
+        try {
+          const { data: user } = await axios.post('/auth/refresh', {
+            token: localToken,
+          });
+
+          set(
+            state => ({ ...state, auth: { ...user, isLoggedIn: true } }),
+            false,
+            'setAuth'
+          );
+          token.set(user.token);
+
+          notifyFulfilledLogin();
+        } catch (error) {
+          notifyErrorLogin();
         }
       },
 
@@ -77,7 +102,9 @@ export const useStore = create(
 
       removeUser: async () => {
         try {
+          localStorage.removeItem('token');
           await axios.post('/auth/logout');
+
           token.unset();
 
           set(
@@ -88,6 +115,7 @@ export const useStore = create(
             false,
             'setGoods'
           );
+
           notifySucces('Сесію у вашому акаунті завершено!');
         } catch (error) {
           notifyError();
