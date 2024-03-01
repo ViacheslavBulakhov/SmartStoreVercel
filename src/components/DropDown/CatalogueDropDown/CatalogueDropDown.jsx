@@ -46,10 +46,13 @@ const CatalogueDropDown = () => {
     if (e.target === e.currentTarget) setShowContent(false);
   };
 
+  const toggleContent = () => setShowContent(prev => !prev);
+
   return (
     <DropdownItemContainer
       onMouseEnter={handleHoverEnter}
       onMouseLeave={handleHoverLeave}
+      onClick={toggleContent}
     >
       <NavLink>
         <GiHamburgerMenu style={{ marginRight: '10px' }} size={'20px'} />

@@ -31,28 +31,21 @@ import ImageCarousel from '../../components/DetailsComponent/ImageCarousel/Image
 import Buybtn from '../../components/Common/Buybtn';
 import FiltersInfo from '../../components/DetailsComponent/FiltersInfo/FiltersInfo';
 import IsDelivery from '../../components/DetailsComponent/IsDelivery/IsDelivery';
+import { getData } from '../../services/getGoodsById';
 
 const DetailsPage = () => {
   const [data, setData] = useState(null);
   const [isShowModal, setIsShowModal] = useState(false);
 
   const user = useStore(state => state.auth.user);
+  const { getGoods } = useStore();
 
   const { goodsId } = useParams();
   const navigate = useNavigate();
   const reviewsRef = useRef(null);
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const result = await axios.get(`/goods/${goodsId}`);
-        setData(result.data);
-      } catch (error) {
-        notifyError('Це посилання вже не дійсне');
-        navigate('/');
-      }
-    };
-    getData();
+    getData({ goodsId, setData, navigate });
   }, []);
 
   const toggleModal = () => setIsShowModal(prev => !prev);
@@ -61,7 +54,10 @@ const DetailsPage = () => {
     try {
       const result = await axios.patch(`goods/${id}/favorite`);
 
-      if (result.status === 200) setData(result.data);
+      if (result.status === 200) {
+        setData(result.data);
+        getGoods();
+      }
 
       if (result.data.favorites.includes(user.id)) {
         notifySucces('Товар успішно додано до закладок!');
@@ -171,7 +167,7 @@ const DetailsPage = () => {
               >
                 <DeliveryAndDiscountInfoBox>
                   <TbTruckDelivery size={'30px'} />{' '}
-                  <p>Безкоштовна доставка при замовленні від 1500 грн</p>
+                  <p>Безкоштовна доставка при замовленні від 1300 грн</p>
                 </DeliveryAndDiscountInfoBox>
                 <DeliveryAndDiscountInfoBox>
                   <BiSolidDiscount size={'30px'} />
@@ -215,7 +211,11 @@ const DetailsPage = () => {
         </Container>
         {isShowModal && (
           <ModalPort toggleModal={toggleModal}>
-            <ReviewsForm toggleModal={toggleModal} data={data} />
+            <ReviewsForm
+              toggleModal={toggleModal}
+              data={data}
+              updateData={() => getData({ goodsId, setData, navigate })}
+            />
           </ModalPort>
         )}
       </>

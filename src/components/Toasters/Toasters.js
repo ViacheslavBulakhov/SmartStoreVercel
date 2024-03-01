@@ -24,7 +24,9 @@ export const notifyUpdateGoods = () => toast.success('Successfully update!');
 export const notifyAddGoodsToShopingCart = value =>
   toast.success(`${value} додано до кошика`);
 
-export const notifyError = (message = 'error') => toast.error(message);
+export const notifyError = (
+  message = 'Упс, щось пішло не так! Спробуйте ще раз пізніше!'
+) => toast.error(message);
 
 // Reusable
 export const notifySucces = value => toast.success(value);

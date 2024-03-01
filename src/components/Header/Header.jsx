@@ -1,5 +1,6 @@
 import { IoLogOutSharp, IoMoon } from 'react-icons/io5';
 import { MdOutlineWbSunny } from 'react-icons/md';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 import Logo from '../../assets/SmartStore.svg?react';
 
@@ -11,15 +12,17 @@ import {
   UserBox,
   WorkScheduleBox,
   LogoWrap,
+  BurgerSvgStyled,
 } from './HeaderStyled';
 import { useEffect, useState } from 'react';
 import { Container } from '../Container';
 import UserStatusBox from './UserStatus/UserStatusBox';
 import SocialLinks from '../SocialLinks/SocialLinks';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { useStore } from '../../zustand/store';
 import Flag from '../../assets/flag.png';
 import styled from 'styled-components';
+import BurgerMenu from '../Modals/BurgerMenu/BurgerMenu';
 
 const UaFlag = styled.div`
   width: 30px;
@@ -33,12 +36,18 @@ const UaFlag = styled.div`
 
 const Header = () => {
   const [theme, setTheme] = useState('light');
+  const [isBurger, setIsBurger] = useState(false);
   const isLoggedIn = useStore(state => state.auth.isLoggedIn);
   const { removeUser } = useStore();
+  const location = useLocation();
 
   useEffect(() => {
     document.body.setAttribute('data-theme', theme);
   }, [theme]);
+
+  useEffect(() => {
+    setIsBurger(false);
+  }, [location]);
 
   useEffect(() => {
     const setThemeBayTheTime = () => {
@@ -51,6 +60,7 @@ const Header = () => {
   }, []);
 
   const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
+  const toggleBurgerMenu = () => setIsBurger(prev => !prev);
 
   const onLogOut = () => {
     removeUser();
@@ -64,39 +74,43 @@ const Header = () => {
             <Logo width="90px" height="90px" />
           </LogoWrap>
 
-          <WorkScheduleBox>
-            <h4>Графік Роботи</h4>
-            <p>
-              ПН-ПТ
-              <span>: 8:00-19:00</span>
-            </p>
-            <p>
-              СБ-НД
-              <span>: 10:00-18:00</span>
-            </p>
-          </WorkScheduleBox>
-          <nav>
-            <NavLinkList>
-              <li>
-                <NavLink to={'/rules'}>Карта Знижок</NavLink>
-              </li>
-              <li>
-                <NavLink to={'/delivery'}>Доставка й Повернення</NavLink>
-              </li>
-              <li>
-                <NavLink to={'/payment'}>Оплата</NavLink>
-              </li>
-              <li>
-                <a>Відгуки</a>
-              </li>
-              <li>
-                <a href="tel:+380 50 272 47 91">+380 50 272 47 91</a>
-              </li>
-            </NavLinkList>
-          </nav>
-          <SocialLinks />
+          <BurgerMenu toggleBurgerMenu={toggleBurgerMenu} isBurger={isBurger}>
+            <WorkScheduleBox>
+              <h4>Графік Роботи</h4>
+              <p>
+                ПН-ПТ
+                <span>: 8:00-19:00</span>
+              </p>
+              <p>
+                СБ-НД
+                <span>: 10:00-18:00</span>
+              </p>
+            </WorkScheduleBox>
+            <nav>
+              <NavLinkList>
+                <li>
+                  <NavLink to={'/rules'}>Карта Знижок</NavLink>
+                </li>
+                <li>
+                  <NavLink to={'/delivery'}>Доставка й Повернення</NavLink>
+                </li>
+                <li>
+                  <NavLink to={'/payment'}>Оплата</NavLink>
+                </li>
+                <li>
+                  <a>Відгуки</a>
+                </li>
+                <li>
+                  <a href="tel:+380 50 272 47 91">+380 50 272 47 91</a>
+                </li>
+              </NavLinkList>
+            </nav>
+            <SocialLinks />
+          </BurgerMenu>
+
           <UserBox>
             <UaFlag />
+            <BurgerSvgStyled size={'30px'} onClick={toggleBurgerMenu} />
             <SwitcherWrap onClick={toggleTheme}>
               {theme === 'light' ? (
                 <MdOutlineWbSunny size={'25px'} />

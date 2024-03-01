@@ -1,7 +1,6 @@
-import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import slideImg1 from '../../assets/photo.jpg';
+import slideImg1 from '../../assets/photo.png';
 
 import Slider from 'react-slick';
 import styled from 'styled-components';

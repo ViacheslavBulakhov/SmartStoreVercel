@@ -12,11 +12,23 @@ export const SectionWrap = styled.section`
 export const CategoriesList = styled.ul`
   display: flex;
   gap: 20px;
-  justify-content: center;
 
   margin-top: 10px;
   font-size: var(--fs-sm);
   font-weight: var(--fw-bold);
+
+  @media (min-width: 1024px) {
+    justify-content: center;
+  }
+
+  & > li {
+    display: block;
+    &:not(:first-child) {
+      @media (max-width: 1024px) {
+        display: none;
+      }
+    }
+  }
 
   & > li:not(:nth-last-child(-n + 2)) > ul > li > ul {
     left: 99%;

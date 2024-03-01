@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
+import { GiHamburgerMenu } from 'react-icons/gi';
 
 export const HeaderEl = styled.header`
   //   box-shadow: var(--shadow);
@@ -18,6 +19,20 @@ export const LogoWrap = styled(NavLink).attrs({
 })`
   color: var(--colors-text);
   animation: rotateY 3000ms infinite alternate backwards ease-in-out 1000ms;
+
+  & > svg {
+    width: clamp(30px, 75%, 90px);
+    height: 100%;
+  }
+`;
+
+export const BurgerSvgStyled = styled(GiHamburgerMenu)`
+  display: block;
+  cursor: pointer;
+
+  @media (min-width: 1024px) {
+    display: none;
+  }
 `;
 
 export const WorkScheduleBox = styled.div``;

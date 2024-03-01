@@ -46,26 +46,37 @@ const Registration = ({ toggleModal, toggleLogin }) => {
       </AuthTitleWrap>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <InputWrap>
-          <Label htmlFor="number">Логін</Label>
+          <Label htmlFor="number">Номер телефону</Label>
           <Input
             id="number"
             defaultValue="+380"
             {...register('number', {
               required: true,
               pattern: {
-                value: /^\+?[0-9]{8,15}$/,
-                message: 'Введіть коректний номер телефону',
+                value: /^\+380\d{9}$/,
+                message: 'Введіть коректний номер у форматі +380XXXXXXXXX',
+              },
+              minLength: {
+                value: 13,
+                message: 'Мінімальна довжина 13 символів',
+              },
+              maxLength: {
+                value: 13,
+                message: 'Максимальна довжина 13 символів',
               },
             })}
           />
           {errors?.number?.type === 'required' && (
             <span>Поле є обов'язковим</span>
           )}
-          {errors?.number?.type === 'maxLength' && (
-            <span>Максимальна довжина 30 символів</span>
-          )}
           {errors?.number?.type === 'pattern' && (
-            <span>{errors?.login?.message}</span>
+            <span>{errors?.number?.message}</span>
+          )}
+          {errors?.number?.type === 'minLength' && (
+            <span>{errors?.number?.message}</span>
+          )}
+          {errors?.number?.type === 'maxLength' && (
+            <span>{errors?.number?.message}</span>
           )}
         </InputWrap>
 

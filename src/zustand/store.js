@@ -74,9 +74,7 @@ export const useStore = create(
           token.set(user.token);
 
           notifyFulfilledLogin();
-        } catch (error) {
-          notifyErrorLogin();
-        }
+        } catch {}
       },
 
       setUserRegister: async credentials => {

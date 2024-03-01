@@ -6,7 +6,7 @@ export const CatalougeList = styled.ul`
   width: 80vw;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 10px;
+  gap: 20px;
 
   top: 102%;
   left: 0;
@@ -15,7 +15,10 @@ export const CatalougeList = styled.ul`
 
   min-width: 160px;
   // box-shadow: var(--shadow);
+
   // filter: drop-shadow(0 -6mm 4mm #2196f3);
+  background-color: var(--colors-bg);
+
   z-index: 1;
 `;
 
@@ -27,7 +30,7 @@ export const Catalougeitem = styled.li`
 
   overflow: hidden;
 
-  background-color: hsl(243.69deg 16.79% 90.54% / 81%);
+  // background-color: hsl(243.69deg 16.79% 90.54% / 81%);
 
   box-shadow: var(--shadow);
 

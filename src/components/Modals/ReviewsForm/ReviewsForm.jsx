@@ -5,7 +5,6 @@ import {
   Form,
   Input,
   InputWrap,
-  Label,
   SubmitFormBtn,
   TextAreaInput,
 } from '../AuthModal/AuthModalStyled';
@@ -21,10 +20,10 @@ import { addReviewsSchema } from '../../../schemas';
 import { StarWrap } from '../../Goods/GoodsListByNestedId/GoodsCardStyled';
 import { FaStar } from 'react-icons/fa';
 import { useState } from 'react';
-import { notifyError } from '../../Toasters/Toasters';
+import { notifyError, notifySucces } from '../../Toasters/Toasters';
 import axios from 'axios';
 
-const ReviewsForm = ({ toggleModal, data }) => {
+const ReviewsForm = ({ toggleModal, data, updateData }) => {
   const {
     register,
     handleSubmit,
@@ -42,9 +41,16 @@ const ReviewsForm = ({ toggleModal, data }) => {
       );
       return;
     }
-    await axios.put(`/goods/addReviews/${data._id}`, {
-      reviews: { ...credentials, feedbackPoints: rating, date: new Date() },
-    });
+    try {
+      await axios.put(`/goods/addReviews/${data._id}`, {
+        reviews: { ...credentials, feedbackPoints: rating, date: new Date() },
+      });
+      toggleModal();
+      updateData();
+      notifySucces('Дякуємо за відгук!');
+    } catch (error) {
+      notifyError();
+    }
   };
 
   const handleStarClick = index => {
