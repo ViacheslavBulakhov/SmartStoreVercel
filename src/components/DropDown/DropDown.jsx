@@ -24,9 +24,22 @@ const Dropdown = ({ categoriName }) => {
   const typeOrBrand = checkArr.includes(stringNormalize(categoriName));
   const objKey = typeOrBrand ? 'brand' : 'type';
 
+  function removeSpacesForComparison(str) {
+    return str.replace(/\s+/g, '');
+  }
+
   const uniqueFilters = categoriesData
-    .map(item => item[objKey])
-    .filter((filter, index, array) => array.indexOf(filter) === index);
+    .map(item => ({
+      original: item[objKey],
+      processed: removeSpacesForComparison(item[objKey].toLowerCase()),
+    }))
+    .filter((filter, index, array) => {
+      const currentIndex = array.findIndex(
+        item => item.processed === filter.processed
+      );
+      return currentIndex === index;
+    })
+    .map(item => item.original);
 
   const handleHoverEnter = () => {
     setTimeout(() => {
