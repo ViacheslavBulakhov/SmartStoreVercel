@@ -118,6 +118,14 @@ const router = createBrowserRouter([
         },
       },
       {
+        path: '/checkout',
+
+        async lazy() {
+          let Index = await import('./pages/CheckoutPage/CheckOutPage');
+          return { Component: Index.default };
+        },
+      },
+      {
         path: '/user',
 
         async lazy() {

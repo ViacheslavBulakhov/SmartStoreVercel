@@ -3,14 +3,21 @@ import UkrPostPng from '../../assets/ukrPoshtaPng.png';
 
 export const MethodList = styled.ul`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 10px;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
 `;
 
 export const MethodItem = styled.li`
   display: grid;
-  grid-template-columns: 100px 1fr;
   gap: 20px;
+
+  @media (min-width: 1024px) {
+    grid-template-columns: 100px 1fr;
+  }
 
   padding: 10px;
 

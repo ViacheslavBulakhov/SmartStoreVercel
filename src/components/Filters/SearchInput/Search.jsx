@@ -8,7 +8,7 @@ const Search = () => {
 
   return (
     <SearchInputWrap>
-      <IoSearch />
+      <IoSearch size={24} />
       <SearchInput
         onChange={e => setSearchFilter(e.target.value)}
         value={search}

@@ -4,6 +4,12 @@ export const DiscountDescriptionWrap = styled.div`
   display: flex;
   gap: 20px;
   box-shadow: var(--shadow);
+  flex-direction: column;
+  padding: 10px;
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+  }
 `;
 
 export const DiscountDescription = styled.div`

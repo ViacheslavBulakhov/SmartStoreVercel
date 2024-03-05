@@ -19,7 +19,6 @@ export const DiscountSizeWrap = styled.div`
 export const Item = styled.li`
   display: flex;
   align-items: center;
-
   gap: 10px;
 
   border-radius: var(--b-radius-sm);
@@ -42,6 +41,8 @@ export const Step = styled.span`
 
   height: 24px;
   width: 24px;
+
+  flex: 0 0 24px;
 `;
 
 export const TableRow = styled.td`
