@@ -16,9 +16,12 @@ export const ModalOverlay = styled.div`
   z-index: 2;
   overflow: hidden;
 `;
+
 export const ModalWrap = styled.div`
   max-width: calc(100vw - 48px);
   max-height: calc(100vh - 24px);
+
+  overflow: auto;
 `;
 
 const modalRoot = document.querySelector('#modal-root');

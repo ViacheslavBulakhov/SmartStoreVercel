@@ -8,7 +8,11 @@ export const CardItemWrap = styled.li`
   flex-direction: column;
   justify-content: space-between;
 
-  width: calc(33.33% - 20px);
+  @media (max-width: 1023px) {
+    max-width: 300px;
+  }
+
+  max-width: 350px;
 
   padding: 20px;
 
@@ -16,6 +20,7 @@ export const CardItemWrap = styled.li`
   box-shadow: var(--shadow);
   overflow: hidden;
   background-color: var(--colors-bg);
+
   & > div:not(:first-child) {
     margin-top: 20px;
   }

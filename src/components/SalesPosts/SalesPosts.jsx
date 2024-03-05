@@ -6,15 +6,19 @@ import Slider from 'react-slick';
 import styled from 'styled-components';
 
 const IMG = styled.img`
-  width: 1170px;
+  width: 100%;
+  max-width: 1170px;
   height: auto;
   margin: 0 auto;
   border-radius: 20px;
 `;
+
 const SalePostImgWrap = styled.div`
   margin: 0 auto;
 `;
+
 const SliderWrap = styled.div`
+  margin: 0 auto;
   margin-top: 10px;
 `;
 
@@ -52,7 +56,9 @@ export const SalesPosts = () => {
   return (
     <SliderWrap>
       <Slider {...settings}>
-        <IMG src={slideImg1} />
+        <SalePostImgWrap>
+          <IMG src={slideImg1} />
+        </SalePostImgWrap>
         {data.map(item => {
           return (
             <SalePostImgWrap key={item}>

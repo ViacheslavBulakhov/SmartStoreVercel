@@ -5,7 +5,7 @@ import { AboutUs, AboutUsDescription } from './HomePageStyled';
 const HomePage = () => {
   return (
     <Main>
-      {/* <SalesPosts /> */}
+      <SalesPosts />
       <AboutUs>
         <h2>Про нас</h2>
         <AboutUsDescription>

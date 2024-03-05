@@ -8,6 +8,17 @@ const CardList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+
+  @media (max-width: 1023px) {
+    justify-content: center;
+  }
+`;
+
+const CardListWrap = styled.div`
+  @media (min-width: 1024px) {
+    flex: 0 0 75%;
+    maxwidth: 75%;
+  }
 `;
 
 // фільтрація списку === відображаються тільки ті товари які відповідають всим обраним фільтрам
@@ -111,14 +122,14 @@ const GoodsListByNestedId = () => {
   }, [checkBox, goods]); // Оновлено для відстеження змін checkBox і goods
 
   return (
-    <div style={{ flex: '0 0 75%', maxWidth: '75%' }}>
+    <CardListWrap>
       <CardList>
         {filteredData.length > 0 &&
           filteredData.map(item => (
             <GoodsCardById data={item} key={item._id} />
           ))}
       </CardList>
-    </div>
+    </CardListWrap>
   );
 };
 

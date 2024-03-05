@@ -2,6 +2,22 @@
 import AsideFiltersItem from '../../Filters/AsideFiltersItem';
 import CostBox from './CostBox/CostBox';
 import { useStore } from '../../../zustand/store';
+import styled from 'styled-components';
+
+const AsideWrap = styled.aside`
+  width: calc(100vw - 100px);
+
+  @media (max-width: 1023px) {
+    max-width: 440px;
+  }
+
+  @media (min-width: 1024px) {
+    width: 25%;
+    margin-right: 20px;
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+`;
 
 export const Aside = ({ goodsName }) => {
   const goods = useStore(state => state.currentList);
@@ -15,20 +31,13 @@ export const Aside = ({ goodsName }) => {
   );
 
   return (
-    <aside
-      style={{
-        width: '25%',
-        marginRight: '20px',
-        flex: '0 0 25%',
-        maxWidth: '25%',
-      }}
-    >
+    <AsideWrap>
       <ul>
         <CostBox />
         {uniqueFilters.map(item => (
           <AsideFiltersItem key={item} name={item} />
         ))}
       </ul>
-    </aside>
+    </AsideWrap>
   );
 };
