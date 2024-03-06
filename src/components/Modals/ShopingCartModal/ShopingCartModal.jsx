@@ -12,13 +12,15 @@ import ShopingCard from './ShopingCard/ShopingCard';
 import { useEffect, useState } from 'react';
 import { formatter } from '../../../utils';
 import UserCredentialsForm from '../UserCredentialsForm/UserCredentialsForm';
+import { useNavigate } from 'react-router-dom';
 
 const ShopingCartModal = ({ toggleModal }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [buyingList, setBuyingList] = useState([]);
   const [isUser, setIsUser] = useState(false);
-
+  const navigate = useNavigate();
   const idList = useStore(state => state.idList);
+  console.log(buyingList);
 
   const data = useStore(state => state.goods);
 
@@ -27,6 +29,11 @@ const ShopingCartModal = ({ toggleModal }) => {
   }, [idList]);
 
   const toggleUserForm = () => setIsUser(prev => !prev);
+
+  const handleOrder = () => {
+    navigate('/order', { state: buyingList });
+    toggleModal();
+  };
 
   return (
     <ShopingModalWrap>
@@ -64,7 +71,7 @@ const ShopingCartModal = ({ toggleModal }) => {
           <button type="button" onClick={toggleModal}>
             Продовжити Покупки
           </button>
-          <button type="button" onClick={toggleUserForm}>
+          <button type="button" onClick={handleOrder}>
             Оформити Замовлення
           </button>
         </BtnWrap>
