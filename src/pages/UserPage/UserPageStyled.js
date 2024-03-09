@@ -43,7 +43,9 @@ export const DescriptionWrap = styled.div`
 
   margin: 20px 0;
 
-  width: 50%;
+  @media (min-width: 768px) {
+    width: 50%;
+  }
 
   & > p {
     display: block;

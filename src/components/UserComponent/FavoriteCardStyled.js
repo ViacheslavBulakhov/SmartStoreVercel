@@ -4,6 +4,11 @@ export const FavoriteCardWrap = styled.div`
   display: flex;
   justify-content: space-between;
 
+  @media (max-width: 767px) {
+    flex-direction: column;
+    position: relative;
+  }
+
   padding: 20px;
   max-width: 70vw;
 
@@ -15,6 +20,9 @@ export const FavoriteCardWrap = styled.div`
 export const FavoriteCardDescriptionWrap = styled.div`
   display: flex;
   gap: 10px;
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
 `;
 
 export const FavoriteCardDescription = styled.div`
@@ -39,9 +47,21 @@ export const ActionBtnWrap = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: flex-end;
+
+  margin-top: 10px;
+
+  @media (min-width: 768px) {
+    align-items: flex-end;
+    margin-top: 0;
+  }
+
   & > svg {
     cursor: pointer;
+    @media (max-width: 767px) {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
     &:hover {
       scale: 1.03;
     }
