@@ -40,10 +40,10 @@ const CatalogueDropDown = () => {
       onMouseLeave={handleHoverLeave}
       onClick={toggleContent}
     >
-      <NavLink>
+      <div>
         <GiHamburgerMenu style={{ marginRight: '10px' }} size={'20px'} />
         Каталог
-      </NavLink>
+      </div>
 
       {showContent && (
         <CatalougeList onClick={handleCloseList}>

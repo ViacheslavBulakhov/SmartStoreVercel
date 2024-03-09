@@ -11,7 +11,8 @@ export const DropdownItemContainer = styled.li`
   border-radius: 20px;
 
   cursor: pointer;
-  & > a {
+  & > a,
+  & > div {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -35,7 +36,8 @@ export const DropdownItemContainer = styled.li`
     .dropdown-content {
       display: block;
     }
-    & > a > svg {
+    & > a,
+    & > div > svg {
       transform: rotate(180deg);
 
       color: var(--accent-color);
