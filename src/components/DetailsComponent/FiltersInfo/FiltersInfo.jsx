@@ -17,18 +17,26 @@ const Td = styled.td`
   font-size: var(--fs-md);
 
   &:first-child {
-    text-align: start;
+    @media (min-width: 767px) {
+      text-align: start;
+    }
 
     font-weight: var(--fw-bold);
   }
 
   &:last-child {
-    text-align: end;
+    @media (min-width: 767px) {
+      text-align: end;
+    }
     font-weight: var(--fw-normal);
   }
 `;
 
 const Tr = styled.tr`
+  @media (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+  }
   &:nth-child(odd) {
     background-color: rgba(211, 204, 204, 0.38);
   }

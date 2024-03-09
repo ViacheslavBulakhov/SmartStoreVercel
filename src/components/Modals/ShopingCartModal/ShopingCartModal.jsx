@@ -20,7 +20,6 @@ const ShopingCartModal = ({ toggleModal }) => {
   const [isUser, setIsUser] = useState(false);
   const navigate = useNavigate();
   const idList = useStore(state => state.idList);
-  console.log(buyingList);
 
   const data = useStore(state => state.goods);
 

@@ -130,7 +130,9 @@ export const SharedLayoutForGoods = () => {
           )}
           {isShowModal && (
             <ModalPort toggleModal={toggleModal}>
-              <Aside goodsName={goodsName} />
+              <div style={{ color: 'white' }}>
+                <Aside goodsName={goodsName} />
+              </div>
             </ModalPort>
           )}
 

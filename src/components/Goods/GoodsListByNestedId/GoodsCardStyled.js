@@ -102,7 +102,13 @@ export const DescriptionWrap = styled.div`
 export const StarWrap = styled.div`
   width: fit-content;
   margin: 0px auto;
-  // color: rgb(201 183 77);
+
+  & > svg {
+    @media (min-width: 768px) {
+      width: 25px;
+      height: 25px;
+    }
+  }
 `;
 
 export const AmountWrap = styled.div`

@@ -5,7 +5,11 @@ export const ReviewsFormWrap = styled.div`
   border-radius: 20px;
   width: 70vw;
   max-height: 80vh;
-  overflow: hidden;
+
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const ReviewsHeader = styled.div`
@@ -19,9 +23,17 @@ export const ReviewsHeader = styled.div`
 
 export const ReviewsBoxes = styled.div`
   display: flex;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    padding: 0 10px;
+  }
+
   padding: 20px 0;
   & > div {
-    width: 50%;
+    @media (min-width: 768px) {
+      width: 50%;
+    }
   }
 `;
 
@@ -35,6 +47,12 @@ export const ReviewImgBox = styled.div`
   font-size: var(--fs-md);
   font-weight: var(--fw-bold);
   padding: 0 20px;
+
+  & > img {
+    @media (max-width: 768px) {
+      width: calc(100% - 10px);
+    }
+  }
 `;
 
 export const RatingWrap = styled.div`

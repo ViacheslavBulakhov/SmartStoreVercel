@@ -62,13 +62,14 @@ const ReviewsForm = ({ toggleModal, data, updateData }) => {
       <ReviewsHeader>
         <h2>Написати Відгук</h2> <CloseBtn toggleModal={toggleModal} />
       </ReviewsHeader>
+
       <ReviewsBoxes>
         <ReviewImgBox>
           <img
             src={data.imgUrl}
             alt={data.title}
             width={'260px'}
-            height={'260px'}
+            height={'100%'}
           />
           <h4>{data.title}</h4>
           <RatingWrap>
@@ -77,7 +78,7 @@ const ReviewsForm = ({ toggleModal, data, updateData }) => {
               {[...Array(5)].map((_, index) => (
                 <FaStar
                   key={index}
-                  size={25}
+                  size={20}
                   color={index < rating ? 'rgb(201 183 77)' : 'gray'}
                   onClick={() => handleStarClick(index)}
                 />

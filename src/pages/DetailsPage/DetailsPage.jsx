@@ -9,6 +9,7 @@ import {
   DeliveryAndDiscountInfoBox,
   DescriptionInfoWrap,
   DetailPageTitle,
+  GoodsInfoWrap,
   ReviewsActionWrap,
   ReviewsBox,
   ReviewsLink,
@@ -86,23 +87,16 @@ const DetailsPage = () => {
           <DetailPageTitle>{data.title}</DetailPageTitle>
 
           <Wrap>
-            <ImageCarousel data={data}></ImageCarousel>
+            <ImageCarousel data={data} />
 
-            <div
-              style={{
-                width: '50%',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: '10px',
-              }}
-            >
+            <GoodsInfoWrap>
               <ReviewsBox>
                 <ReviewsWrap>
                   <StarWrap>
                     {[...Array(5)].map((_, index) => (
                       <FaStar
                         key={index}
-                        size={25}
+                        size={20}
                         color={
                           index < calculateAverageRating(ratingArr)
                             ? 'rgb(201 183 77)'
@@ -186,7 +180,7 @@ const DetailsPage = () => {
 
                 <FiltersInfo data={data.filters} />
               </DescriptionInfoWrap>
-            </div>
+            </GoodsInfoWrap>
           </Wrap>
 
           <div>

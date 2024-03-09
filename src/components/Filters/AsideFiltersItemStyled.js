@@ -28,7 +28,7 @@ export const CheckboxItem = styled.li`
 
   & > div {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 
     cursor: pointer;
     transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -49,6 +49,7 @@ export const CheckboxItem = styled.li`
   & > span {
     width: 20px;
     height: 20px;
+    flex: 0 0 20px;
 
     border-radius: 50%;
     background-color: hsl(0deg 7.6% 81.25% / 38%);

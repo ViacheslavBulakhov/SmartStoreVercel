@@ -3,8 +3,16 @@ import styled from 'styled-components';
 export const AuthModalWrap = styled.div`
   max-width: 440px;
   height: auto;
-  width: 440px;
-  height: auto;
+  min-width: 300px;
+
+  @media (min-width: 410px) and (max-width: 767px) {
+    width: 350px;
+  }
+
+  @media (min-width: 768px) {
+    width: 440px;
+  }
+
   background-color: var(--colors-bg);
 
   border-radius: 20px;

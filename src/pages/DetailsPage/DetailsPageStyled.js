@@ -1,12 +1,23 @@
 import styled from 'styled-components';
 
 export const Wrap = styled.div`
-  display: flex;
-
-  padding: 20px;
-  gap: 20px;
-
   box-shadow: var(--shadow);
+
+  @media (min-width: 768px) {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+  }
+`;
+
+export const GoodsInfoWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  @media (min-width: 768px) {
+    width: 50%;
+  }
 `;
 
 export const DetailPageTitle = styled.h2`
@@ -35,8 +46,20 @@ export const DescriptionInfoWrap = styled.div`
   border-radius: 20px;
   padding: 20px;
 
-  & > h4 {
-    text-decoration: underline;
+  position: relative;
+
+  & > p,
+  & > div {
+    @media (max-width: 767px) {
+      height: 300px;
+      overflow-y: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
+  & > h2 {
     margin: 10px 0;
   }
 `;
@@ -49,7 +72,10 @@ export const ReviewsBox = styled.div`
   padding: 10px;
   border: var(--border-base);
   border-radius: 20px;
-  height: 70px;
+
+  @media (min-width: 768px) {
+    height: 70px;
+  }
 `;
 
 export const AddReviewsBtn = styled.button`
