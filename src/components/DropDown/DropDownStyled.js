@@ -36,11 +36,14 @@ export const DropdownItemContainer = styled.li`
     .dropdown-content {
       display: block;
     }
+
     & > a,
     & > div > svg {
-      transform: rotate(180deg);
-
       color: var(--accent-color);
+    }
+
+    & > div > svg {
+      transform: rotate(180deg);
     }
   }
 `;

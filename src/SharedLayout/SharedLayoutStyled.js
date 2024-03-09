@@ -1,14 +1,6 @@
 import styled from 'styled-components';
 
-export const SectionWrap = styled.section`
-  // & > aside {
-  //   float: left;
-  //   width: 30vw;
-  // }
-  // & > main {
-  //   width: auto;
-  // }
-`;
+export const SectionWrap = styled.section``;
 export const CategoriesList = styled.ul`
   display: flex;
   gap: 20px;
