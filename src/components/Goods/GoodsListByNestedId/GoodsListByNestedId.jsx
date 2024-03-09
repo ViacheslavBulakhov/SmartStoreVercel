@@ -21,63 +21,6 @@ const CardListWrap = styled.div`
   }
 `;
 
-// фільтрація списку === відображаються тільки ті товари які відповідають всим обраним фільтрам
-// const GoodsListByNestedId = () => {
-//   const [filteredData, setFilteredData] = useState([]);
-//   const goods = useStore(state => state.currentList);
-//   const { rangeValues, checkBox } = useStore(state => state.filters);
-
-//   useEffect(() => {
-//     setFilteredData(goods);
-//   }, [goods]);
-
-//   useEffect(() => {
-//     if (!rangeValues) return;
-
-//     const filteredDataByAmount = goods.filter(item => {
-//       const amount = parseFloat(item.amount);
-//       const [min, max] = rangeValues.map(parseFloat);
-
-//       return amount >= min && amount <= max;
-//     });
-
-//     setFilteredData(filteredDataByAmount);
-//   }, [rangeValues, goods]);
-
-//   useEffect(() => {
-//     if (checkBox.length === 0) {
-//       setFilteredData(goods);
-//       return;
-//     }
-
-//     const filterDataByCheckBox = () => {
-//       const filteredDataByCheckBox = goods.filter(item =>
-//         checkBox.every(check =>
-//           item.filters.some(
-//             filter => stringNormalize(filter.value) === stringNormalize(check)
-//           )
-//         )
-//       );
-
-//       setFilteredData(filteredDataByCheckBox);
-//     };
-
-//     filterDataByCheckBox();
-//   }, [checkBox, goods]);
-
-//   return (
-//     <div style={{ flex: '0 0 75%', maxWidth: '75%' }}>
-//       <CardList>
-//         {filteredData.length > 0 &&
-//           filteredData.map(item => (
-//             <GoodsCardById data={item} key={item._id} />
-//           ))}
-//       </CardList>
-//     </div>
-//   );
-// };
-
-// фільтрація списку === якщо хоч один із пунктів відповідає товару то від буде відображений
 const GoodsListByNestedId = () => {
   const [filteredData, setFilteredData] = useState([]);
   const goods = useStore(state => state.currentList);
@@ -85,11 +28,11 @@ const GoodsListByNestedId = () => {
 
   useEffect(() => {
     setFilteredData(goods);
-  }, [goods]); // Оновлено для відстеження змін goods
+  }, [goods]);
 
   useEffect(() => {
     if (!rangeValues && checkBox.length === 0) {
-      setFilteredData(goods); // Повертаємо повний список товарів, якщо всі фільтри зняті
+      setFilteredData(goods);
       return;
     }
 
@@ -101,7 +44,7 @@ const GoodsListByNestedId = () => {
     });
 
     setFilteredData(filteredDataByAmount);
-  }, [rangeValues, goods, checkBox]); // Оновлено для відстеження змін rangeValues, goods і checkBox
+  }, [rangeValues, goods, checkBox]);
 
   useEffect(() => {
     if (checkBox.length === 0) return;
@@ -119,7 +62,7 @@ const GoodsListByNestedId = () => {
     };
 
     filterDataByCheckBox();
-  }, [checkBox, goods]); // Оновлено для відстеження змін checkBox і goods
+  }, [checkBox, goods]);
 
   return (
     <CardListWrap>

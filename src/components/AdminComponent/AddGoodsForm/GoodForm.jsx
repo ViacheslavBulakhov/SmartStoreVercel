@@ -16,7 +16,7 @@ import { useStore } from '../../../zustand/store';
 
 import { addGoodsSchema } from '../../../schemas';
 import AddExtraPhoto from '../addExtraPhoto/AddExtraPhoto';
-import axios from 'axios';
+
 import { HashLoader } from 'react-spinners';
 
 const GoodForm = ({ data }) => {
@@ -114,7 +114,7 @@ const GoodForm = ({ data }) => {
     });
 
     data ? updateGoods(data._id, formData) : setNewGoods(formData);
-    data ? console.log('update') : reset();
+    !data && reset();
   };
 
   return (

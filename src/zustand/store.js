@@ -173,7 +173,7 @@ export const useStore = create(
         try {
           set(state => ({ ...state, isLoading: true }));
           const { data } = await axios.put(`/goods/${id}`, credentials);
-          console.log(data);
+
           set(
             state => ({
               ...state,

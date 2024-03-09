@@ -7,27 +7,13 @@ import {
   SubparagraphList,
 } from './CatalogueDropDownStyled';
 import { NavLink } from 'react-router-dom';
-
-const testArr = [
-  'Чохли',
-  'Скло',
-  'Навушники',
-  'Інші Аксесуари',
-  'Побутова Техніка',
-  "Краса та Здоров'я",
-  'Посуд та товари для дому',
-];
-
-const testArr2 = [
-  'Lorem ipsum',
-  'Aliquam nobis',
-  'Ad enim temp',
-  'Placeat expedita',
-  'Delectus numquam',
-];
+import { useStore } from '../../../zustand/store';
 
 const CatalogueDropDown = () => {
   const [showContent, setShowContent] = useState(false);
+  const goods = useStore(state => state.goods);
+
+  const uniqueCategories = [...new Set(goods.map(item => item.categories))];
 
   const handleHoverEnter = () => {
     setTimeout(() => {
@@ -61,21 +47,30 @@ const CatalogueDropDown = () => {
 
       {showContent && (
         <CatalougeList onClick={handleCloseList}>
-          {testArr.map(name => (
+          {uniqueCategories.map(name => (
             <Catalougeitem key={name}>
               <NavLink to={`/goods/${name}`}>
                 <img
-                  src="https://picsum.photos/100/100"
+                  src={`${
+                    goods.find(item => item.categories === name).imgUrl || ''
+                  }`}
                   alt=""
                   width="100px"
                   height="100px"
                 />
+
                 <h4>{name}</h4>
               </NavLink>
               <SubparagraphList>
-                {testArr2.map(item => (
-                  <li key={item}>
-                    <NavLink to={`/goods/${name}/${item}`}>{item}</NavLink>
+                {Array.from(
+                  new Set(
+                    goods
+                      .filter(item => item.categories === name)
+                      .map(item => item.type)
+                  )
+                ).map(type => (
+                  <li key={type}>
+                    <NavLink to={`/goods/${name}/${type}`}>{type}</NavLink>
                   </li>
                 ))}
               </SubparagraphList>
