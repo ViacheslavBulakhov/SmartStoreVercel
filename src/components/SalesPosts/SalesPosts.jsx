@@ -4,6 +4,7 @@ import slideImg1 from '../../assets/photo.png';
 
 import Slider from 'react-slick';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const IMG = styled.img`
   width: 100%;
@@ -44,25 +45,21 @@ export const SalesPosts = () => {
   const [imgData, setImgData] = useState([]);
 
   useEffect(() => {
-    if (!imgData.length) {
-      fetch('https://picsum.photos/v2/list')
-        .then(response => response.json())
-        .then(data => setImgData(data))
-        .catch(error => console.error('Error fetching data:', error));
-    }
-  }, [imgData]);
-  const data = imgData.length ? imgData.slice(0, 4) : [];
+    const salesPosts = async () => {
+      const result = await axios.get('/sales/get');
+      result.status === 200 && setImgData(result.data?.img);
+    };
+
+    salesPosts();
+  }, []);
 
   return (
     <SliderWrap>
       <Slider {...settings}>
-        <SalePostImgWrap>
-          <IMG src={slideImg1} />
-        </SalePostImgWrap>
-        {data.map(item => {
+        {imgData.map(item => {
           return (
-            <SalePostImgWrap key={item}>
-              <IMG src={`${item.download_url}`} />
+            <SalePostImgWrap key={item.id}>
+              <IMG src={`${item.url}`} />
             </SalePostImgWrap>
           );
         })}

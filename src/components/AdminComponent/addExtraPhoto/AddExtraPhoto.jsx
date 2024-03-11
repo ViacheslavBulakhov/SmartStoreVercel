@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { PhotoContainer } from '../AddPhoto/AddPhotoStyled';
 
@@ -14,6 +14,7 @@ const AddExtraPhoto = ({
   setExtraPhotos,
   extraPhotosfromData,
   setExtraPhotosForDelete,
+  btnText = ' Фото для детального розгляду!',
 }) => {
   const [selectedFiles, setSelectedFiles] = useState([]);
 
@@ -69,7 +70,7 @@ const AddExtraPhoto = ({
       </div>
       <input {...getInputProps()} />
       <button type="button" {...getRootProps()}>
-        Фото для детального розгляду!{' '}
+        {btnText}
       </button>
     </div>
   );
