@@ -10,7 +10,7 @@ import {
 
 import ShopingCard from './ShopingCard/ShopingCard';
 import { useEffect, useState } from 'react';
-import { formatter } from '../../../utils';
+import { formatter, applyDiscount } from '../../../utils';
 import UserCredentialsForm from '../UserCredentialsForm/UserCredentialsForm';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,11 +20,30 @@ const ShopingCartModal = ({ toggleModal }) => {
   const [isUser, setIsUser] = useState(false);
   const navigate = useNavigate();
   const idList = useStore(state => state.idList);
+  const isLoggedIn = useStore(state => state.auth.isLoggedIn);
+  const user = useStore(state => state.auth.user);
 
   const data = useStore(state => state.goods);
 
   useEffect(() => {
-    setBuyingList(data?.filter(item => idList.includes(item._id)) || []);
+    const localStorageListData =
+      data?.filter(item => idList.includes(item._id)) || [];
+
+    let updatedByDiscountBuyingList;
+
+    if (!isLoggedIn) {
+      updatedByDiscountBuyingList = localStorageListData.map(item => ({
+        ...item,
+        amount: applyDiscount(item.amount, item?.discount || 0),
+      }));
+    } else {
+      updatedByDiscountBuyingList = localStorageListData.map(item => ({
+        ...item,
+        amount: applyDiscount(item.amount, user?.personalDiscount || 0),
+      }));
+    }
+
+    setBuyingList(updatedByDiscountBuyingList);
   }, [idList]);
 
   const toggleUserForm = () => setIsUser(prev => !prev);

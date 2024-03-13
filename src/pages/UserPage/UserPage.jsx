@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { NavLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../zustand/store';
 
 import FavoriteCard from '../../components/UserComponent/FavoriteCard';
@@ -30,15 +30,15 @@ const UserPage = () => {
         <DescriptionWrap>
           <p>
             Мій номер:
-            <span> {user.number}</span>
+            <span> {user.number || 0}</span>
           </p>
           <p>
             Сумма моїх покупок:
-            <span> user</span>
+            <span> {user.totalPurchaseAmount || 0}Грн</span>
           </p>
           <p>
             Mоя знижка:
-            <span> {user.personalDiscount}%</span>
+            <span> {user.personalDiscount || 0}%</span>
           </p>
         </DescriptionWrap>
 

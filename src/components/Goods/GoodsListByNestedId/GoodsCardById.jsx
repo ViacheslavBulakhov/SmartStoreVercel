@@ -25,6 +25,7 @@ import Buybtn from '../../Common/Buybtn';
 const GoodsCardById = ({ data }) => {
   const user = useStore(state => state.auth.user);
   const { getGoods } = useStore();
+  const isLoggedIn = useStore(store => store.auth.isLoggedIn);
   let { goodsName, id, nestedId } = useParams();
 
   const discount = data && parseInt(data.discount);
@@ -67,15 +68,24 @@ const GoodsCardById = ({ data }) => {
               height="200px"
               loading="lazy"
             />
+
             <h3>{title}</h3>
           </CardLink>
 
-          {discount > 0 && (
+          {isLoggedIn ? (
             <DiscountWrap>
-              <span>-{discount}%</span>
-              <span>Акція</span>
+              <span>-{user.personalDiscount}%</span>
+              {discount > 0 && <span>Акція</span>}
             </DiscountWrap>
+          ) : (
+            discount > 0 && (
+              <DiscountWrap>
+                <span>-{discount}%</span>
+                <span>Акція</span>
+              </DiscountWrap>
+            )
           )}
+
           <FavoritesWrap onClick={() => handleFavorite(_id)}>
             {isFavorite ? <FcLike size={30} /> : <FcDislike size={30} />}
           </FavoritesWrap>
@@ -96,10 +106,25 @@ const GoodsCardById = ({ data }) => {
       </StarWrap>
       <DescriptionWrap>
         <p>{description}</p>
-        {discount ? (
+
+        {!isLoggedIn ? (
+          discount && discount !== 0 && discount > 0 ? (
+            <AmountWrap>
+              <span>{formatter.format(amount)}</span>
+              <span>{formatter.format(applyDiscount(amount, discount))}</span>
+            </AmountWrap>
+          ) : (
+            <AmountWrap>
+              <span></span>
+              <span>{formatter.format(amount)}</span>
+            </AmountWrap>
+          )
+        ) : user.personalDiscount > 0 ? (
           <AmountWrap>
             <span>{formatter.format(amount)}</span>
-            <span>{formatter.format(applyDiscount(amount, discount))}</span>
+            <span>
+              {formatter.format(applyDiscount(amount, user.personalDiscount))}
+            </span>
           </AmountWrap>
         ) : (
           <AmountWrap>
