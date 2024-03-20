@@ -1,6 +1,5 @@
 import { IoLogOutSharp, IoMoon } from 'react-icons/io5';
 import { MdOutlineWbSunny } from 'react-icons/md';
-import { GiHamburgerMenu } from 'react-icons/gi';
 
 import Logo from '../../assets/SmartStore.svg?react';
 

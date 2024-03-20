@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const SearchInput = styled.input.attrs({
-  type: "search",
-  placeholder: "Введіть назву товару для пошуку...",
+  type: 'search',
+  placeholder: 'Введіть назву товару для пошуку...',
 })`
   margin-left: 2rem;
   border: none;
@@ -28,4 +28,8 @@ export const SearchInputWrap = styled.label`
     // width: 280px;
   }
   cursor: text;
+
+  & > svg {
+    cursor: pointer;
+  }
 `;

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { BiFilterAlt } from 'react-icons/bi';
 import Main from '../../components/Main/Main';
@@ -57,6 +57,8 @@ export const SharedLayoutForGoods = () => {
   const [isShowModal, setIsShowModal] = useState(false);
   const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 1024);
   let { goodsName, id, nestedId } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const searchValue = searchParams.get('search') ?? '';
 
   const { setCurrentGoods } = useStore();
   const goods = useStore(state => state.goods);
@@ -65,6 +67,18 @@ export const SharedLayoutForGoods = () => {
   const isGoodsListById = id && !nestedId;
 
   const toggleModal = () => setIsShowModal(prev => !prev);
+
+  const filterBySearch = (search, goodsList) => {
+    const searchLowerCase = search.toLowerCase();
+    return goodsList.filter(item => {
+      return (
+        item.type.toLowerCase().includes(searchLowerCase) ||
+        item.brand.toLowerCase().includes(searchLowerCase) ||
+        item.title.toLowerCase().includes(searchLowerCase) ||
+        item.model.toLowerCase().includes(searchLowerCase)
+      );
+    });
+  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -79,43 +93,51 @@ export const SharedLayoutForGoods = () => {
   }, []);
 
   useEffect(() => {
-    const checkArr = ['чохли', 'скло', 'навушники'];
-    const typeOrBrand = checkArr.includes(stringNormalize(goodsName));
+    if (goodsName) {
+      const checkArr = ['чохли', 'скло', 'навушники'];
+      const typeOrBrand = checkArr.includes(stringNormalize(goodsName));
 
-    const filterById = () =>
-      goods.filter(item => {
-        const isCategories =
-          stringNormalize(item.categories) === stringNormalize(goodsName);
+      const filterById = () =>
+        goods.filter(item => {
+          const isCategories =
+            stringNormalize(item.categories) === stringNormalize(goodsName);
 
-        const isBrand = typeOrBrand
-          ? stringNormalize(item.brand) === stringNormalize(id)
-          : stringNormalize(item.type) === stringNormalize(id);
+          const isBrand = typeOrBrand
+            ? stringNormalize(item.brand) === stringNormalize(id)
+            : stringNormalize(item.type) === stringNormalize(id);
 
-        return isCategories && isBrand;
-      });
+          return isCategories && isBrand;
+        });
 
-    const filterByNestedId = () => {
-      return goods.filter(item =>
-        stringNormalize(item.categories) === stringNormalize(goodsName) &&
-        typeOrBrand
-          ? stringNormalize(item.brand) === stringNormalize(id)
-          : stringNormalize(item.type) === stringNormalize(id) &&
-            stringNormalize(item.model) === stringNormalize(nestedId)
-      );
-    };
+      const filterByNestedId = () => {
+        return goods.filter(item =>
+          stringNormalize(item.categories) === stringNormalize(goodsName) &&
+          typeOrBrand
+            ? stringNormalize(item.brand) === stringNormalize(id)
+            : stringNormalize(item.type) === stringNormalize(id) &&
+              stringNormalize(item.model) === stringNormalize(nestedId)
+        );
+      };
 
-    isNamedGoodsList &&
-      setCurrentGoods([
-        ...goods.filter(
-          item =>
-            stringNormalize(item.categories) === stringNormalize(goodsName)
-        ),
-      ]);
+      isNamedGoodsList &&
+        setCurrentGoods(
+          filterBySearch(searchValue, [
+            ...goods.filter(
+              item =>
+                stringNormalize(item.categories) === stringNormalize(goodsName)
+            ),
+          ])
+        );
 
-    isGoodsListById && setCurrentGoods(filterById());
+      isGoodsListById &&
+        setCurrentGoods(filterBySearch(searchValue, filterById()));
 
-    nestedId && setCurrentGoods(filterByNestedId());
-  }, [goods, goodsName, id, nestedId]);
+      nestedId &&
+        setCurrentGoods(filterBySearch(searchValue, filterByNestedId()));
+    } else {
+      setCurrentGoods(filterBySearch(searchValue, goods));
+    }
+  }, [goods, goodsName, id, nestedId, searchValue]);
 
   return (
     <GoodsSection>
@@ -136,8 +158,7 @@ export const SharedLayoutForGoods = () => {
             </ModalPort>
           )}
 
-          {(isNamedGoodsList || isGoodsListById) && <GoodsListByNestedId />}
-          {nestedId && <GoodsListByNestedId />}
+          <GoodsListByNestedId />
         </CoodsWrap>
       </Main>
     </GoodsSection>
