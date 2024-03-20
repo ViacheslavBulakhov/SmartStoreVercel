@@ -14,7 +14,7 @@ export const addGoodsSchema = yup
       .number()
       .transform(value => (isNaN(value) ? undefined : value))
       .nullable(),
-    count: yup.number().positive().integer().required(),
+    count: yup.number().integer().min(0).required(),
   })
   .required();
 

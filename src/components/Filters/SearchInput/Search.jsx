@@ -10,7 +10,10 @@ const Search = () => {
   const searchValue = searchParams.get('search') ?? '';
 
   const handleSearch = () => {
-    if (searchParams.get('search')) navigate('/goods');
+    if (searchParams.get('search'))
+      navigate('/goods?search=' + encodeURIComponent(searchValue), {
+        replace: true,
+      });
   };
 
   const updateQueryString = search => {

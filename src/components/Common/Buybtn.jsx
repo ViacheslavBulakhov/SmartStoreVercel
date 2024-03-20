@@ -21,7 +21,7 @@ const BuyBtn = styled.button`
   font-weight: var(--fw-normal);
 
   // background-color: hsl(0deg 7.6% 81.25% / 38%);
-  background-color: #3dc539;
+  background-color: ${({ $isHave }) => ($isHave ? '#3dc539' : 'tomato')};
 
   transition: background 0.15s ease 0.05s;
   cursor: pointer;
@@ -38,7 +38,7 @@ const BuyBtn = styled.button`
   }
 `;
 
-const Buybtn = ({ data }) => {
+const Buybtn = ({ data, toggleModal }) => {
   const { setNewIdList } = useStore();
   const { _id, title } = data;
 
@@ -63,12 +63,15 @@ const Buybtn = ({ data }) => {
     }
   };
 
+  const onSubscribeClick = () => {
+    toggleModal();
+  };
+
   return (
     <BuyBtn
       type="button"
-      onClick={() =>
-        data.count > 0 ? onByClick(_id) : console.log('Сповістити мене')
-      }
+      onClick={() => (data.count > 0 ? onByClick(_id) : onSubscribeClick())}
+      $isHave={data.count > 0}
     >
       {data.count > 0 ? 'Купити' : 'Сповістити про наявність'}
     </BuyBtn>

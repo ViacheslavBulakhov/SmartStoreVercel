@@ -21,12 +21,17 @@ import {
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import Buybtn from '../../Common/Buybtn';
+import ModalPort from '../../ModalPort/ModalPort';
+import SubscribeModal from '../../Modals/SubscribeModal/SubscribeModal';
+import { useState } from 'react';
 
 const GoodsCardById = ({ data }) => {
   const user = useStore(state => state.auth.user);
   const { getGoods } = useStore();
   const isLoggedIn = useStore(store => store.auth.isLoggedIn);
   let { goodsName, id, nestedId } = useParams();
+  const [isSubscribe, setIsSubscribe] = useState(false);
+  const toggleSubscribeModal = () => setIsSubscribe(prev => !prev);
 
   const discount = data && parseInt(data.discount);
   const isFavorite = data && data.favorites.includes(user?.id);
@@ -133,7 +138,13 @@ const GoodsCardById = ({ data }) => {
           </AmountWrap>
         )}
 
-        <Buybtn data={data} />
+        <Buybtn data={data} toggleModal={toggleSubscribeModal} />
+
+        {data.count === 0 && isSubscribe && (
+          <ModalPort toggleModal={toggleSubscribeModal}>
+            <SubscribeModal toggleModal={toggleSubscribeModal} id={data._id} />
+          </ModalPort>
+        )}
       </DescriptionWrap>
     </CardItemWrap>
   );
