@@ -29,4 +29,4 @@ export const notifyError = (
 ) => toast.error(message);
 
 // Reusable
-export const notifySucces = value => toast.success(value);
+export const notifySucces = value => toast.success(value, { duration: 4000 });

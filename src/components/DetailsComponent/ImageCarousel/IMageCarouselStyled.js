@@ -28,6 +28,9 @@ export const ImageCarouselWrap = styled.div`
   }
 
   @media (min-width: 768px) {
+    position: sticky;
+    top: 0;
+
     width: 50%;
     height: fit-content;
     box-shadow: var(--shadow);

@@ -16,8 +16,7 @@ const CardList = styled.ul`
 
 const CardListWrap = styled.div`
   @media (min-width: 1024px) {
-    flex: 0 0 75%;
-    maxwidth: 75%;
+    flex: 0 0 80%;
   }
 `;
 

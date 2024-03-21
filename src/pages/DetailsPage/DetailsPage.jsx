@@ -42,6 +42,7 @@ const DetailsPage = () => {
   const { getGoods } = useStore();
 
   const { goodsId } = useParams();
+
   const navigate = useNavigate();
   const reviewsRef = useRef(null);
 

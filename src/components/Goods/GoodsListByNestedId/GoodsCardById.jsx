@@ -65,7 +65,7 @@ const GoodsCardById = ({ data }) => {
     <CardItemWrap>
       <div>
         <div>
-          <CardLink to={`/goods/${goodsName}/${id}/${nestedId}/${_id}`}>
+          <CardLink to={`/goods/${goodsName}/details/${_id}`}>
             <img
               src={imgUrl}
               alt={title}

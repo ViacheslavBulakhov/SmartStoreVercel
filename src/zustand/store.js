@@ -36,6 +36,10 @@ export const useStore = create(
       idList: [],
       isLoading: false,
 
+      toggleLoader: () => {
+        set(state => ({ ...state, isLoading: !state.isLoading }));
+      },
+
       setUserLogIn: async credentials => {
         try {
           const { data: user } = await axios.post('/auth/login', credentials);

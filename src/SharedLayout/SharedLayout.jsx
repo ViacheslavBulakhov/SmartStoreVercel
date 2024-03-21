@@ -2,7 +2,7 @@ import { CategoriesList, SectionWrap } from './SharedLayoutStyled';
 import Header from '../components/Header/Header';
 
 import { Suspense, useEffect } from 'react';
-import { HashLoader } from 'react-spinners';
+import { RingLoader } from 'react-spinners';
 import { Outlet } from 'react-router-dom';
 import { Container } from '../components/Container';
 import SearchBox from '../components/SearchBox/SearchBox';
@@ -57,8 +57,8 @@ const SharedLayout = () => {
               transform: 'translate(-50%, -50%)',
             }}
           >
-            <HashLoader
-              color="green"
+            <RingLoader
+              color="rgba(122,16,124,1)"
               loading="true"
               size={155}
               aria-label="Loading Spinner"

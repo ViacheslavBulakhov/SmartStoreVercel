@@ -7,6 +7,8 @@ export const Wrap = styled.div`
     display: flex;
     padding: 20px;
     gap: 20px;
+
+    position: relative;
   }
 `;
 
