@@ -96,7 +96,7 @@ const ImageCarousel = ({ data }) => {
               type="button"
               onClick={handlePrev}
               disabled={currentImg === 0}
-              style={{ left: '0' }}
+              style={{ left: '-5px' }}
             >
               <FaArrowLeft />
             </button>
@@ -104,7 +104,7 @@ const ImageCarousel = ({ data }) => {
               type="button"
               onClick={handleNext}
               disabled={currentImg === imgArray.length - 1}
-              style={{ right: '0' }}
+              style={{ right: '-5px' }}
             >
               <FaArrowRight />
             </button>

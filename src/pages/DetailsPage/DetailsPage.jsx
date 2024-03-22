@@ -33,10 +33,12 @@ import Buybtn from '../../components/Common/Buybtn';
 import FiltersInfo from '../../components/DetailsComponent/FiltersInfo/FiltersInfo';
 import IsDelivery from '../../components/DetailsComponent/IsDelivery/IsDelivery';
 import { getData } from '../../services/getGoodsById';
+import SubscribeModal from '../../components/Modals/SubscribeModal/SubscribeModal';
 
 const DetailsPage = () => {
   const [data, setData] = useState(null);
   const [isShowModal, setIsShowModal] = useState(false);
+  const [isShowSubscribeModal, setIsShowSubscribeModal] = useState(false);
 
   const user = useStore(state => state.auth.user);
   const { getGoods } = useStore();
@@ -51,6 +53,7 @@ const DetailsPage = () => {
   }, []);
 
   const toggleModal = () => setIsShowModal(prev => !prev);
+  const toggleSubscribeModal = () => setIsShowSubscribeModal(prev => !prev);
 
   const handleFavorite = async id => {
     try {
@@ -150,7 +153,7 @@ const DetailsPage = () => {
               <ReviewsBox>
                 <IsDelivery count={data.count} />
 
-                <Buybtn data={data} />
+                <Buybtn data={data} toggleModal={toggleSubscribeModal} />
               </ReviewsBox>
 
               <ReviewsBox
@@ -211,6 +214,15 @@ const DetailsPage = () => {
               data={data}
               updateData={() => getData({ goodsId, setData, navigate })}
             />
+          </ModalPort>
+        )}
+
+        {isShowSubscribeModal && (
+          <ModalPort toggleModal={toggleSubscribeModal}>
+            <SubscribeModal
+              toggleModal={toggleSubscribeModal}
+              id={goodsId}
+            ></SubscribeModal>
           </ModalPort>
         )}
       </>

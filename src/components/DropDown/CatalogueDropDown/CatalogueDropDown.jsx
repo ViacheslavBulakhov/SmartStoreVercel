@@ -18,14 +18,14 @@ const CatalogueDropDown = () => {
   const handleHoverEnter = () => {
     setTimeout(() => {
       setShowContent(true);
-    }, 300);
+    }, 200);
   };
 
   const handleHoverLeave = () => {
     if (showContent)
       setTimeout(() => {
         setShowContent(false);
-      }, 300);
+      }, 200);
   };
 
   const handleCloseList = e => {
@@ -39,6 +39,7 @@ const CatalogueDropDown = () => {
       onMouseEnter={handleHoverEnter}
       onMouseLeave={handleHoverLeave}
       onClick={toggleContent}
+      $isHover={showContent}
     >
       <div>
         <GiHamburgerMenu style={{ marginRight: '10px' }} size={'20px'} />

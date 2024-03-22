@@ -42,6 +42,7 @@ export const useStore = create(
 
       setUserLogIn: async credentials => {
         try {
+          set(state => ({ ...state, isLoading: true }));
           const { data: user } = await axios.post('/auth/login', credentials);
 
           localStorage.setItem('token', user.token);
@@ -57,6 +58,8 @@ export const useStore = create(
         } catch (error) {
           notifyErrorLogin();
           return;
+        } finally {
+          set(state => ({ ...state, isLoading: false }));
         }
       },
 
@@ -78,11 +81,14 @@ export const useStore = create(
           token.set(user.token);
 
           notifyFulfilledLogin();
-        } catch {}
+        } catch {
+          console.log('');
+        }
       },
 
       setUserRegister: async credentials => {
         try {
+          set(state => ({ ...state, isLoading: true }));
           const { data: user } = await axios.post(
             '/auth/register',
             credentials
@@ -99,6 +105,8 @@ export const useStore = create(
         } catch (error) {
           notifyErrorLogin();
           return;
+        } finally {
+          set(state => ({ ...state, isLoading: false }));
         }
       },
 

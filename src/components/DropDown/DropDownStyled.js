@@ -11,6 +11,7 @@ export const DropdownItemContainer = styled.li`
   border-radius: 20px;
 
   cursor: pointer;
+
   & > a,
   & > div {
     display: flex;
@@ -28,22 +29,25 @@ export const DropdownItemContainer = styled.li`
     }
   }
 
-  &:hover {
+  &:not(:first-child):hover {
     border-color: var(--accent-color);
+  }
+  &:first-child:hover {
+    border-color: ${({ $isHover }) => $isHover && 'var(--accent-color)'};
+  }
+
+  & > a,
+  & > div > svg {
+    color: ${({ $isHover }) => $isHover && 'var(--accent-color)'};
+    transform: ${({ $isHover }) => $isHover && ' rotate(180deg)'};
   }
 
   &:hover {
     .dropdown-content {
       display: block;
     }
-
-    & > a,
-    & > div > svg {
+    & > a {
       color: var(--accent-color);
-    }
-
-    & > div > svg {
-      transform: rotate(180deg);
     }
   }
 `;

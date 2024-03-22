@@ -11,13 +11,13 @@ import {
 import ShopingCard from './ShopingCard/ShopingCard';
 import { useEffect, useState } from 'react';
 import { formatter, applyDiscount } from '../../../utils';
-import UserCredentialsForm from '../UserCredentialsForm/UserCredentialsForm';
+
 import { useNavigate } from 'react-router-dom';
 
 const ShopingCartModal = ({ toggleModal }) => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [buyingList, setBuyingList] = useState([]);
-  const [isUser, setIsUser] = useState(false);
+
   const navigate = useNavigate();
   const idList = useStore(state => state.idList);
   const isLoggedIn = useStore(state => state.auth.isLoggedIn);
@@ -45,8 +45,6 @@ const ShopingCartModal = ({ toggleModal }) => {
 
     setBuyingList(updatedByDiscountBuyingList);
   }, [idList]);
-
-  const toggleUserForm = () => setIsUser(prev => !prev);
 
   const handleOrder = () => {
     navigate('/order', { state: buyingList });
@@ -94,12 +92,6 @@ const ShopingCartModal = ({ toggleModal }) => {
           </button>
         </BtnWrap>
       </ShopingBox>
-      {isUser && (
-        <UserCredentialsForm
-          toggleUserForm={toggleUserForm}
-          buyingList={buyingList}
-        />
-      )}
     </ShopingModalWrap>
   );
 };

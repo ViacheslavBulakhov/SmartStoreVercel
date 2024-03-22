@@ -17,13 +17,20 @@ export const ImageCarouselWrap = styled.div`
       height: 32px;
 
       border-radius: 50%;
-      border: 1px solid rgba(0, 0, 0, 1);
+      border: 1px solid var(--colors-text);
+
+      color: var(--colors-text);
 
       z-index: 1;
 
       background-color: inherit;
 
       cursor: pointer;
+
+      &:hover {
+        background-color: #ffffff52;
+        scale: 1.1;
+      }
     }
   }
 
@@ -73,13 +80,15 @@ export const ExtraPhotosList = styled.ul`
 export const ExtraPhotoItem = styled.li`
   width: 90px;
   height: 90px;
-  border: var(--border-base);
+
   border-radius: 20px;
 
   background-image: url(${({ $url }) => $url});
   background-size: cover;
-  border-color: ${({ $isActive }) =>
-    $isActive ? 'var(--accent-color)' : '#e5e5e5'};
+
+  border: ${({ $isActive }) =>
+    $isActive ? '3px solid var(--accent-color)' : 'none'};
+  scale: ${({ $isActive }) => $isActive && '1.1'};
 
   cursor: pointer;
 `;

@@ -67,6 +67,8 @@ const SubscribeModal = ({ toggleModal, id }) => {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
+            boxShadow: '#b922f77a 0px 0px 15px 5px',
+            borderRadius: '50%',
           }}
         >
           <RingLoader
