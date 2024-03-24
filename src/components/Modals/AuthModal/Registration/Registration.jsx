@@ -119,7 +119,7 @@ const Registration = ({ toggleModal, toggleLogin }) => {
           <SubmitFormBtn type="submit">Продовжити</SubmitFormBtn>
         </Form>
         <ToggleLoginWrap>
-          <p>Вже маєте аккаунт?</p>
+          <p>Вже маєте акаунт?</p>
           <button type="button" onClick={toggleLogin}>
             Вхід
           </button>

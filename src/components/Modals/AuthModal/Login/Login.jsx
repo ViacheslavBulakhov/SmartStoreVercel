@@ -108,9 +108,9 @@ const Login = ({ toggleModal, toggleLogin }) => {
           <SubmitFormBtn type="submit">Продовжити</SubmitFormBtn>
         </Form>
         <ToggleLoginWrap>
-          <p>Не маєте аккаунт?</p>
+          <p>Не маєте акаунт?</p>
           <button type="button" onClick={toggleLogin}>
-            Регістрація
+            Реєстрація
           </button>
         </ToggleLoginWrap>
       </AuthModalWrap>
