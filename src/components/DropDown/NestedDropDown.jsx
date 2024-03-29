@@ -39,7 +39,9 @@ const NestedDropdown = ({ data, type, categoriName, objKey }) => {
       {uniqueFilters.map(model => (
         <NestedDropdownItem key={model}>
           <NavLink
-            to={stringNormalize(`/goods/${categoriName}/${type}/${model}`)}
+            to={stringNormalize(
+              `/goods/${categoriName}/${type}/${encodeURIComponent(model)}`
+            )}
           >
             {model}
           </NavLink>
