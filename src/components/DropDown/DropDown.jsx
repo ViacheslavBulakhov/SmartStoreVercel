@@ -66,7 +66,11 @@ const Dropdown = ({ categoriName }) => {
         <DropdownList className="dropdown-content">
           {uniqueFilters.map(item => (
             <DropdownItem key={item}>
-              <NavLink to={`/goods/${stringNormalize(categoriName)}/${item}`}>
+              <NavLink
+                to={`/goods/${stringNormalize(categoriName)}/${stringNormalize(
+                  item
+                )}`}
+              >
                 {item}
               </NavLink>
               <NestedDropdown

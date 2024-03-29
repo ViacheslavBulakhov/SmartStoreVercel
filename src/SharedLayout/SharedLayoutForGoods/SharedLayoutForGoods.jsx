@@ -109,14 +109,24 @@ export const SharedLayoutForGoods = () => {
           return isCategories && isBrand;
         });
 
+      // const filterByNestedId = () => {
+      //   return goods.filter(item =>
+      //     stringNormalize(item.categories) === stringNormalize(goodsName) &&
+      //     typeOrBrand
+      //       ? stringNormalize(item.brand) === stringNormalize(id)
+      //       : stringNormalize(item.type) === stringNormalize(id) &&
+      //         stringNormalize(item.model) === stringNormalize(nestedId)
+      //   );
+      // };
+
       const filterByNestedId = () => {
-        return goods.filter(item =>
-          stringNormalize(item.categories) === stringNormalize(goodsName) &&
-          typeOrBrand
-            ? stringNormalize(item.brand) === stringNormalize(id)
+        return goods.filter(item => {
+          return stringNormalize(item.categories) ===
+            stringNormalize(goodsName) && typeOrBrand
+            ? stringNormalize(item.model) === stringNormalize(nestedId)
             : stringNormalize(item.type) === stringNormalize(id) &&
-              stringNormalize(item.model) === stringNormalize(nestedId)
-        );
+                stringNormalize(item.model) === stringNormalize(nestedId);
+        });
       };
 
       isNamedGoodsList &&
