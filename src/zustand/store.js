@@ -134,6 +134,7 @@ export const useStore = create(
 
       getGoods: async () => {
         const { data } = await axios.get('/goods');
+
         set(
           state => ({
             ...state,
