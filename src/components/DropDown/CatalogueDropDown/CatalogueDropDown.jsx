@@ -1,11 +1,7 @@
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { DropdownItemContainer } from '../DropDownStyled';
 import { useState } from 'react';
-import {
-  CatalougeList,
-  Catalougeitem,
-  SubparagraphList,
-} from './CatalogueDropDownStyled';
+import { CatalougeList, Catalougeitem } from './CatalogueDropDownStyled';
 import { NavLink } from 'react-router-dom';
 import { useStore } from '../../../zustand/store';
 
@@ -55,26 +51,13 @@ const CatalogueDropDown = () => {
                   src={`${
                     goods.find(item => item.categories === name).imgUrl || ''
                   }`}
-                  alt=""
+                  alt={name}
                   width="100px"
                   height="100px"
                 />
 
                 <h4>{name}</h4>
               </NavLink>
-              <SubparagraphList>
-                {Array.from(
-                  new Set(
-                    goods
-                      .filter(item => item.categories === name)
-                      .map(item => item.type)
-                  )
-                ).map(type => (
-                  <li key={type}>
-                    <NavLink to={`/goods/${name}/${type}`}>{type}</NavLink>
-                  </li>
-                ))}
-              </SubparagraphList>
             </Catalougeitem>
           ))}
         </CatalougeList>
