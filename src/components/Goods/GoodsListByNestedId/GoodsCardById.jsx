@@ -7,15 +7,17 @@ import {
   CardItemWrap,
   CardLink,
   DescriptionWrap,
-  DiscountWrap,
   FavoritesWrap,
   StarWrap,
+  StatusBadge,
+  StatusBadgeBox,
 } from './GoodsCardStyled';
 import { notifyError, notifySucces } from '../../Toasters/Toasters';
 import { useStore } from '../../../zustand/store';
 import {
   applyDiscount,
   calculateAverageRating,
+  checkIsNewGoods,
   formatter,
 } from '../../../utils';
 import axios from 'axios';
@@ -36,6 +38,8 @@ const GoodsCardById = ({ data }) => {
   const discount = data && parseInt(data.discount);
   const isFavorite = data && data.favorites.includes(user?.id);
   const ratingArr = data && data.reviews.map(item => item.feedbackPoints);
+
+  const isNewGoods = checkIsNewGoods(data.createdAt);
 
   const { imgUrl, title, description, _id, amount } = data;
 
@@ -77,19 +81,31 @@ const GoodsCardById = ({ data }) => {
             <h3>{title}</h3>
           </CardLink>
 
-          {isLoggedIn ? (
-            <DiscountWrap>
-              <span>-{user.personalDiscount}%</span>
-              {discount > 0 && <span>Акція</span>}
-            </DiscountWrap>
-          ) : (
-            discount > 0 && (
-              <DiscountWrap>
-                <span>-{discount}%</span>
-                <span>Акція</span>
-              </DiscountWrap>
-            )
-          )}
+          <StatusBadgeBox>
+            {isLoggedIn ? (
+              <StatusBadge>
+                <span>-{user.personalDiscount}%</span>
+                {discount > 0 && <span>Акція</span>}
+              </StatusBadge>
+            ) : (
+              discount > 0 && (
+                <StatusBadge>
+                  <span>-{discount}%</span>
+                  <span>Акція</span>
+                </StatusBadge>
+              )
+            )}
+
+            {isNewGoods && (
+              <StatusBadge color="#3da5ca">
+                <span> Новинка</span>
+              </StatusBadge>
+            )}
+
+            <StatusBadge color="#7baf35">
+              <span>Хіт</span>
+            </StatusBadge>
+          </StatusBadgeBox>
 
           <FavoritesWrap onClick={() => handleFavorite(_id)}>
             {isFavorite ? <FcLike size={30} /> : <FcDislike size={30} />}

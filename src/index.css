@@ -133,3 +133,12 @@ body[data-theme='light'] {
   width: 20px;
   height: 20px;
 }
+
+.carousel-item {
+  margin: 0 5px;
+  width: fit-content;
+}
+.carousel-container {
+  box-shadow: var(--shadow);
+  padding: 10px 0;
+}
