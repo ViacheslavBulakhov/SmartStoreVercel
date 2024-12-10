@@ -134,9 +134,8 @@ body[data-theme='light'] {
   height: 20px;
 }
 
-.carousel-item {
-  margin: 0 5px;
-  width: fit-content;
+.carousel-item div {
+  margin: 0 auto;
 }
 .carousel-container {
   box-shadow: var(--shadow);
