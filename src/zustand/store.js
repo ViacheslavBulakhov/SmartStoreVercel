@@ -10,8 +10,9 @@ import {
   notifySucces,
 } from '../components/Toasters/Toasters';
 
-axios.defaults.baseURL = 'https://smartstoredev.onrender.com/api';
+// axios.defaults.baseURL = 'https://smartstoredev.onrender.com/api';
 // axios.defaults.baseURL = 'http://localhost:3000/api';
+axios.defaults.baseURL = `https://smartstorebackend.onrender.com/api`;
 
 export const token = {
   set(token) {
@@ -195,6 +196,34 @@ export const useStore = create(
                   return { ...item, ...data };
                 }
 
+                return item;
+              }),
+            }),
+            false,
+            'updateGoods'
+          );
+          notifySucces('Товар успішно оновлено!');
+        } catch (error) {
+          error.response.status === 500
+            ? notifyError('Додайте фото товару')
+            : notifyError(error.message);
+        } finally {
+          set(state => ({ ...state, isLoading: false }));
+        }
+      },
+
+      updateHitGoods: async (id, isHit) => {
+        try {
+          set(state => ({ ...state, isLoading: true }));
+          const { data } = await axios.put(`/goods/${id}/${isHit}`);
+
+          set(
+            state => ({
+              ...state,
+              goods: state.goods.map(item => {
+                if (item._id === id) {
+                  return { ...item, ...data };
+                }
                 return item;
               }),
             }),

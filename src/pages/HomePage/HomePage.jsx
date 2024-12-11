@@ -1,12 +1,13 @@
 import Main from '../../components/Main/Main';
-import NewGoodsBox from '../../components/NewGoodsBox/NewGoodsBox';
+import NewAndHitGoodsBox from '../../components/NewAndHitGoodsBoxes/NewAndHitGoodsBoxes';
+
 import { SalesPosts } from '../../components/SalesPosts/SalesPosts';
 import { AboutUs, AboutUsDescription } from './HomePageStyled';
 
 const HomePage = () => {
   return (
     <Main>
-      <NewGoodsBox />
+      <NewAndHitGoodsBox />
       <SalesPosts />
       <AboutUs>
         <h2>Про нас</h2>
