@@ -67,7 +67,7 @@ const GoodsCardById = ({ data }) => {
   };
 
   return (
-    <CardItemWrap>
+    <CardItemWrap $isHave={data.count > 0}>
       <div>
         <div>
           <CardLink to={`/goods/${goodsName}/details/${_id}`}>

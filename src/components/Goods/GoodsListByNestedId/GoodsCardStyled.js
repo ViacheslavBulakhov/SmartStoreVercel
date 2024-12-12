@@ -4,6 +4,10 @@ import styled from 'styled-components';
 export const CardItemWrap = styled.div`
   position: relative;
 
+  filter: ${({ $isHave }) => !$isHave && 'grayscale(100%)'};
+  opacity: ${({ $isHave }) => !$isHave && '0.65'};
+  transition: ${({ $isHave }) => !$isHave && 'all 300ms'};
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -13,7 +17,7 @@ export const CardItemWrap = styled.div`
   }
 
   max-width: 350px;
-  height: 100%;
+  // height: 100%;
 
   padding: 20px;
 
@@ -69,27 +73,6 @@ export const StatusBadge = styled.div`
     }
   }
 `;
-
-// export const DiscountWrap = styled.div`
-//   position: absolute;
-//   top: 20px;
-//   left: 5px;
-
-//   display: flex;
-//   flex-direction: column;
-//   gap: 20px;
-
-//   & > span {
-//     color: white;
-//     background-color: #eb5757;
-//     font-size: 10px;
-//     padding: 5px 8px;
-
-//     & + span {
-//       background-color: rgb(0, 120, 255);
-//     }
-//   }
-// `;
 
 export const FavoritesWrap = styled.div`
   position: absolute;
