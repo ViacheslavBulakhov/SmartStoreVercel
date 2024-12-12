@@ -9,7 +9,6 @@ import {
   FaqQuestionText,
 } from './DiscountRulesPageStyled';
 import { useState } from 'react';
-import HowActiveCard from '../../components/DiscountRules/HowActiveCard';
 import DiscountSize from '../../components/DiscountRules/DiscountSize';
 import Main from '../../components/Main/Main';
 
@@ -35,10 +34,10 @@ const DiscountRulesPage = () => {
               Здійснюючи покупки в інтернет-магазині Smartstore.com.ua, Ви маєте
               можливість приєднатися до дисконтної програми й купувати
               різноманітні товари за вигідними цінами. Тому досить
-              переплачувати, починайте заощаджувати, отримуючи знижки до 20%.
-              Все що потрібно – оформити замовлення від 300 грн та отримати
-              картку знижок разом із замовленням. З правилами дисконтної
-              програми можна ознайомитись нижче.
+              переплачувати, починайте заощаджувати, отримуючи знижки до 10%.
+              Все що потрібно – здійснити свої перші замовлення і бонусна
+              система почне рахувати знижки до вашого аккаунту. З правилами
+              дисконтної програми можна ознайомитись нижче.
             </p>
           </DiscountDescription>
         </DiscountDescriptionWrap>
@@ -51,26 +50,19 @@ const DiscountRulesPage = () => {
 
             {answersVisible[1] && (
               <FaqAnswerText>
-                Стати власником картки знижок може будь-який роздрібний клієнт
-                інтернет-магазину. Для отримання картки необхідно оформити
-                замовлення від 300 грн. Ви отримаєте картку разом з вашою
-                покупкою.
+                Стати власником знижок може будь-який роздрібний клієнт
+                інтернет-магазину. Для отримання знижок необхідно
+                зареєструватись та здійснити своє перше замовлення. Систима
+                відразу ж почне рахувати вашу персональну знижку.
               </FaqAnswerText>
             )}
           </FaqItem>
 
           <FaqItem>
             <FaqQuestionText onClick={() => toggleAnswerVisibility(2)}>
-              Як активувати картку?
-            </FaqQuestionText>
-            {answersVisible[2] && <HowActiveCard />}
-          </FaqItem>
-
-          <FaqItem>
-            <FaqQuestionText onClick={() => toggleAnswerVisibility(3)}>
               Як дізнатися розмір знижки?
             </FaqQuestionText>
-            {answersVisible[3] && <DiscountSize />}
+            {answersVisible[2] && <DiscountSize />}
           </FaqItem>
         </FaqList>
       </section>
